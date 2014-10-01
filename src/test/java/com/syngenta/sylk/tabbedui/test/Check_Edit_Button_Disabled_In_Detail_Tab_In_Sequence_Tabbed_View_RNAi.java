@@ -125,10 +125,10 @@ public class Check_Edit_Button_Disabled_In_Detail_Tab_In_Sequence_Tabbed_View_RN
 					"The different fields of the details tab are editable, and a save button is enabled.");
 
 			// step 7
-			boolean AntisenseSeqEditable = rnaiPage
-					.isAntisenseSequenceEditable();
-			reporter.verifyTrue(!AntisenseSeqEditable,
-					"The field 'Anti-sense Sequence or Mature miRNA sequence'is not editable.");
+			// boolean AntisenseSeqEditable = rnaiPage
+			// .isAntisenseSequenceEditable();
+			// reporter.verifyTrue(!AntisenseSeqEditable,
+			// "The field 'Anti-sense Sequence or Mature miRNA sequence'is not editable.");
 
 			// step 7
 

@@ -20,9 +20,10 @@ public class LandingPage extends BasePage {
 
 	public HomePage goToHomePage() {
 		HomePage homePage = null;
-		WebElement goToSylkButton = this.driver.findElement(By
-				.cssSelector(".btn.floatright"));
-		goToSylkButton.click();
+		// this.accept.click();
+		WebElement acceptButton = this.driver.findElement(By
+				.cssSelector("input[value='Accept']"));
+		acceptButton.click();
 		this.waitForPageToLoad();
 		if (StringUtils.equalsIgnoreCase(this.getPageTitle(),
 				PageTitles.home_page_title)) {

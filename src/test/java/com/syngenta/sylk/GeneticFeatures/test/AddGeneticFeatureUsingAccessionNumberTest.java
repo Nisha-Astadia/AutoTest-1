@@ -236,6 +236,8 @@ public class AddGeneticFeatureUsingAccessionNumberTest {
 
 			BasePage page = this.addNewGFPage.clickFindMatches();
 			if (page instanceof GeneticFeaturePage) {
+				GeneticFeaturePage existingGF = (GeneticFeaturePage) page;
+				((GeneticFeaturePage) page).clickDeleleThisGeneticFeature();
 				throw new SkipException(
 						"The data being used in this test already exists in the system. This test will delete this data now for future runs and mark this test as SKIPPED.");
 			}
@@ -392,7 +394,7 @@ public class AddGeneticFeatureUsingAccessionNumberTest {
 							.getEvidenceCountOnTab();
 					this.gfPage.clickEvidenceTab();
 
-					RelatedLiteraturePage relatedLiteraturepage = this.gfPage
+					RelatedLiteraturePage relatedLiteraturepage = (RelatedLiteraturePage) this.gfPage
 							.selectAddEvidence((columns.get("Literature")));
 					// click on evidence tab
 					// check screen appears showing public literature summarey.

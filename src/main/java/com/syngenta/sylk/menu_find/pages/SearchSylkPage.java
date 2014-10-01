@@ -451,4 +451,31 @@ public class SearchSylkPage extends MenuPage {
 
 		return page;
 	}
+
+	public BasePage clickAndOpenGFWithLiteratureEvidenceSequence() {
+		int totalcount = this.getTotalResultCount();
+		if (totalcount == 0) {
+			SearchSylkPage spage = new SearchSylkPage(this.driver);
+			PageFactory.initElements(this.driver, spage);
+			return spage;
+		}
+		GeneticFeaturePage page = null;
+		for (int a = 0; a < totalcount; a++) {
+			WebElement span = this.driver.findElement(By.cssSelector("div#hit_"
+					+ a + " a.pointer.f12.underline span"));
+			span.click();
+			GeneticFeaturePage GFpage = new GeneticFeaturePage(this.driver);
+			PageFactory.initElements(this.driver, GFpage);
+			int count = GFpage.getEvidenceSequenceCountOnTab();
+			if (count == 0) {
+				this.browserBack();
+			} else {
+				page = GFpage;
+				PageFactory.initElements(this.driver, page);
+				break;
+			}
+		}
+
+		return page;
+	}
 }

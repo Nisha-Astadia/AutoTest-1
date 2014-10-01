@@ -107,4 +107,35 @@ public class CreateLiteratureEvidenceDetailsForGeneticFeaturePage
 		this.cancel.click();
 	}
 
+	public boolean isThereOneSequenceWhenAddingEvidence() {
+		boolean flag = false;
+		WebElement tr = null;
+		try {
+			tr = this.driver.findElement(By.cssSelector("tr#addSequence_0"));
+		} catch (Exception e) {
+			// do nothing
+		}
+		if (tr != null) {
+			flag = true;
+		}
+
+		return flag;
+	}
+
+	public boolean isThereOneGeneticFeatureWhenAddingEvidence() {
+		boolean flag = false;
+		WebElement tr = null;
+		try {
+			tr = this.driver.findElement(By
+					.cssSelector("tr#addGeneticFeature_0"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (tr != null) {
+			flag = true;
+		}
+		return flag;
+	}
+
 }

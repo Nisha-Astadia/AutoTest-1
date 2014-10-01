@@ -26,7 +26,7 @@ import com.syngenta.sylk.menu_add.pages.PopUpAddTraitComponent;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_Vertically_Align_Magnifying_Glass_On_literature_Evidence_Tab_Details_And_Trait_Components {
+public class Check_Vertically_Align_Magnifying_Glass_Evidence_RNAi {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 

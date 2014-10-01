@@ -17,6 +17,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
+import com.syngenta.sylk.libraries.PageTitles;
+import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.MenuPage;
 
@@ -103,6 +105,9 @@ public class GeneticFeaturePage extends MenuPage {
 	@FindBy(css = "div#ui-tabs-11")
 	private WebElement constructDiv;
 
+	@FindBy(css = "input[id='edit1']")
+	private WebElement edit;
+
 	private void waitForConstructSequenceToLoad() {
 		try {
 			CommonLibrary common = new CommonLibrary();
@@ -159,7 +164,7 @@ public class GeneticFeaturePage extends MenuPage {
 	private void waitForEvidenceSequenceToLoad() {
 		try {
 			if (this.getEvidenceSequenceCountOnTab() > 0) {
-				this.waitForWebElement(By.cssSelector("div#ui-tabs-7 div.clip"));
+				this.waitForWebElement(By.cssSelector("div#ui-tabs- div.clip"));
 			} else {
 				new CommonLibrary().slowDown();
 			}
@@ -167,6 +172,19 @@ public class GeneticFeaturePage extends MenuPage {
 
 		}
 	}
+
+	private void waitForEvidenceToLoad() {
+		try {
+			if (this.getEvidenceCountOnTab() > 0) {
+				this.waitForWebElement(By.cssSelector("div#ui-tabs-2 div.clip"));
+			} else {
+				new CommonLibrary().slowDown();
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
 	public String getGDNALabel() {
 		JavascriptExecutor js = (JavascriptExecutor) this.driver;
 		WebElement element = (WebElement) js
@@ -348,11 +366,14 @@ public class GeneticFeaturePage extends MenuPage {
 	}
 
 	public void clickEvidenceTab() {
-
-		WebElement evi = this.clickEvidence.findElement(By.tagName("a"));
-		evi.click();
-		this.waitForPageToLoad();
-
+		WebElement evdTab = this.driver.findElement(By
+				.cssSelector("ul#geneticFeature_tabs li:nth-child(2)"));
+		if (!StringUtils.containsIgnoreCase(evdTab.getAttribute("class"),
+				"ui-state-active")) {
+			WebElement evi = this.clickEvidence.findElement(By.tagName("a"));
+			evi.click();
+			this.waitForPageToLoad();
+		}
 	}
 
 	public int getEvidenceCountOnTab() {
@@ -427,6 +448,22 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
+	public GeneticFeaturePage clickOnEvidenceTab() {
+		WebElement evdTab = this.driver.findElement(By
+				.cssSelector("ul#geneticFeature_tabs li:nth-child(2)"));
+		if (!StringUtils.containsIgnoreCase(evdTab.getAttribute("class"),
+				"ui-state-active")) {
+			WebElement evi = evdTab.findElement(By.tagName("a"));
+			evi.click();
+			this.waitForPageToLoad();
+			this.waitForAjax();
+			this.waitForEvidenceToLoad();
+		}
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+
+	}
 	public GeneticFeaturePage clickDetailTab() {
 		if (!StringUtils.containsIgnoreCase(
 				this.clickDetail.getAttribute("class"), "ui-state-active")) {
@@ -577,8 +614,9 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
-	public RelatedLiteraturePage selectAddEvidence(String selection) {
+	public BasePage selectAddEvidence(String selection) {
 
+		BasePage page = null;
 		if (StringUtils.containsIgnoreCase(selection, "literature")) {
 			selection = "literature";
 		} else if (StringUtils.containsIgnoreCase(selection, "other")) {
@@ -596,8 +634,16 @@ public class GeneticFeaturePage extends MenuPage {
 		}
 		this.waitForPageToLoad();
 		this.waitForAjax();
-		RelatedLiteraturePage page = new RelatedLiteraturePage(this.driver);
-		PageFactory.initElements(this.driver, page);
+		String title = this.driver.getTitle();
+		if (StringUtils.equalsIgnoreCase(title,
+				PageTitles.related_literature_page_title)) {
+			page = new RelatedLiteraturePage(this.driver);
+			PageFactory.initElements(this.driver, page);
+		} else if (StringUtils.equalsIgnoreCase(title,
+				PageTitles.literature_search_page_title)) {
+			page = new LiteratureSearchPage(this.driver);
+			PageFactory.initElements(this.driver, page);
+		}
 		return page;
 
 	}
@@ -922,6 +968,31 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
+	public GeneticFeaturePage addEvidenceInUpperSection(
+			GeneticFeaturePage gfPage, HashMap<String, String> columns) {
+
+		gfPage.clickEvidenceTab();
+		LiteratureSearchPage litSearchPage = (LiteratureSearchPage) gfPage
+				.selectAddEvidence(columns.get("evidence"));
+		CreateLiteratureEvidenceDetailsForGeneticFeaturePage createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
+				.searchThis(columns.get("search"));
+		createLitPage.enterObservation(columns.get("observation"));
+		createLitPage.enterRationale(columns.get("rationale"));
+		PopUpAddTraitComponent popup = createLitPage.clickAddTraitComponent();
+		createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) popup
+				.addTrait(columns.get("trait"));
+		if (!createLitPage.isThereOneGeneticFeatureWhenAddingEvidence()) {
+			PopUpAddGeneSymbol popupSeq = createLitPage
+					.clickAddGeneticFeatures();
+			popupSeq.enterText(columns.get("addGFSymbol"));
+			createLitPage = popupSeq.clickAdd();
+		}
+		gfPage = createLitPage.clickSave();
+
+		return gfPage;
+
+	}
+
 	public GeneticFeaturePage addEvidenceInSequenceSection(
 			GeneticFeaturePage gfPage, HashMap<String, String> columns) {
 
@@ -935,8 +1006,12 @@ public class GeneticFeaturePage extends MenuPage {
 		PopUpAddTraitComponent popup = createLitPage.clickAddTraitComponent();
 		createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) popup
 				.addTrait(columns.get("trait"));
-		PopUpAddSequenceAccession popupSeq = createLitPage.clickOnAddSequence();
-		createLitPage = popupSeq.addSequenceName(columns.get("addSequence"));
+		if (!createLitPage.isThereOneSequenceWhenAddingEvidence()) {
+			PopUpAddSequenceAccession popupSeq = createLitPage
+					.clickOnAddSequence();
+			createLitPage = popupSeq
+					.addSequenceName(columns.get("addSequence"));
+		}
 		gfPage = createLitPage.clickSave();
 
 		return gfPage;
@@ -960,4 +1035,74 @@ public class GeneticFeaturePage extends MenuPage {
 				.id("deleteGeneticFeatureButton"));
 		return deleteButton.getAttribute("title");
 	}
+
+	public boolean checkIfMagnifyingGlassImageIsVerticallyAlligned_SequenceSection() {
+		WebElement mainDiv = this.driver.findElement(By.id("ui-tabs-7"));
+		List<WebElement> tables = mainDiv.findElements(By.tagName("table"));
+
+		boolean flag = true;
+		for (WebElement table : tables) {
+			List<WebElement> trs = table.findElements(By.tagName("tr"));
+			int a = 0;
+			for (WebElement tr : trs) {
+				a++;
+				if (a == 1) {
+					continue;
+				}
+
+				try {
+					WebElement view = tr.findElement(By
+							.cssSelector("td:nth-child(1) span.view"));
+				} catch (Exception e) {
+					flag = false;
+					break;
+				}
+
+			}
+
+			if (!flag) {
+				break;
+			}
+		}
+
+		return flag;
+	}
+
+	public boolean checkIfMagnifyingGlassImageIsVerticallyAlligned() {
+		WebElement mainDiv = this.driver.findElement(By.id("ui-tabs-2"));
+		List<WebElement> tables = mainDiv.findElements(By.tagName("table"));
+
+		boolean flag = true;
+		for (WebElement table : tables) {
+			List<WebElement> trs = table.findElements(By.tagName("tr"));
+			int a = 0;
+			for (WebElement tr : trs) {
+				a++;
+				if (a == 1) {
+					continue;
+				}
+
+				try {
+					WebElement view = tr.findElement(By
+							.cssSelector("td:nth-child(1) span.view"));
+				} catch (Exception e) {
+					flag = false;
+					break;
+				}
+
+			}
+
+			if (!flag) {
+				break;
+			}
+		}
+
+		return flag;
+	}
+
+	public boolean isEditButtonUnderDetailTabEnabled() {
+		return this.edit.isEnabled();
+
+	}
+
 }

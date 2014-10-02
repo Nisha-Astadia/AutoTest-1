@@ -22,7 +22,7 @@ public class LandingPage extends BasePage {
 		HomePage homePage = null;
 		// this.accept.click();
 		WebElement acceptButton = this.driver.findElement(By
-				.cssSelector("input[value='Accept']"));
+				.cssSelector("input[id='accept']"));
 		acceptButton.click();
 		this.waitForPageToLoad();
 		if (StringUtils.equalsIgnoreCase(this.getPageTitle(),

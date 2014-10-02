@@ -22,7 +22,7 @@ import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_DeleteButtonDisabledInGF_WithEvidence {
+public class Check_DeleteButton_Enabled_GF {
 
 	private LandingPage lp;
 	private HomePage homepage;
@@ -33,7 +33,7 @@ public class Check_DeleteButtonDisabledInGF_WithEvidence {
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_DeleteButtonDisabledInGF_WithEvidence.xlsx");
+				.getTestDataAsObjectArray("Check_Delete_Button_Enabled_In_Tabbed_View_GF.xlsx");
 	}
 
 	@AfterClass(alwaysRun = true)
@@ -63,8 +63,8 @@ public class Check_DeleteButtonDisabledInGF_WithEvidence {
 			this.lp.driverQuit();
 		}
 	}
-	@Test(enabled = true, description = "Check Delete Button disabled in tabbed view GF (GF with Evidence cannot be deleted) ", dataProvider = "testData", groups = {
-			"Check_DeleteButtonDisabledInGF_WithEvidence", "GF", "regression"})
+	@Test(enabled = true, description = "Check Delete Button enabled in tabbed view GF. Make sure the GF name appears striked out in search result after we delete the GF ", dataProvider = "testData", groups = {
+			"Check_Delete_Button_Enabled_In_Tabbed_View_GF", "GF", "regression"})
 	public void rNAiConstructTabInTabbedView(String testDescription,
 			String row_num, HashMap<String, String> columns) {
 
@@ -73,7 +73,7 @@ public class Check_DeleteButtonDisabledInGF_WithEvidence {
 		try {
 
 			reporter.reportPass("Login to SyLK");
-			String gfName = "selenium_GF1";
+			String gfName = "gf_selenium_to_delete";
 			String user = "Pillai, Nisha";
 			// step 6
 			// check has to be made to see if its navigated to the
@@ -82,32 +82,28 @@ public class Check_DeleteButtonDisabledInGF_WithEvidence {
 
 			this.homepage, user, gfName);
 			if (gfPage == null) {
-				gfName = "selenium_GF1";
+				gfName = "gf_selenium_to_delete";
 				this.homepage = common.addANewGeneticFeatureProtein(
 						this.homepage, columns, gfName);
 				gfPage = this.homepage.clickNewGeneticFeatureLink(gfName);
 			}
 
-			reporter.reportPass("Open a genetic feature with tabbed view");
+			reporter.reportPass("Open a genetic feature");
 			int evdCount = gfPage.getEvidenceSequenceCountOnTab();
-			if (evdCount == 0) {
-				gfPage = gfPage.addEvidenceInSequenceSection(gfPage, columns);
+			if (evdCount != 0) {
+				gfPage = gfPage.clickOnEvidenceSequenceTab();
+				ViewLiteratureEvidenceDetailsPageSequence viewLit = gfPage
+						.clickviewLiteratureEvidenceSequence();
+				gfPage = viewLit.clickOnDelete();
 			}
-			reporter.reportPass("Check that the GF has one evidence associated to it, if not add at least one evidence to GF");
+			reporter.reportPass("Check that the GF has no evidence associated to it, if there is any evidence, delete all associated evidence");
 
 			boolean enabled = gfPage.isDeleteThisGFButtonEnabled();
 			reporter.verifyTrue(
-					!enabled,
-					"With an evidence present In GF tabbed view, delete button at the bottom of the page under the sequence section is disabled");
-			String toolTip = gfPage.getDeleteButtonToolTip();
+					enabled,
+					"In GF tabbed view, check the existence of the delete button at the bottom of the page under the sequence section and that it is enabled");
 
-			reporter.verifyEqual(toolTip,
-					"Some sequences have associated evidences.",
-					"a pop-up with \"some sequences have associated evidences\" message appears");
-			gfPage = gfPage.clickOnEvidenceSequenceTab();
-			ViewLiteratureEvidenceDetailsPageSequence viewLit = gfPage
-					.clickviewLiteratureEvidenceSequence();
-			gfPage = viewLit.clickOnDelete();
+			gfPage.clickDeleleThisGeneticFeature();
 
 		} catch (SkipException e) {
 			throw e;

@@ -25,7 +25,7 @@ public class CommonLibrary {
 
 	private static String generatedResourceFolder;
 	private static boolean firstTime = true;
-
+	private String selected_gf_created_date;
 	public String getStackTrace(Throwable t) {
 
 		StringWriter sw = new StringWriter();
@@ -204,7 +204,8 @@ public class CommonLibrary {
 		newGFPage.enterAccessionNoProtein(columns.get("proteinAccessionNo"));
 
 		newGFPage.enterGINoProtein(columns.get("ProteinGiNo"));
-
+		newGFPage.enterChromosomeTaxonomy("test_chromosome");
+		newGFPage.enterEcotypeTaxonomy("test_ecotype");
 		newGFPage.enterSymbolId(name);
 		newGFPage.enterNameId(columns.get("proteinName"));
 		newGFPage.enterSynonymsId(columns.get("proteinSynonymsId"));
@@ -214,7 +215,7 @@ public class CommonLibrary {
 		newGFPage.enterSourceGS(columns.get("sourceGS"));
 		newGFPage.enterAccessionNoGS(columns.get("accessionNoGS"));
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
-
+		this.selected_gf_created_date = gfPage.getCreatedByInDetailTab();
 		return gfPage.gotoHomePage();
 
 	}
@@ -237,8 +238,15 @@ public class CommonLibrary {
 		search.selectType("Genetic Feature");
 		search = search.clickSearch();
 
-		return ((GeneticFeaturePage) search
+		GeneticFeaturePage gfPage = ((GeneticFeaturePage) search
 				.selectThisTriggerFromSearchResult(gfName));
+		this.selected_gf_created_date = search.getSelectedGFCreatedDate();
+
+		return gfPage;
+	}
+
+	public String getSelectedGFCreatedDate() {
+		return this.selected_gf_created_date;
 	}
 
 }

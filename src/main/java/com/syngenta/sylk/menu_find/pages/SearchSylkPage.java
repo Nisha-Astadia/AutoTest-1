@@ -18,6 +18,7 @@ import com.syngenta.sylk.menu_add.pages.RNAiTriggerDetailsPage;
 
 public class SearchSylkPage extends MenuPage {
 
+	private String selected_gf_created_date;
 	public SearchSylkPage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
@@ -213,6 +214,9 @@ public class SearchSylkPage extends MenuPage {
 				String linkText = span.getText();
 
 				if (StringUtils.containsIgnoreCase(linkText, Name)) {
+					WebElement label = this.driver.findElement(By
+							.cssSelector("div#hit_" + a + " span.score"));
+					this.selected_gf_created_date = label.getText();
 					span.click();
 					this.waitForPageToLoad();
 					this.waitForAjax();
@@ -240,6 +244,13 @@ public class SearchSylkPage extends MenuPage {
 		}
 		return page;
 	}
+
+	public String getSelectedGFCreatedDate() {
+		String date = StringUtils.substringAfter(this.selected_gf_created_date,
+				"@");
+		return StringUtils.trim(date);
+	}
+
 	public int getTotalResultCount() {
 		WebElement span;
 		try {

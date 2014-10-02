@@ -376,19 +376,6 @@ public class GeneticFeaturePage extends MenuPage {
 		}
 	}
 
-	public int getEvidenceCountOnTab() {
-
-		WebElement evi = this.clickEvidence.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
-			return 0;
-		} else {
-			return Integer.parseInt(text);
-		}
-
-	}
-
 	public int getConstructCountOnTab() {
 
 		WebElement evi = this.driver.findElement(By
@@ -582,6 +569,19 @@ public class GeneticFeaturePage extends MenuPage {
 		} else {
 			return Integer.parseInt(text);
 		}
+	}
+
+	public int getEvidenceCountOnTab() {
+
+		WebElement evi = this.clickEvidence.findElement(By.tagName("a"));
+		String text = evi.getText();
+		text = StringUtils.substringBetween(text, "(", ")");
+		if (StringUtils.isBlank(text)) {
+			return 0;
+		} else {
+			return Integer.parseInt(text);
+		}
+
 	}
 
 	public int getRegulatoryCheckCountOnTab() {
@@ -1103,6 +1103,52 @@ public class GeneticFeaturePage extends MenuPage {
 	public boolean isEditButtonUnderDetailTabEnabled() {
 		return this.edit.isEnabled();
 
+	}
+
+	public String getCreatedByInDetailTab() {
+		this.clickDetailTab();
+		List<WebElement> table = this.driver.findElements(By
+				.cssSelector("div#ui-tabs-1 form#submitForm table.table"));
+		WebElement tr = table.get(1).findElement(
+				By.cssSelector("tr:nth-child(70)"));
+		String value = tr.findElement(By.cssSelector("td.field")).getText();
+
+		return value;
+
+	}
+
+	public String getCreatedDateInDetailTab() {
+		this.clickDetailTab();
+		List<WebElement> table = this.driver.findElements(By
+				.cssSelector("div#ui-tabs-1 form#submitForm table.table"));
+		WebElement tr = table.get(1).findElement(
+				By.cssSelector("tr:nth-child(8)"));
+		String value = tr.findElement(By.cssSelector("td.field")).getText();
+
+		return value;
+	}
+
+	public String getChromosomeDetailTab() {
+		this.clickDetailTab();
+		List<WebElement> table = this.driver.findElements(By
+				.cssSelector("div#ui-tabs-1 form#submitForm table.table"));
+		WebElement tr = table.get(1).findElement(
+				By.cssSelector("tr:nth-child(6)"));
+
+		String value = tr.findElement(By.cssSelector("td.field")).getText();
+
+		return value;
+	}
+
+	public String getEcotypeDetailTab() {
+		this.clickDetailTab();
+		List<WebElement> table = this.driver.findElements(By
+				.cssSelector("div#ui-tabs-1 form#submitForm table.table"));
+		WebElement tr = table.get(1).findElement(
+				By.cssSelector("tr:nth-child(5)"));
+		String value = tr.findElement(By.cssSelector("td.field")).getText();
+
+		return value;
 	}
 
 }

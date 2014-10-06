@@ -28,7 +28,7 @@ public class Check_Genomic_Detail_In_New_GF {
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("CheckRNAiTabInGF.xlsx");
+				.getTestDataAsObjectArray("Detailed_Tabbed_View_GenericFile_GF.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)

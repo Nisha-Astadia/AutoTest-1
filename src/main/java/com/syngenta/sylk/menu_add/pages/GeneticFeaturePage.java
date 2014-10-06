@@ -1110,7 +1110,7 @@ public class GeneticFeaturePage extends MenuPage {
 		List<WebElement> table = this.driver.findElements(By
 				.cssSelector("div#ui-tabs-1 form#submitForm table.table"));
 		WebElement tr = table.get(1).findElement(
-				By.cssSelector("tr:nth-child(70)"));
+				By.cssSelector("tr:nth-child(7)"));
 		String value = tr.findElement(By.cssSelector("td.field")).getText();
 
 		return value;
@@ -1151,4 +1151,164 @@ public class GeneticFeaturePage extends MenuPage {
 		return value;
 	}
 
+	public GeneticFeaturePage clickOnEditDetailTab() {
+		this.clickDetailTab();
+		WebElement edit = this.driver.findElement(By.id("edit1"));
+		edit.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+
+	public void enterSymbolDetailTab(String str) {
+		WebElement symbol = this.driver.findElement(By.id("symbol"));
+		symbol.clear();
+		symbol.sendKeys(str);
+	}
+
+	public GeneticFeaturePage clickOnSaveDetailTab() {
+		WebElement edit = this.driver.findElement(By.id("save1"));
+		edit.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+
+	public String getSymbolError() {
+		WebElement symbolError = null;
+		try {
+			symbolError = this.driver.findElement(By.id("symbol_error"));
+		} catch (Exception e) {
+		}
+
+		if (symbolError == null) {
+			return null;
+		} else {
+			return symbolError.getText();
+		}
+	}
+
+	public GeneticFeaturePage clickOnCancelDetailTab() {
+		WebElement edit = this.driver.findElement(By.id("cancel1"));
+		edit.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+
+	public HashMap<String, String> getAllFieldValuesDetailTab() {
+		HashMap<String, String> vals = new HashMap<String, String>();
+		// symbol
+		WebElement symbol = this.driver.findElement(By.id("symbol"));
+		vals.put("symbol", symbol.getAttribute("value"));
+		// name
+		WebElement name = this.driver
+				.findElement(By
+						.cssSelector("form#submitForm td.field input[name='locusTag']"));
+		vals.put("name", name.getAttribute("value"));
+		// NCBI ID
+		WebElement ncbiid = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='geneID']"));
+		vals.put("ncbiid", ncbiid.getAttribute("value"));
+		// description
+		WebElement desc = this.driver.findElement(By.id("description"));
+		vals.put("description", desc.getAttribute("value"));
+		// Synonyms
+		WebElement synonyms = this.driver.findElement(By.id("synonyms"));
+		vals.put("synonyms", synonyms.getAttribute("value"));
+		// NCBI Taxon Id
+		WebElement taxonId = this.driver.findElement(By.id("taxonId"));
+		vals.put("taxonid", taxonId.getAttribute("value"));
+		// Syngenta Taxon Id
+		WebElement syngentataxonid = this.driver
+				.findElement(By
+						.cssSelector("form#submitForm td.field input[name='syngentaTaxonId']"));
+		vals.put("syngentataxonid", syngentataxonid.getAttribute("value"));
+
+		// Variety
+		WebElement variety = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='variety']"));
+		vals.put("variety", variety.getAttribute("value"));
+
+		// Line
+		WebElement line = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='line']"));
+		vals.put("line", line.getAttribute("value"));
+
+		// Ecotype
+		WebElement ecotype = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='ecotype']"));
+		vals.put("ecotype", ecotype.getAttribute("value"));
+
+		return vals;
+
+	}
+
+	public void enterNameDetailTab(String string) {
+		WebElement name = this.driver
+				.findElement(By
+						.cssSelector("form#submitForm td.field input[name='locusTag']"));
+		name.clear();
+		name.sendKeys(string);
+	}
+
+	public void enterNCBIIDDetailTab(String string) {
+		WebElement ncbiid = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='geneID']"));
+		ncbiid.clear();
+		ncbiid.sendKeys(string);
+	}
+
+	public void enterDescriptionDetailTab(String string) {
+		WebElement desc = this.driver.findElement(By.id("description"));
+		desc.clear();
+		desc.sendKeys(string);
+	}
+
+	public void enterSynonymsDetailTab(String string) {
+		WebElement synonyms = this.driver.findElement(By.id("synonyms"));
+		synonyms.clear();
+		synonyms.sendKeys(string);
+	}
+
+	public void enterNDBITaxonIdDetailTab(String string) {
+		WebElement taxonId = this.driver.findElement(By.id("taxonId"));
+		taxonId.clear();
+		taxonId.sendKeys(string);
+	}
+
+	public void enterSyngentaNCBIIdDetailTab(String string) {
+		WebElement syngentataxonid = this.driver
+				.findElement(By
+						.cssSelector("form#submitForm td.field input[name='syngentaTaxonId']"));
+		syngentataxonid.clear();
+		syngentataxonid.sendKeys(string);
+	}
+
+	public void enterVarietyDetailTab(String string) {
+		WebElement variety = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='variety']"));
+		variety.clear();
+		variety.sendKeys(string);
+	}
+
+	public void enterLineDetailTab(String string) {
+		WebElement line = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='line']"));
+		line.clear();
+		line.sendKeys(string);
+	}
+
+	public void enterEcotype(String string) {
+		WebElement ecotype = this.driver.findElement(By
+				.cssSelector("form#submitForm td.field input[name='ecotype']"));
+		ecotype.clear();
+		ecotype.sendKeys(string);
+	}
 }

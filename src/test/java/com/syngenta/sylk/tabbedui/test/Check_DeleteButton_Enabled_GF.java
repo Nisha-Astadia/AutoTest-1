@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.SyngentaException;
+import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
@@ -78,9 +79,12 @@ public class Check_DeleteButton_Enabled_GF {
 			// step 6
 			// check has to be made to see if its navigated to the
 			// "Add New Genetic Feature page"
-			GeneticFeaturePage gfPage = common.searchAndSelectThisGF(
-
-			this.homepage, user, gfName);
+			GeneticFeaturePage gfPage = null;
+			BasePage page = common.searchAndSelectThisGF(this.homepage, user,
+					gfName);
+			if (page instanceof GeneticFeaturePage) {
+				gfPage = (GeneticFeaturePage) page;
+			}
 			if (gfPage == null) {
 				gfName = "gf_selenium_to_delete";
 				this.homepage = common.addANewGeneticFeatureProtein(

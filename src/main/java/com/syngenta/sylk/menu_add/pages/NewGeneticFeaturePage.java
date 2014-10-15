@@ -42,6 +42,7 @@ public class NewGeneticFeaturePage extends MenuPage {
 	// Protein
 	@FindBy(id = "associatedSequence.protein.source")
 	private WebElement ProteinSource;
+
 	@FindBy(id = "associatedSequence.protein.accessionNumber")
 	private WebElement ProteinAccessionNo;
 	@FindBy(id = "associatedSequence.protein.giNumber")

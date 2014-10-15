@@ -14,7 +14,10 @@ import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.menu_add.pages.ConstructNominationPage;
 import com.syngenta.sylk.menu_add.pages.ConstructStatusSearchPage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
+import com.syngenta.sylk.menu_add.pages.RNAiTriggerDetailsPage;
+import com.syngenta.sylk.menu_add.pages.ROIDetailPage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
+import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class HomePage extends MenuPage {
 
@@ -144,4 +147,42 @@ public class HomePage extends MenuPage {
 
 	}
 
+	public void deleteThisRNAi(HomePage homepage, String rnaiTriggerName,
+			String user) {
+		SearchSylkPage search = homepage.goToGFRNAiTriggerROIpromoter();
+		RNAiTriggerDetailsPage rnaiTrigger = null;
+		search.selectAddedBy(user);
+		search.selectView("50");
+		search.selectType("RNAi");
+		search = search.clickSearch();
+		BasePage page = search
+				.selectThisTriggerFromSearchResult(rnaiTriggerName);
+		if (page instanceof SearchSylkPage) {
+			((SearchSylkPage) page).gotoHomePage();
+		} else if (page instanceof RNAiTriggerDetailsPage) {
+			rnaiTrigger = (RNAiTriggerDetailsPage) page;
+			rnaiTrigger = rnaiTrigger.clickOnDetailTab();
+			rnaiTrigger = rnaiTrigger.deleteTargetGene();
+			rnaiTrigger = rnaiTrigger.clickOnDeleteRNAiTrigger();
+			rnaiTrigger.gotoHomePage();
+		}
+	}
+
+	public void deleteThisRoi(HomePage homepage, String roiName, String user) {
+		SearchSylkPage search = homepage.goToGFRNAiTriggerROIpromoter();
+		ROIDetailPage roiDetail = null;
+		search.selectAddedBy(user);
+		search.selectView("50");
+		search.selectType("ROI");
+		search = search.clickSearch();
+		BasePage page = search.selectThisTriggerFromSearchResult(roiName);
+		if (page instanceof SearchSylkPage) {
+			((SearchSylkPage) page).gotoHomePage();
+		} else if (page instanceof ROIDetailPage) {
+			roiDetail = (ROIDetailPage) page;
+			roiDetail = roiDetail.clickOnDeleteROIPage();
+			roiDetail.gotoHomePage();
+		}
+
+	}
 }

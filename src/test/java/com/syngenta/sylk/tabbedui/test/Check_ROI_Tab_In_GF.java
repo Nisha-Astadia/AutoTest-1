@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -75,26 +74,29 @@ public class Check_ROI_Tab_In_GF {
 
 			reporter.reportPass("Login to SyLK");
 			String gfName = "selenium_GF1";
+			String user = "Pillai, Nisha";
 			// step 6
 			// check has to be made to see if its navigated to the
 			// "Add New Genetic Feature page"
-			gfName = common.isThereASeleniumGF(this.homepage, "Pillai, Nisha");
-			if (StringUtils.isBlank(gfName)) {
+			BasePage page = common.searchAndSelectThisGF(this.homepage, user,
+					gfName);
+			if (page instanceof GeneticFeaturePage) {
+				this.gfPage = (GeneticFeaturePage) page;
+			}
+			if (this.gfPage == null) {
 				gfName = "selenium_GF1";
 				this.homepage = common.addANewGeneticFeatureProtein(
 						this.homepage, columns, gfName);
+				this.gfPage = this.homepage.clickNewGeneticFeatureLink(gfName);
 			}
-
 			reporter.reportPass("Create a genetic feature");
 
 			String roiName = "Acanthus ebracteatus_test_line_lotus_v1_xyz_10_20";
-			this.rnai.deleteThisRNAi(this.homepage, roiName, "Pillai, Nisha");
 
-			// String rnaiTriggerName = "selenium_rnai";
-			// this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName,
-			// "Pillai, Nisha");
+			this.homepage
+					.deleteThisRoi(this.homepage, roiName, "Pillai, Nisha");
 
-			BasePage page = null;
+			page = null;
 			AddNewROIPage addnewROIPage = this.homepage.goToAddNewROIPage();
 			reporter.verifyEqual(addnewROIPage.getPageTitle(),
 					PageTitles.add_New_ROI_Page_title,
@@ -127,8 +129,7 @@ public class Check_ROI_Tab_In_GF {
 			reporter.reportPass("ROI is added with a added  gene");
 
 			reporter.verifyEqual(roiDetailspage.getPageTitle(),
-					PageTitles.add_New_ROI_Page_title,
-					"ROI is created successfully.");
+					PageTitles.roi_detail_page, "ROI is created successfully.");
 
 			// step 5
 			this.searchSylkpage = this.homepage.goToGFRNAiTriggerROIpromoter();
@@ -152,13 +153,15 @@ public class Check_ROI_Tab_In_GF {
 					PageTitles.genetic_feature_page_title,
 					"Open the added genetic feature and click on ROI tab and ROI tab becomes active");
 			HashMap<String, String> headers = this.gfPage
-					.getAllColumnHeadersInRNAITab();
+					.getAllColumnHeadersInROITab();
 			System.out.println("column headers:" + headers);
 			reporter.verifyEqual("" + headers.size(), "7",
 					"ROI tab has seven column headers");
 			reporter.reportPass("The following headers are displayes : "
 					+ headers.toString());
-			this.rnai.deleteThisRoi(this.homepage, roiName, "Pillai, Nisha");
+			// this.homepage = gfPage.gotoHomePage();
+			// this.homepage
+			// .deleteThisRoi(this.homepage, roiName, "Pillai, Nisha");
 
 		} catch (Exception e) {
 			e.printStackTrace();

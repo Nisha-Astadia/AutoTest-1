@@ -106,7 +106,7 @@ public class Check_Vertically_Align_Magnifying_Glass_Evidence_GF {
 
 		int evidenceCount = gfPage.getEvidenceCountOnTabForGF();
 		// add only if the count == 1
-		if (evidenceCount == 1) {
+		if (evidenceCount <= 1) {
 			gfPage = gfPage.addEvidenceInUpperSection(gfPage, columns);
 			reporter.reportPass("Created a new evidence as the count for this selected Genetic Feature was one to be able to check vartical alignment of columns.");
 		}

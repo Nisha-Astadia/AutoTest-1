@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
@@ -864,6 +865,20 @@ public class GeneticFeaturePage extends MenuPage {
 		return columns;
 	}
 
+	public HashMap<String, String> getAllColumnHeadersInROITab() {
+		HashMap<String, String> columns = new HashMap<String, String>();
+		WebElement mainDiv = this.driver.findElement(By
+				.cssSelector("div#ui-tabs-5"));
+		List<WebElement> tds = mainDiv.findElements(By
+				.cssSelector("tr:nth-child(1) td"));
+		int a = 1;
+		for (WebElement td : tds) {
+			columns.put("" + a, td.getText());
+			a++;
+		}
+
+		return columns;
+	}
 	public GeneticFeaturePage clickDetailSequenceTab() {
 		WebElement evdTab = this.driver.findElement(By
 				.cssSelector("ul#sequence_0_tabs li:nth-child(1)"));
@@ -1018,15 +1033,28 @@ public class GeneticFeaturePage extends MenuPage {
 	}
 
 	private void clickEvidenceSequenceTab() {
-		WebElement evi = this.clickEvidenceSequence
-				.findElement(By.tagName("a"));
-		evi.click();
-		this.waitForPageToLoad();
+		WebElement evdTab = this.driver.findElement(By
+				.cssSelector("ul#sequence_0_tabs li:nth-child(2)"));
+		if (!StringUtils.containsIgnoreCase(evdTab.getAttribute("class"),
+				"ui-state-active")) {
+			WebElement evi = this.clickEvidenceSequence.findElement(By
+					.tagName("a"));
+			evi.click();
+			this.waitForPageToLoad();
+		}
 	}
 
 	public boolean isDeleteThisGFButtonEnabled() {
 		WebElement deleteButton = this.driver.findElement(By
 				.id("deleteGeneticFeatureButton"));
+		return deleteButton.isEnabled();
+	}
+
+	// Return true if the button 'Delete this sequence' in detail tab of GF is
+	// enabled.
+	public boolean isDeleteThisSequenceEnabled() {
+		WebElement deleteButton = this.driver.findElement(By
+				.cssSelector("input.formBtn.btn.deleteSequenceButton6"));
 		return deleteButton.isEnabled();
 	}
 
@@ -1311,4 +1339,315 @@ public class GeneticFeaturePage extends MenuPage {
 		ecotype.clear();
 		ecotype.sendKeys(string);
 	}
+
+	// click the 'Delete this sequence button' .
+	public GeneticFeaturePage clickDeleteThisSequence() {
+
+		WebElement deleteThisSeq = this.driver.findElement(By
+				.cssSelector("input.formBtn.btn.deleteSequenceButton6"));
+		deleteThisSeq.click();
+		// this.deleteThisSequence.click();
+		WebDriverWait wait = new WebDriverWait(this.driver, 10);
+		wait.until(ExpectedConditions.alertIsPresent());
+		this.driver.switchTo().alert().accept();
+		this.waitForPageToLoad();
+		this.waitForAjax();
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+
+	public GeneticFeaturePage addLeadInfoAndNominateDatabaseLead(
+			GeneticFeaturePage gfPage, HashMap<String, String> columns) {
+		gfPage = gfPage.clickOnLeadInfoTab();
+		LeadNominationPage leadNominationpage = gfPage.clickOnNominateButton();
+
+		PopUpAddSuggestedProjectNamePage popUpAddSuggProNamepage = leadNominationpage
+				.clickOnAddSuggestedProjectName();
+
+		popUpAddSuggProNamepage.enterSuggestedProjectName(columns
+				.get("suggestedProjectName"));
+		leadNominationpage = popUpAddSuggProNamepage.clickAdd();
+		leadNominationpage.selectLeadSource(columns.get("lead_source"));
+		leadNominationpage.selectLeadType(columns.get("lead_type"));
+		leadNominationpage.enterLeadFunction(columns.get("lead_function"));
+		PopUpAddSourceOfLeadFunctionInfo leadInfoPage = leadNominationpage
+				.clickOnAddLeadFunctionInfo();
+		leadNominationpage = leadInfoPage
+				.addLeadFunctionInformationAndClickAdd(columns
+						.get("source_lead_function_info"));
+		leadNominationpage.enterRationale("test");
+		gfPage = leadNominationpage.clickOnAddLeadNomination();
+
+		return gfPage;
+	}
+
+	public HashMap<String, String> getAllFieldValuesLeadInfoTab(
+			GeneticFeaturePage gfPage) {
+		HashMap<String, String> data = new HashMap<String, String>();
+		gfPage = gfPage.clickOnLeadInfoTab();
+		String leadtype = gfPage.getLeadTypeLeadInfo();
+		String leadname = gfPage.getLeadNameLeadInfoTab();
+		String leadsource = gfPage.getLeadSourceLeadInfoTab();
+		String countryoforigin = gfPage.getCountryOfOriginLeadInfo();
+		String leadfunction = gfPage.getLeadFunctionLeadInfoTab();
+		data.put("leadtype", leadtype);
+		data.put("leadname", leadname);
+		data.put("leadsource", leadsource);
+		data.put("countryoforigin", countryoforigin);
+		data.put("leadfunction", leadfunction);
+		return data;
+	}
+
+	private String getLeadFunctionLeadInfoTab() {
+		WebElement element = this.driver.findElement(By.id("lead_functions"));
+		return element.getAttribute("value");
+	}
+
+	private String getCountryOfOriginLeadInfo() {
+		WebElement element = this.driver.findElement(By.id("country_name8"));
+		Select select = new Select(element);
+		WebElement option = select.getFirstSelectedOption();
+		return option.getText();
+	}
+
+	private String getLeadTypeLeadInfo() {
+		WebElement element = this.driver.findElement(By.id("lead_type"));
+		Select select = new Select(element);
+		WebElement option = select.getFirstSelectedOption();
+		return option.getText();
+	}
+
+	private String getLeadSourceLeadInfoTab() {
+		WebElement element = this.driver.findElement(By.id("lead_source"));
+		Select select = new Select(element);
+		WebElement option = select.getFirstSelectedOption();
+		return option.getText();
+	}
+
+	private String getLeadNameLeadInfoTab() {
+		WebElement element = this.driver.findElement(By.id("lead_name"));
+		return element.getAttribute("value");
+	}
+
+	public GeneticFeaturePage clickOnEditLeadInfo() {
+		this.clickOnLeadInfoTab();
+		WebElement edit = this.driver.findElement(By.id("edit8"));
+		edit.click();
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+
+	public void setAllFieldValuesLeadInfoTab(GeneticFeaturePage gfPage,
+			HashMap<String, String> newVals) {
+		gfPage = gfPage.clickOnLeadInfoTab();
+		this.setLeadTypeLeadInfoTab(newVals.get("leadtype"));
+		this.setLeadFunctionLeadInfoTab(newVals.get("leadfunction"));
+		this.setCountryOfOriginLeadInfo(newVals.get("countryoforigin"));
+		this.setLeadNameLeadInfoTab(newVals.get("leadname"));
+		this.setLeadSourceLeadInfoTab(newVals.get("leadsource"));
+	}
+
+	private void setLeadTypeLeadInfoTab(String string) {
+		if (StringUtils.isBlank(string)) {
+			string = "Select Value";
+		}
+		WebElement element = this.driver.findElement(By.id("lead_type"));
+		Select select = new Select(element);
+		select.selectByVisibleText(string);
+
+	}
+
+	private void setLeadFunctionLeadInfoTab(String string) {
+		WebElement element = this.driver.findElement(By.id("lead_functions"));
+		element.clear();
+		element.sendKeys(string);
+	}
+
+	private void setCountryOfOriginLeadInfo(String string) {
+		if (StringUtils.isBlank(string)) {
+			string = "Select Value";
+		}
+		WebElement element = this.driver.findElement(By.id("country_name8"));
+		Select select = new Select(element);
+		select.selectByVisibleText(string);
+
+	}
+
+	private void setLeadSourceLeadInfoTab(String string) {
+		if (StringUtils.isBlank(string)) {
+			string = "Select Value";
+		}
+		WebElement element = this.driver.findElement(By.id("lead_source"));
+		Select select = new Select(element);
+		select.selectByVisibleText(string);
+	}
+
+	private void setLeadNameLeadInfoTab(String string) {
+		WebElement element = this.driver.findElement(By.id("lead_name"));
+		element.clear();
+		element.sendKeys(string);
+	}
+
+	public void clickOnCancelLeadInfoTab() {
+		WebElement cancel = this.driver.findElement(By.id("cancel8"));
+		cancel.click();
+	}
+
+	public GeneticFeaturePage clickOnDeleteLeadInfoTab() {
+		WebElement delete = this.driver.findElement(By
+				.id("deleteLeadNominationDetailsButton8"));
+		delete.click();
+
+		WebDriverWait wait = new WebDriverWait(this.driver, 10);
+		wait.until(ExpectedConditions.alertIsPresent());
+		this.driver.switchTo().alert().accept();
+		this.waitForPageToLoad();
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+	public void clickOnSaveLeadInfoTab() {
+		WebElement save = this.driver.findElement(By.id("save8"));
+		save.click();
+		// WebDriverWait wait = new WebDriverWait(this.driver, 10);
+		// wait.until(ExpectedConditions.alertIsPresent());
+		// this.driver.switchTo().alert().accept();
+	}
+
+	public String getLeadNameErrorLeadInfoTab() {
+		WebElement element = null;
+		try {
+			element = this.driver.findElement(By.id("lead_name_error"));
+		} catch (Exception e) {
+		}
+		String error = element.getText();
+		return error;
+	}
+
+	public String getLeadSourceErrorLeadInfoTab() {
+		WebElement element = this.driver
+				.findElement(By.id("lead_source_error"));
+		String error = element.getText();
+		return error;
+	}
+
+	public String getLeadTypeErrorLeadInfoTab() {
+		WebElement element = this.driver.findElement(By.id("lead_type_error"));
+		String error = element.getText();
+		return error;
+	}
+
+	public String getLeadFunctionErrorLeadInfoTab() {
+		WebElement element = this.driver.findElement(By
+				.id("lead_functions_error"));
+		String error = element.getText();
+		return error;
+	}
+
+	public GeneticFeaturePage addSuggestedProjectNameLeadInfo(String string) {
+		WebElement button = this.driver.findElement(By.id("addProjects8"));
+		button.click();
+		PopupAddSuggestedProjectNameLeadInfo popup = new PopupAddSuggestedProjectNameLeadInfo(
+				this.driver);
+		PageFactory.initElements(this.driver, popup);
+		GeneticFeaturePage page = (GeneticFeaturePage) popup
+				.addProjectName(string);
+
+		return page;
+	}
+
+	public List<String> getAllAddedProjectNames() {
+		List<String> names = new ArrayList<String>();
+		WebElement mainSpan = this.driver
+				.findElement(By.id("projectNameList8"));
+		List<WebElement> innerSpans = mainSpan.findElements(By.tagName("span"));
+		for (WebElement element : innerSpans) {
+			WebElement aTag = null;
+			try {
+				aTag = element.findElement(By.tagName("a"));
+				if (StringUtils.equalsIgnoreCase(aTag.getAttribute("class"),
+						"pointer")) {
+					String name = element.getText();
+					if (StringUtils.isNoneBlank(name)) {
+						names.add(name.trim());
+					}
+				}
+			} catch (Exception e) {
+				continue;
+			}
+		}
+		return names;
+	}
+
+	public GeneticFeaturePage deleteThisProjectNameLeadInfo(String string) {
+		string = StringUtils.deleteWhitespace(string);
+
+		WebElement mainSpan = this.driver
+				.findElement(By.id("projectNameList8"));
+		List<WebElement> innerSpans = mainSpan.findElements(By.tagName("span"));
+		for (WebElement element : innerSpans) {
+			WebElement aTag = null;
+			try {
+				aTag = element.findElement(By.tagName("a"));
+				if (StringUtils.equalsIgnoreCase(aTag.getAttribute("class"),
+						"pointer")) {
+					String name = element.getText();
+					if (StringUtils.equalsIgnoreCase(
+							StringUtils.deleteWhitespace(name), string)) {
+						WebElement delete = aTag.findElement(By.tagName("img"));
+						delete.click();
+						break;
+					}
+				}
+			} catch (Exception e) {
+				continue;
+			}
+		}
+
+		this.clickOnSaveLeadInfoTab();
+
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+	}
+
+	public boolean isThereASaveButtonInLeadInfo() {
+		WebElement save = null;
+		try {
+			save = this.driver.findElement(By.id("save8"));
+		} catch (Exception e) {
+			// do nothing
+		}
+
+		if (save != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isThereAnEditButtonInLeadInfo() {
+		WebElement edit = null;
+		try {
+			edit = this.driver.findElement(By.id("edit8"));
+		} catch (Exception e) {
+			// do nothing
+		}
+
+		if (edit != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void deleteEvidenceSequenceTab() {
+		this.clickOnEvidenceSequenceTab();
+		ViewLiteratureEvidenceDetailsPageSequence lit = this
+				.clickviewLiteratureEvidenceSequence();
+		lit.clickOnDelete();
+	}
+
 }

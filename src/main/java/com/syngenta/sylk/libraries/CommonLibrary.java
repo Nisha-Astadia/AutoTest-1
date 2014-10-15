@@ -214,6 +214,44 @@ public class CommonLibrary {
 		newGFPage.selectOrientationGD(columns.get("orientationGD"));
 		newGFPage.enterSourceGS(columns.get("sourceGS"));
 		newGFPage.enterAccessionNoGS(columns.get("accessionNoGS"));
+
+		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
+		this.selected_gf_created_date = gfPage.getCreatedByInDetailTab();
+		return gfPage.gotoHomePage();
+
+	}
+
+	public HomePage addANewGeneticFeature(HomePage homepage,
+			HashMap<String, String> columns, String name) {
+
+		AddNewGeneticFeaturePage addNewGFPage = homepage
+				.goToAddGeneticFeaturePage();
+
+		//
+		addNewGFPage.selectGeneType(columns.get("gene_type"));
+		//
+		addNewGFPage.enterTextInSequence(columns.get("proteindata"));
+		GeneticFeatureManualEntryPage GFmanualEntryPage = (GeneticFeatureManualEntryPage) addNewGFPage
+				.clickFindMatches();
+
+		BLASTSearchResultPage blastSearchResultPage = GFmanualEntryPage
+				.clickDuplicateCheck();
+		BasePage page = blastSearchResultPage.clickAddAsNewGFAndGoToNewGFPage();
+
+		NewGeneticFeaturePage newGFPage = null;
+
+		if (page instanceof PopUpFlagForCurationPage) {
+			PopUpFlagForCurationPage popup = (PopUpFlagForCurationPage) page;
+			popup.enterRationale("test");
+			newGFPage = (NewGeneticFeaturePage) popup
+					.clickContinueAndGoToNewGFPage();
+		} else {
+			newGFPage = (NewGeneticFeaturePage) page;
+		}
+		newGFPage.enterSymbolId(columns.get("symbol"));
+
+		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourceSpecies"));
+
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
 		this.selected_gf_created_date = gfPage.getCreatedByInDetailTab();
 		return gfPage.gotoHomePage();
@@ -230,21 +268,22 @@ public class CommonLibrary {
 		return search.isThereAClickableGFLink();
 	}
 
-	public GeneticFeaturePage searchAndSelectThisGF(HomePage homepage,
-			String user, String gfName) {
+	public BasePage searchAndSelectThisGF(HomePage homepage, String user,
+			String gfName) {
 		SearchSylkPage search = homepage.goToGFRNAiTriggerROIpromoter();
 		search.selectAddedBy(user);
 		search.selectView("50");
 		search.selectType("Genetic Feature");
 		search = search.clickSearch();
 
-		GeneticFeaturePage gfPage = ((GeneticFeaturePage) search
-				.selectThisTriggerFromSearchResult(gfName));
-		this.selected_gf_created_date = search.getSelectedGFCreatedDate();
+		GeneticFeaturePage gfPage = null;
+		BasePage page = search.selectThisTriggerFromSearchResult(gfName);
+		if (page instanceof GeneticFeaturePage) {
+			this.selected_gf_created_date = search.getSelectedGFCreatedDate();
+		}
 
-		return gfPage;
+		return page;
 	}
-
 	public String getSelectedGFCreatedDate() {
 		return this.selected_gf_created_date;
 	}

@@ -14,12 +14,13 @@ import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.SyngentaException;
+import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 
-public class Check_Edit_Button_Enabled_DeatilTab_View_GF {
+public class Check_Edit_Button_Enabled_DetailTab_View_GF {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
@@ -65,8 +66,12 @@ public class Check_Edit_Button_Enabled_DeatilTab_View_GF {
 			// step 6
 			// check has to be made to see if its navigated to the
 			// "Add New Genetic Feature page"
-			GeneticFeaturePage gfPage = common.searchAndSelectThisGF(
-					this.homepage, user, gfName);
+			GeneticFeaturePage gfPage = null;
+			BasePage page = common.searchAndSelectThisGF(this.homepage, user,
+					gfName);
+			if (page instanceof GeneticFeaturePage) {
+				gfPage = (GeneticFeaturePage) page;
+			}
 			if (gfPage == null) {
 				gfName = "selenium_GF1";
 				this.homepage = common.addANewGeneticFeatureProtein(

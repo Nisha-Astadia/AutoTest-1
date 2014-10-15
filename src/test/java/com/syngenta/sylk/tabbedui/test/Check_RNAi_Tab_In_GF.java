@@ -90,18 +90,19 @@ public class Check_RNAi_Tab_In_GF {
 			 * Attach the genetic feature that was added above to this RNAi
 			 */
 			String rnaiTriggerName = "selenium_rnai";
-			this.rnai.deleteThisRNAi(this.homepage, rnaiTriggerName,
+			this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName,
 					"Pillai, Nisha");
 
 			BasePage page = null;
-			AddRNAiTriggerPage addRnaiPage = this.homepage
+			AddRNAiTriggerPage addRnaiTriggerPage = this.homepage
 					.goToRNAiTriggerPage();
-			reporter.verifyEqual(addRnaiPage.getPageTitle(),
+			reporter.verifyEqual(addRnaiTriggerPage.getPageTitle(),
 					PageTitles.add_rnai_trigger_page_title,
 					"Select menu item 'RNAi Trigger' and open RNAi Trigger page.");
 
-			addRnaiPage.enterSequence(columns.get("sequence"));
-			BLASTnRnaiResultPage blastPage = addRnaiPage.clickDuplicateCheck();
+			addRnaiTriggerPage.enterSequence(columns.get("sequence"));
+			BLASTnRnaiResultPage blastPage = addRnaiTriggerPage
+					.clickDuplicateCheck();
 
 			reporter.verifyEqual(
 					blastPage.getPageTitle(),
@@ -172,7 +173,8 @@ public class Check_RNAi_Tab_In_GF {
 					"RNAI tab has seven column headers");
 			reporter.reportPass("The following headers are displayes : "
 					+ headers.toString());
-			this.rnai.deleteThisRNAi(this.homepage, rnaiTriggerName,
+			this.homepage = this.gfPage.gotoHomePage();
+			this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName,
 					"Pillai, Nisha");
 
 		} catch (Exception e) {

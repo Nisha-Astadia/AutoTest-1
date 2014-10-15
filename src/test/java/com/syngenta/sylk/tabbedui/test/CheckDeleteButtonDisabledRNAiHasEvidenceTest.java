@@ -86,7 +86,7 @@ public class CheckDeleteButtonDisabledRNAiHasEvidenceTest {
 		// step 3
 		this.searchSylkpage.selectAddedBy(columns.get("user"));
 
-		this.searchSylkpage.selectType("");
+		this.searchSylkpage.selectType(columns.get("selectType"));
 
 		this.searchSylkpage = this.searchSylkpage.clickSearch();
 
@@ -101,7 +101,12 @@ public class CheckDeleteButtonDisabledRNAiHasEvidenceTest {
 
 		RNAiPage rnaiPage = (RNAiPage) this.searchSylkpage
 				.clickAndOpenRNAiWithNoConstruct();
-		reporter.reportPass("From search result page click on a RNAi trigger with no construct.");
+
+		// RNAiPage rnaiPage = (RNAiPage)
+		// this.searchSylkpage.clickAndOpenRNAiSearch();
+		//
+		// reporter.verifyEqual(this.searchSylkpage.getPageTitle(), PageTitles.,
+		// message);("RNAi Page appears when clicked one of the RNAi displayed in the search result ");
 
 		rnaiPage.clickOnEvidenceTab();
 		int evidenceCount = rnaiPage.getEvidenceCountOnTab();

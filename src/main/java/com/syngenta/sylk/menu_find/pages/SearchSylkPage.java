@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.main.pages.BasePage;
@@ -15,6 +16,7 @@ import com.syngenta.sylk.main.pages.MenuPage;
 import com.syngenta.sylk.menu_add.pages.AddNewROIPage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.RNAiTriggerDetailsPage;
+import com.syngenta.sylk.menu_add.pages.ROIDetailPage;
 
 public class SearchSylkPage extends MenuPage {
 
@@ -66,13 +68,25 @@ public class SearchSylkPage extends MenuPage {
 
 	public void selectAddedBy(String name) {
 		name = StringUtils.deleteWhitespace(name);
-		List<WebElement> elements = this.addedBy.findElements(By
-				.tagName("option"));
-		for (WebElement e : elements) {
-			System.out.println(e.getText());
-			if (StringUtils.equalsIgnoreCase(
-					StringUtils.deleteWhitespace(e.getText()), name)) {
-				e.click();
+		// List<WebElement> elements = this.addedBy.findElements(By
+		// .tagName("option"));
+		// for (WebElement e : elements) {
+		// System.out.println(e.getText());
+		// if (StringUtils.equalsIgnoreCase(
+		// StringUtils.deleteWhitespace(e.getText()), name)) {
+		// e.click();
+		// break;
+		// }
+		// }
+
+		Select select = new Select(this.addedBy);
+		// select.selectByVisibleText(name);
+		List<WebElement> options = select.getOptions();
+		for (WebElement option : options) {
+			String displayName = option.getText();
+			if (StringUtils.equalsIgnoreCase(name,
+					StringUtils.deleteWhitespace(displayName))) {
+				select.selectByVisibleText(option.getText());
 				break;
 			}
 		}
@@ -170,6 +184,34 @@ public class SearchSylkPage extends MenuPage {
 
 	}
 
+	public BasePage clickAndOpenThisGF() {
+
+		BasePage page = null;
+		for (int a = 0; a < 50; a++) {
+			WebElement span = null;
+			try {
+				span = this.driver.findElement(By.cssSelector("div#hit_" + a
+						+ " a.pointer.f12.underline span"));
+			} catch (Exception e) {
+				// do nothing
+			}
+
+			span.click();
+			GeneticFeaturePage gfPage = new GeneticFeaturePage(this.driver);
+			PageFactory.initElements(this.driver, gfPage);
+			int count = gfPage.getLeadInfoCountOnTab();
+			if (count != 0) {
+				this.browserBack();
+			} else {
+				page = gfPage;
+				PageFactory.initElements(this.driver, page);
+				break;
+			}
+		}
+
+		return page;
+	}
+
 	public String isThereAClickableGFLink() {
 		String name = null;
 		int totalcount = this.getTotalResultCount();
@@ -232,7 +274,14 @@ public class SearchSylkPage extends MenuPage {
 						break;
 
 					} else if (StringUtils.equalsIgnoreCase(
-							this.getPageTitle(),
+							this.getPageTitle(), PageTitles.roi_detail_page)) {
+						page = new ROIDetailPage(this.driver);
+						PageFactory.initElements(this.driver, page);
+						break;
+
+					}
+
+					else if (StringUtils.equalsIgnoreCase(this.getPageTitle(),
 							PageTitles.genetic_feature_page_title)) {
 						page = new GeneticFeaturePage(this.driver);
 						PageFactory.initElements(this.driver, page);
@@ -252,6 +301,15 @@ public class SearchSylkPage extends MenuPage {
 	}
 
 	public int getTotalResultCount() {
+
+		// is there a zero result
+		WebElement div = this.driver.findElement(By
+				.cssSelector("div#results div:nth-child(1)"));
+		String className = div.getAttribute("class");
+		if (!StringUtils.equalsIgnoreCase(className, "hit")) {
+
+			return 0;
+		}
 		WebElement span;
 		try {
 			span = this.searchResultText.findElement(By
@@ -314,6 +372,33 @@ public class SearchSylkPage extends MenuPage {
 				this.browserBack();
 			} else {
 				page = GFpage;
+				PageFactory.initElements(this.driver, page);
+				break;
+			}
+		}
+
+		return page;
+	}
+
+	public BasePage clickAndOpenGFWithoutEvidenceInSequenceSec() {
+		int totalcount = this.getTotalResultCount();
+		if (totalcount == 0) {
+			SearchSylkPage spage = new SearchSylkPage(this.driver);
+			PageFactory.initElements(this.driver, spage);
+			return spage;
+		}
+		GeneticFeaturePage page = null;
+		for (int a = 0; a < totalcount; a++) {
+			WebElement span = this.driver.findElement(By.cssSelector("div#hit_"
+					+ a + " a.pointer.f12.underline span"));
+			span.click();
+			GeneticFeaturePage gfPage = new GeneticFeaturePage(this.driver);
+			PageFactory.initElements(this.driver, gfPage);
+			int count = gfPage.getEvidenceSequenceCountOnTab();
+			if (count != 0) {
+				this.browserBack();
+			} else {
+				page = gfPage;
 				PageFactory.initElements(this.driver, page);
 				break;
 			}

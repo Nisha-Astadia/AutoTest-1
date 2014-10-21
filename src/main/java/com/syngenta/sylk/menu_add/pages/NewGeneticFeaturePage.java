@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.main.pages.MenuPage;
 
 public class NewGeneticFeaturePage extends MenuPage {
@@ -425,6 +426,7 @@ public class NewGeneticFeaturePage extends MenuPage {
 	}
 
 	public GeneticFeaturePage clickAddGeneticFeature() {
+		new CommonLibrary().slowDown();
 		this.addGeneticFeature.click();
 		this.waitForPageToLoad();
 		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);

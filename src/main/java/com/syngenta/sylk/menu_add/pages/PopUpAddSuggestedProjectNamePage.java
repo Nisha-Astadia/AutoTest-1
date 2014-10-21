@@ -27,6 +27,8 @@ public class PopUpAddSuggestedProjectNamePage extends BasePage {
 
 	public LeadNominationPage clickAdd() {
 		this.save.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
 		LeadNominationPage page = new LeadNominationPage(this.driver);
 		PageFactory.initElements(this.driver, page);
 		this.waitForPageToLoad();

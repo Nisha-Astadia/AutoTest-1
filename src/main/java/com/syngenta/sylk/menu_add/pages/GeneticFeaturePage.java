@@ -51,8 +51,8 @@ public class GeneticFeaturePage extends MenuPage {
 	@FindBy(id = "geneticFeature_tabPanel")
 	private WebElement tabDiv;
 
-	@FindBy(css = "div#ui-tabs-2 span.view")
-	private WebElement viewEvidence;
+	// @FindBy(css = "div#ui-tabs-2")
+	// private WebElement viewEvidence;
 
 	@FindBy(css = "div[id='ui-tabs-7 span.view']")
 	private WebElement viewEvidenceSequence;
@@ -71,6 +71,9 @@ public class GeneticFeaturePage extends MenuPage {
 
 	@FindBy(css = "ul#geneticFeature_tabs li:nth-child(2)")
 	private WebElement clickEvidence;
+
+	@FindBy(css = "ul#geneticFeature_tabs li:nth-child(3)")
+	private WebElement clickOrtholog;
 
 	@FindBy(css = "ul#sequence_0_tabs li:nth-child(2)")
 	private WebElement clickEvidenceGF;
@@ -108,6 +111,9 @@ public class GeneticFeaturePage extends MenuPage {
 
 	@FindBy(css = "input[id='edit1']")
 	private WebElement edit;
+
+	@FindBy(css = "input[class='formBtn btn deleteSequenceButton6'][value='Delete This Sequence']")
+	private WebElement deleteThisSequence;
 
 	private void waitForConstructSequenceToLoad() {
 		try {
@@ -178,6 +184,18 @@ public class GeneticFeaturePage extends MenuPage {
 		try {
 			if (this.getEvidenceCountOnTab() > 0) {
 				this.waitForWebElement(By.cssSelector("div#ui-tabs-2 div.clip"));
+			} else {
+				new CommonLibrary().slowDown();
+			}
+		} catch (Exception e) {
+
+		}
+	}
+
+	private void waitForOrthologToLoad() {
+		try {
+			if (this.getOrthologCountOnTab() > 0) {
+				this.waitForWebElement(By.cssSelector("input#addOrthologs"));
 			} else {
 				new CommonLibrary().slowDown();
 			}
@@ -452,6 +470,24 @@ public class GeneticFeaturePage extends MenuPage {
 		return page;
 
 	}
+
+	public GeneticFeaturePage clickOnOrthologTab() {
+
+		WebElement orthoTab = this.driver.findElement(By
+				.cssSelector("ul#geneticFeature_tabs li:nth-child(3)"));
+		if (!StringUtils.containsIgnoreCase(orthoTab.getAttribute("class"),
+				"ui-state-active")) {
+			WebElement ortho = orthoTab.findElement(By.tagName("a"));
+			ortho.click();
+			this.waitForPageToLoad();
+			this.waitForAjax();
+			this.waitForOrthologToLoad();
+		}
+		GeneticFeaturePage page = new GeneticFeaturePage(this.driver);
+		PageFactory.initElements(this.driver, page);
+		return page;
+
+	}
 	public GeneticFeaturePage clickDetailTab() {
 		if (!StringUtils.containsIgnoreCase(
 				this.clickDetail.getAttribute("class"), "ui-state-active")) {
@@ -585,6 +621,17 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
+	private int getOrthologCountOnTab() {
+		WebElement evi = this.clickOrtholog.findElement(By.tagName("a"));
+		String text = evi.getText();
+		text = StringUtils.substringBetween(text, "(", ")");
+		if (StringUtils.isBlank(text)) {
+			return 0;
+		} else {
+			return Integer.parseInt(text);
+		}
+	}
+
 	public int getRegulatoryCheckCountOnTab() {
 		WebElement reg = this.driver.findElement(By
 				.cssSelector("ul#sequence_0_tabs li:nth-child(4)"));
@@ -693,9 +740,18 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
+	public ViewLiteratureEvidenceDetailsGF clickviewLiteratureEvidence(int a) {
+
+		List<WebElement> evidences = this.driver.findElements(By
+				.cssSelector("div#ui-tabs-2 div.clip table.table span.view"));
+		WebElement span = evidences.get(a);
+		return this.clickviewLiteratureEvidence(span);
+	}
 	// click open and view the literature evidence.
-	public ViewLiteratureEvidenceDetailsGF clickviewLiteratureEvidence() {
-		this.viewEvidence.click();
+	public ViewLiteratureEvidenceDetailsGF clickviewLiteratureEvidence(
+			WebElement span) {
+
+		span.click();
 		this.waitForPageToLoad();
 		this.waitForAjax();
 		ViewLiteratureEvidenceDetailsGF page = new ViewLiteratureEvidenceDetailsGF(
@@ -705,10 +761,9 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
-	public ViewLiteratureEvidenceDetailsPageSequence clickviewLiteratureEvidenceSequence() {
-		this.viewEvidenceSequence = this.driver.findElement(By
-				.cssSelector("div#ui-tabs-7 span.view"));
-		this.viewEvidenceSequence.click();
+	public ViewLiteratureEvidenceDetailsPageSequence clickviewLiteratureEvidenceSequence(
+			WebElement element) {
+		element.click();
 		this.waitForPageToLoad();
 		this.waitForAjax();
 		ViewLiteratureEvidenceDetailsPageSequence page = new ViewLiteratureEvidenceDetailsPageSequence(
@@ -984,51 +1039,87 @@ public class GeneticFeaturePage extends MenuPage {
 	}
 
 	public GeneticFeaturePage addEvidenceInUpperSection(
-			GeneticFeaturePage gfPage, HashMap<String, String> columns) {
+			GeneticFeaturePage gfPage, int num) {
 
 		gfPage.clickEvidenceTab();
 		LiteratureSearchPage litSearchPage = (LiteratureSearchPage) gfPage
-				.selectAddEvidence(columns.get("evidence"));
+				.selectAddEvidence("literature");
 		CreateLiteratureEvidenceDetailsForGeneticFeaturePage createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
-				.searchThis(columns.get("search"));
-		createLitPage.enterObservation(columns.get("observation"));
-		createLitPage.enterRationale(columns.get("rationale"));
+				.searchThis("Bharitkar S, Mendel");
+		createLitPage.enterObservation("test observation");
+		createLitPage.enterRationale("test");
 		PopUpAddTraitComponent popup = createLitPage.clickAddTraitComponent();
 		createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) popup
-				.addTrait(columns.get("trait"));
+				.addTrait("biomass yield [en;XX;1]");
 		if (!createLitPage.isThereOneGeneticFeatureWhenAddingEvidence()) {
 			PopUpAddGeneSymbol popupSeq = createLitPage
 					.clickAddGeneticFeatures();
-			popupSeq.enterText(columns.get("addGFSymbol"));
+			popupSeq.enterText("AAP55168");
 			createLitPage = popupSeq.clickAdd();
 		}
 		gfPage = createLitPage.clickSave();
-
+		if (num > 1) {
+			gfPage.clickEvidenceTab();
+			litSearchPage = (LiteratureSearchPage) gfPage
+					.selectAddEvidence("literature");
+			createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
+					.searchThis("Rhodes HE, Chenevert L, Munsell M");
+			createLitPage.enterObservation("test observation");
+			createLitPage.enterRationale("test");
+			popup = createLitPage.clickAddTraitComponent();
+			createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) popup
+					.addTrait("biomass yield [en;XX;1]");
+			if (!createLitPage.isThereOneGeneticFeatureWhenAddingEvidence()) {
+				PopUpAddGeneSymbol popupSeq = createLitPage
+						.clickAddGeneticFeatures();
+				popupSeq.enterText("BI306443");
+				createLitPage = popupSeq.clickAdd();
+			}
+			gfPage = createLitPage.clickSave();
+		}
 		return gfPage;
 
 	}
 
 	public GeneticFeaturePage addEvidenceInSequenceSection(
-			GeneticFeaturePage gfPage, HashMap<String, String> columns) {
+			GeneticFeaturePage gfPage, int num) {
 
 		gfPage.clickEvidenceSequenceTab();
 		LiteratureSearchPage litSearchPage = gfPage
-				.selectAddEvidenceSequence(columns.get("evidence"));
+				.selectAddEvidenceSequence("literature");
 		CreateLiteratureEvidenceDetailsForGeneticFeaturePage createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
-				.searchThis(columns.get("search"));
-		createLitPage.enterObservation(columns.get("observation"));
-		createLitPage.enterRationale(columns.get("rationale"));
+				.searchThis("Rhodes HE, Chenevert L, Munsell M");
+		createLitPage.enterObservation("test observation");
+		createLitPage.enterRationale("test");
 		PopUpAddTraitComponent popup = createLitPage.clickAddTraitComponent();
 		createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) popup
-				.addTrait(columns.get("trait"));
+				.addTrait("biomass yield [en;XX;1]");
 		if (!createLitPage.isThereOneSequenceWhenAddingEvidence()) {
 			PopUpAddSequenceAccession popupSeq = createLitPage
 					.clickOnAddSequence();
-			createLitPage = popupSeq
-					.addSequenceName(columns.get("addSequence"));
+			createLitPage = popupSeq.addSequenceName("CA119664-CDNA//");
 		}
 		gfPage = createLitPage.clickSave();
 
+		if (num > 1) {
+			// SYLK001607-CDNA/SYLKPROT
+			gfPage.clickEvidenceSequenceTab();
+			litSearchPage = gfPage.selectAddEvidenceSequence("literature");
+			createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
+					.searchThis("Bharitkar S, Mendel");
+			createLitPage.enterObservation("test observation");
+			createLitPage.enterRationale("test");
+			popup = createLitPage.clickAddTraitComponent();
+			createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) popup
+					.addTrait("biomass yield [en;XX;1]");
+			if (!createLitPage.isThereOneSequenceWhenAddingEvidence()) {
+				PopUpAddSequenceAccession popupSeq = createLitPage
+						.clickOnAddSequence();
+				createLitPage = popupSeq
+						.addSequenceName("SYLK001607-CDNA/SYLKPROT");
+			}
+			gfPage = createLitPage.clickSave();
+		}
 		return gfPage;
 	}
 
@@ -1064,6 +1155,10 @@ public class GeneticFeaturePage extends MenuPage {
 		return deleteButton.getAttribute("title");
 	}
 
+	public String getDeleteThisButtonToolTip() {
+		String tooltip = this.deleteThisSequence.getAttribute("title");
+		return tooltip;
+	}
 	public boolean checkIfMagnifyingGlassImageIsVerticallyAlligned_SequenceSection() {
 		WebElement mainDiv = this.driver.findElement(By.id("ui-tabs-7"));
 		List<WebElement> tables = mainDiv.findElements(By.tagName("table"));
@@ -1133,6 +1228,9 @@ public class GeneticFeaturePage extends MenuPage {
 
 	}
 
+	public String getEditButtonToolTipDetailedTab() {
+		return this.edit.getAttribute("title");
+	}
 	public String getCreatedByInDetailTab() {
 		this.clickDetailTab();
 		List<WebElement> table = this.driver.findElements(By
@@ -1643,11 +1741,84 @@ public class GeneticFeaturePage extends MenuPage {
 		}
 	}
 
+	// public void deleteEvidenceSequenceTab() {
+	// this.clickOnEvidenceSequenceTab();
+	// ViewLiteratureEvidenceDetailsPageSequence lit = this
+	// .clickviewLiteratureEvidenceSequence();
+	// lit.clickOnDelete();
+	// }
+
+	public void deleteEvidenceUpperTab() {
+		while (true) {
+			this.clickOnEvidenceTab();
+			List<WebElement> evidences = this.driver
+					.findElements(By
+							.cssSelector("div#ui-tabs-2 div.clip table.table span.view"));
+			if (evidences.size() != 0) {
+				WebElement element = evidences.get(0);
+				ViewLiteratureEvidenceDetailsGF lit = this
+						.clickviewLiteratureEvidence(element);
+				lit.clickDeleteToDeleteThisLiteratureEvidence();
+			} else {
+				break;
+			}
+		}
+	}
+
 	public void deleteEvidenceSequenceTab() {
-		this.clickOnEvidenceSequenceTab();
-		ViewLiteratureEvidenceDetailsPageSequence lit = this
-				.clickviewLiteratureEvidenceSequence();
-		lit.clickOnDelete();
+		while (true) {
+			this.clickOnEvidenceSequenceTab();
+			List<WebElement> evidences = this.driver
+					.findElements(By
+							.cssSelector("div#ui-tabs-7 div.clip table.table span.view"));
+			if (evidences.size() != 0) {
+				WebElement element = evidences.get(0);
+				ViewLiteratureEvidenceDetailsPageSequence lit = this
+						.clickviewLiteratureEvidenceSequence(element);
+				lit.clickOnDelete();
+			} else {
+				break;
+			}
+		}
+	}
+
+	public ViewLiteratureEvidenceDetailsPageSequence clickviewLiteratureEvidenceSequence(
+			int a) {
+
+		List<WebElement> evidences = this.driver.findElements(By
+				.cssSelector("div#ui-tabs-7 div.clip table.table span.view"));
+		WebElement span = evidences.get(a);
+		return this.clickviewLiteratureEvidenceSequence(span);
+	}
+
+	public boolean isEditButtonInLeadInfoEnabled() {
+		WebElement edit = this.driver.findElement(By.id("edit8"));
+		boolean flag = edit.isEnabled();
+		return flag;
+	}
+
+	public boolean isDeleteButtonInLeadInfoEnabled() {
+		WebElement edit = this.driver.findElement(By
+				.id("deleteLeadNominationDetailsButton8"));
+		boolean flag = edit.isEnabled();
+		return flag;
+	}
+	public String getLeadInfoEditButtonToolTip() {
+		WebElement edit = this.driver.findElement(By.id("edit8"));
+		String toolTip = edit.getAttribute("title");
+		return toolTip;
+	}
+	public String getLeadInfoDeleteButtonToolTip() {
+		WebElement edit = this.driver.findElement(By
+				.id("deleteLeadNominationDetailsButton8"));
+		String toolTip = edit.getAttribute("title");
+		return toolTip;
+	}
+
+	public String getDeleteThisSequenceButtonToolTip() {
+		WebElement deleteThisSeq = this.driver.findElement(By
+				.cssSelector("input.formBtn.btn.deleteSequenceButton6"));
+		return deleteThisSeq.getAttribute("title");
 	}
 
 }

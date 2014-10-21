@@ -253,6 +253,7 @@ public class CommonLibrary {
 		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourceSpecies"));
 
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
+
 		this.selected_gf_created_date = gfPage.getCreatedByInDetailTab();
 		return gfPage.gotoHomePage();
 

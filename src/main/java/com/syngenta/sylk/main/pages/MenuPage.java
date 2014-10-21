@@ -49,6 +49,45 @@ public class MenuPage extends BasePage {
 		return page;
 	}
 
+	private boolean isCurator() {
+		WebElement iscurator = this.driver.findElement(By
+				.cssSelector("ul.nv li:nth-child(9)"));
+		WebElement curator = iscurator.findElement(By.tagName("span"));
+		if (StringUtils.equalsIgnoreCase(curator.getText(), "Curator")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public AdminAssignRolePage gotoAdminAssignRolePage() {
+		AdminAssignRolePage page = null;
+		int num = 0;
+		if (this.isCurator()) {
+			num = 11;
+		} else {
+			num = 10;
+		}
+		WebElement adminLi = this.driver.findElement(By
+				.cssSelector("ul.nv li:nth-child(" + num + ")"));
+		WebElement span = adminLi.findElement(By.tagName("span"));
+		span.click();
+
+		WebElement aTag = adminLi.findElement(By
+				.linkText("Assign Roles to Users"));
+		aTag.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
+		if (StringUtils.equalsIgnoreCase(this.getPageTitle(),
+				PageTitles.admin_assign_role_page_title)) {
+			page = new AdminAssignRolePage(this.driver);
+			PageFactory.initElements(this.driver, page);
+		} else {
+			throw new SyngentaException(
+					"Assign Roles to Users Page did not open up correctly.");
+		}
+		return page;
+	}
+
 	public AddRNAiTriggerPage goToRNAiTriggerPage() {
 		AddRNAiTriggerPage page = null;
 		WebElement span = this.addLi.findElement(By.tagName("span"));

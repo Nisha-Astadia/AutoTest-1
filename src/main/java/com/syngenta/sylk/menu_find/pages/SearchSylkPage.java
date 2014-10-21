@@ -184,34 +184,6 @@ public class SearchSylkPage extends MenuPage {
 
 	}
 
-	public BasePage clickAndOpenThisGF() {
-
-		BasePage page = null;
-		for (int a = 0; a < 50; a++) {
-			WebElement span = null;
-			try {
-				span = this.driver.findElement(By.cssSelector("div#hit_" + a
-						+ " a.pointer.f12.underline span"));
-			} catch (Exception e) {
-				// do nothing
-			}
-
-			span.click();
-			GeneticFeaturePage gfPage = new GeneticFeaturePage(this.driver);
-			PageFactory.initElements(this.driver, gfPage);
-			int count = gfPage.getLeadInfoCountOnTab();
-			if (count != 0) {
-				this.browserBack();
-			} else {
-				page = gfPage;
-				PageFactory.initElements(this.driver, page);
-				break;
-			}
-		}
-
-		return page;
-	}
-
 	public String isThereAClickableGFLink() {
 		String name = null;
 		int totalcount = this.getTotalResultCount();
@@ -352,6 +324,32 @@ public class SearchSylkPage extends MenuPage {
 		return page;
 	}
 
+	public BasePage clickAndOpenRNAiWithOutLiteratureEvidence() {
+		int totalcount = this.getTotalResultCount();
+		if (totalcount == 0) {
+			SearchSylkPage spage = new SearchSylkPage(this.driver);
+			PageFactory.initElements(this.driver, spage);
+			return spage;
+		}
+		RNAiPage page = null;
+		for (int a = 0; a < totalcount; a++) {
+			WebElement span = this.driver.findElement(By.cssSelector("div#hit_"
+					+ a + " a.pointer.f12.underline span"));
+			span.click();
+			RNAiPage rnaiPage = new RNAiPage(this.driver);
+			PageFactory.initElements(this.driver, rnaiPage);
+			int count = rnaiPage.getEvidenceCountOnTab();
+			if (count != 0) {
+				this.browserBack();
+			} else {
+				page = rnaiPage;
+				PageFactory.initElements(this.driver, page);
+				break;
+			}
+		}
+
+		return page;
+	}
 	// open an GF from search page which has at lease one evidence
 	public BasePage clickAndOpenGFWithLiteratureEvidence() {
 		int totalcount = this.getTotalResultCount();

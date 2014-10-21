@@ -134,7 +134,7 @@ public class HomePage extends MenuPage {
 		int totalEvidence = gfPage.getEvidenceSequenceCountOnTab();
 		if (totalEvidence > 0) {
 			ViewLiteratureEvidenceDetailsPageSequence viewPage = gfPage
-					.clickviewLiteratureEvidenceSequence();
+					.clickviewLiteratureEvidenceSequence(0);
 			// click on delete button
 			gfPage = viewPage.clickOnDelete();
 		}
@@ -185,4 +185,5 @@ public class HomePage extends MenuPage {
 		}
 
 	}
+
 }

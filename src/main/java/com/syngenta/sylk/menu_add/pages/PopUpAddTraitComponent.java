@@ -40,7 +40,10 @@ public class PopUpAddTraitComponent extends BasePage {
 	}
 
 	private void clickOnAdd() {
-		this.add.click();
+		try {
+			this.add.click();
+		} catch (Exception e) {
+		}
 	}
 	public BasePage addTrait(String text) {
 		this.enterText(text);

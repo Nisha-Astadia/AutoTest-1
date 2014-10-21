@@ -7,15 +7,79 @@
 	</listeners>
 
 	<test name="SyngentaAutomation">
-		<groups>
-			<run>
-			</run>
-		</groups>
-		<classes>
-			
+		
+		<classes>	
 		<!-- Lead test suites -->
 			<class name="com.syngenta.sylk.LeadProcess.LeadProcess_Workflow_Using_AccessionNo_Test" />
-			<class name="com.syngenta.sylk.LeadProcess.LeadProcess_Workflow_Using_SeqData_Test" />
+			
+		<!-- Add Genetic Feature  -->
+			<class name="com.syngenta.sylk.GeneticFeatures.test.Add_GeneticFeature_Using_AccessionNumber_Test" />
+			<class name="com.syngenta.sylk.GeneticFeatures.test.Add_GeneticFeature_Using_Nucleotide_Test" />		
+			<class name="com.syngenta.sylk.GeneticFeatures.test.Add_GeneticFeature_Using_Protein_Test" />
+			
+		<!--  Tabbed UI GF constructTab sequence -->
+			<class name="com.syngenta.sylk.tabbedui.gf.constructtab.test.Check_DifferentFields_In_ConstructTab_Seq_GF" />
+		
+		<!--  Tabbed UI GF delete gf button  -->	
+			<class name="com.syngenta.sylk.tabbedui.gf.deletegfbutton.test.Check_DeleteButton_Disabled_WithEvidence_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.deletegfbutton.test.Check_DeleteButton_Disabled_WithOrtholog_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.deletegfbutton.test.Check_DeleteButton_Disabled_withoutCuratorRole_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.deletegfbutton.test.Check_DeleteButton_Enabled_DeleteAppearsStrikedOut_GF" />
+			
+		<!--  Tabbed UI GF detailTab sequence -->	
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorRole_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NominatedAsLead_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_XREF_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Enabled_In_DetailTab_Seq_GF" /> 
+		
+		<!--  tabbed UI GF DetailTab  -->
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.test.Check_CreatedBy_NameAndTimeStamp_In_DetailTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.test.Check_Edit_Button_Disabled_In_DetailTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.test.Check_Edit_Button_Enabled_In_DetailTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.test.Check_GenomicDetail_In_NewGFTab_GF" />
+			
+		<!--  tabbed UI GF EvidenceTab  -->
+			<class name="com.syngenta.sylk.tabbedui.gf.evidencetab.test.Check_Vertically_Align_MagnifyingGlass_In_EvidenceTab_GF" />
+			
+		<!--  tabbed UI GF EvidenceSequenceTab  -->
+			<class name="com.syngenta.sylk.tabbedui.gf.evidencetabsequence.test.Check_VerticallyAlignMagnifyingGlass_In_EvidenceTab_Seq_GF" />
+			
+		<!--  tabbed UI GF LeadInfoTab  -->
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Delete_LeadInfoButton_Disabled_In_LeadInfoTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Delete_LeadInfoButton_Enabled_LeadInfoTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Edit_LeadInfo_And_RegulatoryCheck_Seq_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Edit_LeadInfoButton_Disabled_In_LeadInfoTab_GF" />
+			
+		<!--  tabbed UI GF RegulatoryInfoTab  -->
+			<class name="com.syngenta.sylk.tabbedui.gf.regulatorytab.test.Check_NoRegulatoryInfo_Message_EditAndModify_RegulatoryInfoTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.regulatorytab.test.Check_NoRegulatoryInfo_Message_RegulatoryInfoTab_GF" />
+			
+		<!-- tabbed UI GF RNAi -->
+			<class name="com.syngenta.sylk.tabbedui.gf.rnai.test.Check_RNAi_Tab_In_GF" />
+
+ 		<!--  tabbed UI GF ROi-->   	
+			<class name="com.syngenta.sylk.tabbedui.gf.roitab.test.Check_ROI_Tab_In_GF" />
+			
+		<!-- tabbed Ui RNAi ConstructTab -->
+			<class name="com.syngenta.sylk.tabbedui.rnai.Constructtab.test.Check_RNAiConstructTab_In_RNAi" />
+			
+		<!-- Tabbed UI RNAi Delete  -->
+			<class name="com.syngenta.sylk.tabbedui.rnai.delete.test.Check_DeleteButton_Disabled_Evidence_RNAi" />
+			<class name="com.syngenta.sylk.tabbedui.rnai.delete.test.Check_DeleteButton_Disabled_NoCuratorRole_RNAi" />
+			<class name="com.syngenta.sylk.tabbedui.rnai.delete.test.Check_DeleteButton_Disabled_NominatedToConstruct_RNAi" />
+			
+		<!-- Tabbed UI DetailTab -->	
+			<class name="com.syngenta.sylk.tabbedui.rnai.detailtab.test.Check_CreatedBy_CreatedDate_In_DetailsTab_RNAi" />
+			<class name="com.syngenta.sylk.tabbedui.rnai.detailtab.test.Check_EditButton_Disabled_In_DetailTab_RNAi" />
+			<class name="com.syngenta.sylk.tabbedui.rnai.detailtab.test.Check_EditButton_Enabled_In_DetailTab_RNAi" />
+		
+		<!-- Tabbed UI EvidenceTab -->
+			<class name="com.syngenta.sylk.tabbedui.rnai.evidencetab.test.Check_VerticallyAlignMagnifyingGlass_Evidence_RNAi" />
+			
+			<!-- Tabbed UI RNAi SequenceTab -->
+			<class name="com.syngenta.sylk.tabbedui.rnai.sequencetab.test.Check_EditButton_Disabled_In_DetailTab_SequenceSec_RNAi" />
+		
 		
 		</classes>
 	</test>

@@ -216,18 +216,23 @@ public class LeadProcess_Workflow_Using_AccessionNo_Test {
 				createLiterature.enterRationale(columns.get("rationale"));
 
 				createLiterature.enterObservation(columns.get("observation"));
+				boolean seqence = createLiterature
+						.isThereOneSequenceWhenAddingEvidence();
+				if (!seqence) {
+					PopUpAddSequenceAccession popUpAddseqAccession = createLiterature
 
-				PopUpAddSequenceAccession popUpAddseqAccession = createLiterature
-						.clickOnAddSequence();
+					.clickOnAddSequence();
 
-				if (popUpAddseqAccession == null) {
-					reporter.assertThisAsFail("Click on add sequence button on create literature page did not open up the popup.");
-				} else {
-					reporter.reportPass("Click on add sequence button on create literature page opens up a popup.");
+					if (popUpAddseqAccession == null) {
+						reporter.assertThisAsFail("Click on add sequence button on create literature page did not open up the popup.");
+					} else {
+						reporter.reportPass("Click on add sequence button on create literature page opens up a popup.");
+					}
+
+					createLiterature = popUpAddseqAccession
+							.addSequenceName(columns.get("addSeq"));
+
 				}
-
-				createLiterature = popUpAddseqAccession.addSequenceName(columns
-						.get("addSeq"));
 
 				PopUpAddTraitComponent popUptrait = createLiterature
 						.clickAddTraitComponent();

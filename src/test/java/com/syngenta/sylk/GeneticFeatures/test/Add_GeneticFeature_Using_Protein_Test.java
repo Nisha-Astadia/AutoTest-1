@@ -372,7 +372,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			// step 30
 			newGFPage.enterSourceProtein(columns.get("proteinSource"));
 
-			newGFPage.enterAccessionNoProtein("angaj23");
+			newGFPage.enterAccessionNoProtein("angaj2010");
 
 			newGFPage.enterGINoProtein(columns.get("ProteinGiNo"));
 			// check for text is entered as typed

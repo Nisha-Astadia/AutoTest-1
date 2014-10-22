@@ -828,7 +828,8 @@ public class GeneticFeaturePage extends MenuPage {
 				break;
 			}
 		}
-
+		this.waitForPageToLoad();
+		this.waitForAjax();
 		ConstructNominationPage page = new ConstructNominationPage(this.driver);
 		PageFactory.initElements(this.driver, page);
 		return page;

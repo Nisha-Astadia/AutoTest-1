@@ -17,6 +17,7 @@ import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
+import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class Check_DifferentFields_In_ConstructTab_Seq_GF {
@@ -94,6 +95,19 @@ public class Check_DifferentFields_In_ConstructTab_Seq_GF {
 					+ " displays "
 					+ searchResults
 					+ " results");
+
+			GeneticFeaturePage gfPage = (GeneticFeaturePage) this.searchSylkpage
+					.clickAndOpenAGFWithConstruct();
+
+			List<String> a = gfPage.getConstructColumns();
+			System.out.println(a);
+			if (a.size() == 8) {
+				reporter.reportPass("Verify That there is a header composed of 8 columns");
+
+			} else {
+				reporter.verifyThisAsFail("Verify That there is a header composed of 8 columns");
+			}
+
 		}
 
 	}

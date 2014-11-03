@@ -147,6 +147,15 @@ public class HomePage extends MenuPage {
 
 	}
 
+	public HomePage deleteThisGFWithOutCheckingAllTabs(HomePage home,
+			String newGFlink) {
+		GeneticFeaturePage gfPage = home.clickNewGeneticFeatureLink(newGFlink);
+		// go to contruct tab
+		gfPage = gfPage.clickOnConstructTab();
+		home = gfPage.clickDeleleThisGeneticFeature();
+		return home;
+	}
+
 	public void deleteThisRNAi(HomePage homepage, String rnaiTriggerName,
 			String user) {
 		SearchSylkPage search = homepage.goToGFRNAiTriggerROIpromoter();

@@ -25,7 +25,7 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
+public class Check_That_UserCanSearchForAnUpdated_GF_edited {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
@@ -58,16 +58,15 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search for a new added GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForANewAdded_GF_Synonyms", "synonyms",
+	@Test(enabled = true, description = "check that user can search for an edited GF >> SYNONYMS", dataProvider = "TestData", groups = {
+			"Check_That_UserCanSearchForAndEdited_GF_Synonyms", "synonyms",
 			"regression"})
-	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
+	public void check_That_UserCanSearchForAndEdited_GF_Synonyms(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
 
 		SyngentaReporter reporter = new SyngentaReporter();
 		CommonLibrary common = new CommonLibrary();
-
 		reporter.reportPass("Login to SyLK");
 
 		this.addNewGFPage = this.homepage.goToAddGeneticFeaturePage();
@@ -101,7 +100,7 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 			newGFPage = (NewGeneticFeaturePage) page;
 		}
 
-		newGFPage.enterSymbolId(columns.get("symbol"));
+		newGFPage.enterSymbolId(this.symbol);
 		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
 
@@ -113,6 +112,15 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.genetic_feature_page_title,
 				"click add as new GF and Genetic feature is created and genetic feature page shows up");
 
+		reporter.reportPass("Add a new genetic feature page with symbol= "
+				+ this.symbol);
+		this.symbol = "Q2_symbolEdited";
+		gfPage = gfPage.clickDetailTab();
+		gfPage = gfPage.clickOnEditDetailTab();
+		gfPage.enterSymbolDetailTab(this.symbol);
+		gfPage = gfPage.clickOnSaveDetailTab();
+		reporter.reportPass("Edit this new genetic feature page with symbol= "
+				+ this.symbol);
 		this.homepage = gfPage.gotoHomePage();
 
 		this.homepage.driverQuit();
@@ -126,7 +134,7 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.search_sylk_page_title,
 				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(columns.get("symbol"));
+		searchPage.enterSylkSearch(this.symbol);
 		reporter.reportPass("enter  \"GF_Synonyms\" in search field");
 		searchPage.selectType("Genetic Feature");
 		reporter.reportPass("select type GF");

@@ -1,14 +1,8 @@
-package com.syngenta.sylk.gf.synonyms;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+package com.syngenta.sylk.search.container;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
@@ -25,29 +19,27 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
+public class SearchByNewAddedGF_Name {
 
-	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
 	private String symbol;
+	private String proteinData = "METLVNLIVASFLYKLGLFSSLGVSQSHYVKANGLSTTTKLSSICKTSDLTI"
+			+ "HKKSNRTRKFSVSAGYRDGSRSGSSGDFIAGFLLGGAVFGAVAYIFAPQIRR"
+			+ "SVLNEEDEYGFEKPKQPTYYDEGLEKTRETLNEKIGQLNSAIDNVSSRLRGRE"
+			+ "KNTSSLNVPVETDPEVEATT";
+	private String sourceSpice = "Acetobacter xylinum";
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
-		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_That_UserCanSearchForANewAdded_GF_Synonyms.xlsx");
+
 	}
 
 	@BeforeMethod(alwaysRun = true)
 	public void testSetUp() {
 		this.lp = LandingPage.getLandingPage();
 		this.homepage = this.lp.goToHomePage();
-	}
-
-	@DataProvider(name = "TestData", parallel = false)
-	public Iterator<Object[]> loadTestData() {
-		return this.testData.iterator();
 	}
 
 	@AfterClass(alwaysRun = true)
@@ -58,13 +50,11 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search for a new added GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForANewAdded_GF_Synonyms", "synonyms",
+	@Test(enabled = true, description = "check that user can search by already existing GF >> Container source code", groups = {
+			"CheckAlreadyExistinGF_ContainerSourceCode", "synonyms",
 			"regression"})
-	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
-			String testDescription, String row_num,
-			HashMap<String, String> columns) {
-
+	public void checkAlreadyExistinGF_ContainerSourceCode() {
+		String name = "name_GF";
 		SyngentaReporter reporter = new SyngentaReporter();
 		CommonLibrary common = new CommonLibrary();
 
@@ -76,13 +66,13 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.add_new_genetic_feature_page_title,
 				"Open 'Add New Genetic Feature Page'");
 
-		this.symbol = columns.get("symbol");
+		this.symbol = "GF_name_test";
 
 		// step 7
-		this.addNewGFPage.selectGeneType(columns.get("gene_type"));
+		this.addNewGFPage.selectGeneType("Gene");
 
 		// step 8
-		this.addNewGFPage.enterTextInSequence(columns.get("proteindata"));
+		this.addNewGFPage.enterTextInSequence(this.proteinData);
 
 		GeneticFeatureManualEntryPage gfmanualEntrypage = (GeneticFeatureManualEntryPage) this.addNewGFPage
 				.clickFindMatches();
@@ -101,12 +91,18 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 			newGFPage = (NewGeneticFeaturePage) page;
 		}
 
-		newGFPage.enterSymbolId(columns.get("symbol"));
-		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
+		newGFPage.enterSymbolId(this.symbol);
+		newGFPage.enterSourceSpeciesTaxonomy(this.sourceSpice);
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
-
+		/*
+		 * Edit gf and add name
+		 */
+		gfPage = gfPage.clickOnEditDetailTab();
+		gfPage.enterNameDetailTab(name);
+		gfPage = gfPage.clickOnSaveDetailTab();
 		reporter.reportPass("fill in the mandatory fields");
-		reporter.reportPass("enter \"GF_Synonyms\" in Synonym field");
+		reporter.reportPass("enter \"" + name
+				+ "\" in name field after clik on edit in detail tab");
 
 		reporter.verifyEqual(
 				gfPage.getPageTitle(),
@@ -126,8 +122,8 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.search_sylk_page_title,
 				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(columns.get("symbol"));
-		reporter.reportPass("enter  \"GF_Synonyms\" in search field");
+		searchPage.enterSylkSearch(this.symbol);
+		reporter.reportPass("enter  \"" + name + "\" in search field");
 		searchPage.selectType("Genetic Feature");
 		reporter.reportPass("select type GF");
 		searchPage = searchPage.clickSearch();

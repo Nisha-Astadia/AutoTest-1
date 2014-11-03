@@ -25,18 +25,18 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
+public class Check_That_UserCanSearchForANewAdded_GF_Chromosome {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
-	private String symbol;
+	private String chromosome;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_That_UserCanSearchForANewAdded_GF_Synonyms.xlsx");
+				.getTestDataAsObjectArray("Check_That_UserCanSearchForANewAdded_GF_Chromosome.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -59,14 +59,13 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 	}
 
 	@Test(enabled = true, description = "check that user can search for a new added GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForANewAdded_GF_Synonyms", "synonyms",
+			"Check_That_UserCanSearchForANewAdded_GF_Chromosome", "synonyms",
 			"regression"})
-	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
+	public void check_That_UserCanSearchForANewAdded_GF_Chromosome(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
-
+		String symbol = "GF_chromosome";
 		SyngentaReporter reporter = new SyngentaReporter();
-		CommonLibrary common = new CommonLibrary();
 
 		reporter.reportPass("Login to SyLK");
 
@@ -76,7 +75,7 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.add_new_genetic_feature_page_title,
 				"Open 'Add New Genetic Feature Page'");
 
-		this.symbol = columns.get("symbol");
+		this.chromosome = columns.get("chromosome");
 
 		// step 7
 		this.addNewGFPage.selectGeneType(columns.get("gene_type"));
@@ -100,13 +99,14 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 		} else {
 			newGFPage = (NewGeneticFeaturePage) page;
 		}
-
-		newGFPage.enterSymbolId(columns.get("symbol"));
+		newGFPage.enterSymbolId(symbol);
+		newGFPage.enterChromosomeTaxonomy(this.chromosome);
 		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
 
 		reporter.reportPass("fill in the mandatory fields");
-		reporter.reportPass("enter \"GF_Synonyms\" in Synonym field");
+		reporter.reportPass("enter \"" + this.chromosome
+				+ "\" in Chromosome field");
 
 		reporter.verifyEqual(
 				gfPage.getPageTitle(),
@@ -126,13 +126,15 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.search_sylk_page_title,
 				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(columns.get("symbol"));
-		reporter.reportPass("enter  \"GF_Synonyms\" in search field");
+		searchPage.enterSylkSearch(this.chromosome);
+		reporter.reportPass("enter  \"" + this.chromosome
+				+ "\" in search field");
 		searchPage.selectType("Genetic Feature");
 		reporter.reportPass("select type GF");
 		searchPage = searchPage.clickSearch();
-		String finalStep = "GF with Synonym  \"GF_Synonyms\" should be appeared in search result";
-		BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
+		String finalStep = "GF with Chromosome  \"" + this.chromosome
+				+ "\" should be appeared in search result";
+		BasePage base = searchPage.clickAndOpenThisGF(symbol);
 		if (base instanceof GeneticFeaturePage) {
 			reporter.reportPass(finalStep);
 			this.homepage = searchPage.gotoHomePage();
@@ -141,8 +143,7 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 			this.homepage = ((GeneticFeaturePage) base).gotoHomePage();
 		}
 
-		this.homepage.deleteThisGFWithOutCheckingAllTabs(this.homepage,
-				this.symbol);
+		this.homepage.deleteThisGFWithOutCheckingAllTabs(this.homepage, symbol);
 
 	}
 }

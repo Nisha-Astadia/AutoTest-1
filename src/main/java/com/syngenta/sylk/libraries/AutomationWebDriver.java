@@ -35,12 +35,15 @@ public class AutomationWebDriver {
 
 			// Method and Description - void setCapability(java.lang.String
 			// capabilityName, boolean value)
-			// capabilities
-			// .setCapability(
-			// InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-			// true);
+			capabilities
+					.setCapability(
+							InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+							true);
 			capabilities.setCapability(
 					InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
+
+			// capabilities.setCapability(
+			// InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, true);
 			// InternetExplorerDriver(Capabilities capabilities)
 			WebDriver driver = new InternetExplorerDriver(capabilities);
 

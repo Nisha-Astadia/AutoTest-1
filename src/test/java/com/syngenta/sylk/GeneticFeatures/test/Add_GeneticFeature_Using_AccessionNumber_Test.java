@@ -227,13 +227,13 @@ public class Add_GeneticFeature_Using_AccessionNumber_Test {
 			// Clear again
 			this.addNewGFPage.clickClear();
 
+			this.addNewGFPage.enterTextInSequence(columns.get("accessionNo"));
+
 			/*
 			 * Step 10 : Remove the invalid characters and click on the Find
 			 * Matches button.
 			 */
 			// temp_data = this.accessionNo;
-
-			this.addNewGFPage.enterTextInSequence(columns.get("accessionNo"));
 
 			BasePage page = this.addNewGFPage.clickFindMatches();
 			if (page instanceof GeneticFeaturePage) {

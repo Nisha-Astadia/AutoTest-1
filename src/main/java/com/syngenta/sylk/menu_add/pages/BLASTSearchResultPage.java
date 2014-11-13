@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
@@ -182,6 +183,7 @@ public class BLASTSearchResultPage extends MenuPage {
 		this.addAsNewGF.click();
 		this.waitForPageToLoad();
 		this.waitForAjax();
+		new CommonLibrary().slowDown();
 		String dialogId = "ui-dialog-title-flagForCurationDialog";
 		WebElement popUp = null;
 		try {
@@ -205,6 +207,7 @@ public class BLASTSearchResultPage extends MenuPage {
 		}
 
 		else {
+
 			throw new SyngentaException(
 					"New Genetic Feature Page did not open up correctly.");
 		}

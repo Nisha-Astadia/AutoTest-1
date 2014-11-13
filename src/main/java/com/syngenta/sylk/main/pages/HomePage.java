@@ -92,6 +92,20 @@ public class HomePage extends MenuPage {
 		ConstructStatusSearchPage cSearchPage = null;
 		// click on this gf link
 		GeneticFeaturePage gfPage = home.clickNewGeneticFeatureLink(newGFlink);
+		if (gfPage == null) {
+			SearchSylkPage searchsylkpage = home.goToGFRNAiTriggerROIpromoter();
+			searchsylkpage.enterSylkSearch(newGFlink);
+			searchsylkpage.selectType("Genetic Feature");
+			searchsylkpage = searchsylkpage.clickSearch();
+			BasePage basepage = searchsylkpage.clickAndOpenThisGF(newGFlink);
+			if (basepage instanceof GeneticFeaturePage) {
+				gfPage = (GeneticFeaturePage) basepage;
+			} else {
+				home = searchsylkpage.gotoHomePage();
+				return home;
+			}
+
+		}
 		// go to contruct tab
 		gfPage = gfPage.clickOnConstructTab();
 

@@ -161,7 +161,7 @@ public class CommonLibrary {
 	public void slowDown() {// do not use this, unless absolutely necessary
 
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
 

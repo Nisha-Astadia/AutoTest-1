@@ -1,4 +1,4 @@
-package com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test;
+package com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +25,7 @@ import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequenc
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class Check_DeleteThisSequenceButton_Enabled_In_DetailTab_Seq_GF {
+
 	private LandingPage lp;
 	private HomePage homepage;
 	private SearchSylkPage searchSylkpage;

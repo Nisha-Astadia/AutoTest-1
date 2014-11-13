@@ -27,11 +27,11 @@
 			<class name="com.syngenta.sylk.tabbedui.gf.deletegfbutton.test.Check_DeleteButton_Enabled_DeleteAppearsStrikedOut_GF" />
 			
 		<!--  Tabbed UI GF detailTab sequence -->	
-			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorRole_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NominatedAsLead_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_XREF_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test.Check_DeleteThisSequenceButton_Enabled_In_DetailTab_Seq_GF" /> 
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorRole_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NominatedAsLead_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_XREF_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Enabled_In_DetailTab_Seq_GF" /> 
 		
 		<!--  tabbed UI GF DetailTab  -->
 			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.test.Check_CreatedBy_NameAndTimeStamp_In_DetailTab_GF" />

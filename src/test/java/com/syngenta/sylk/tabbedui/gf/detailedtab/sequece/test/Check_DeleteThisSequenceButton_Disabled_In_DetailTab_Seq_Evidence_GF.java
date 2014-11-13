@@ -1,4 +1,4 @@
-package com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test;
+package com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_G
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_DeleteThisSequence_Disabled_GF.xlsx");
+				.getTestDataAsObjectArray("Check_DeleteThisSequenceButton_DetailTab_SeqSec.xlsx");
 	}
 
 	@AfterClass(alwaysRun = true)

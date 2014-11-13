@@ -1,4 +1,4 @@
-package com.syngenta.sylk.gf.synonyms;
+package com.syngenta.sylk.search.locus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_That_UserCanSearchForAnUpdated_GF_edited {
+public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;

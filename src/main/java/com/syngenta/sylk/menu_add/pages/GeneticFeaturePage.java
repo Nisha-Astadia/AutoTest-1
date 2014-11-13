@@ -112,6 +112,9 @@ public class GeneticFeaturePage extends MenuPage {
 	@FindBy(css = "input[id='edit1']")
 	private WebElement edit;
 
+	@FindBy(id = "ro_synonyms")
+	private WebElement synonyms;
+
 	@FindBy(css = "input[class='formBtn btn deleteSequenceButton6'][value='Delete This Sequence']")
 	private WebElement deleteThisSequence;
 
@@ -1796,6 +1799,11 @@ public class GeneticFeaturePage extends MenuPage {
 		WebElement edit = this.driver.findElement(By.id("edit8"));
 		boolean flag = edit.isEnabled();
 		return flag;
+	}
+
+	public String getTextOfSynonyms() {
+		String synony = this.synonyms.getText();
+		return synony;
 	}
 
 	public boolean isDeleteButtonInLeadInfoEnabled() {

@@ -1,4 +1,4 @@
-package com.syngenta.sylk.gf.synonyms;
+package com.syngenta.sylk.search.locus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +32,7 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
 	private String symbol;
+	private String synonyms;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
@@ -66,7 +67,6 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 			HashMap<String, String> columns) {
 
 		SyngentaReporter reporter = new SyngentaReporter();
-		CommonLibrary common = new CommonLibrary();
 
 		reporter.reportPass("Login to SyLK");
 
@@ -103,6 +103,8 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 
 		newGFPage.enterSymbolId(columns.get("symbol"));
 		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
+		newGFPage.enterSynonymsId(columns.get("synonyms"));
+
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
 
 		reporter.reportPass("fill in the mandatory fields");
@@ -122,11 +124,13 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 
 		SearchSylkPage searchPage = this.homepage
 				.goToGFRNAiTriggerROIpromoter();
+
 		reporter.verifyEqual(searchPage.getPageTitle(),
 				PageTitles.search_sylk_page_title,
 				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(columns.get("symbol"));
+		searchPage.enterSylkSearch(columns.get("synonyms"));
+
 		reporter.reportPass("enter  \"GF_Synonyms\" in search field");
 		searchPage.selectType("Genetic Feature");
 		reporter.reportPass("select type GF");
@@ -143,6 +147,5 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 
 		this.homepage.deleteThisGFWithOutCheckingAllTabs(this.homepage,
 				this.symbol);
-
 	}
 }

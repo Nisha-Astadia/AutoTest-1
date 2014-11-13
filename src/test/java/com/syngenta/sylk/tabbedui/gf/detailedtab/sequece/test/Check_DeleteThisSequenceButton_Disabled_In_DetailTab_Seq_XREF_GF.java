@@ -1,4 +1,4 @@
-package com.syngenta.sylk.tabbedui.gf.detailedtab.sequemce.test;
+package com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test;
 
 import java.util.HashMap;
 

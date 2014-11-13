@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -90,18 +89,26 @@ public class AddNewGeneticFeaturePage extends MenuPage {
 		return this.radios.get(0).isEnabled();
 	}
 
-	// entering sequence for a Gene type
-	public void enterTextInSequence(String text) {
-		text = StringUtils.trim(text);
-		this.sequence.clear();
-		// this.sequence.sendKeys(text);
+	// // entering sequence text for a Gene type
+	// // when running on IE 9:
+	// public void enterTextInSequence(String text) {
+	// text = StringUtils.trim(text);
+	// this.sequence.clear();
+	// Actions action = new Actions(this.driver);
+	// action.sendKeys(this.sequence, text);
+	// action.perform();
+	//
+	// this.waitUntilClickable(By.name("sequenceType"), 10000);
+	// }
 
-		Actions action = new Actions(this.driver);
-		action.sendKeys(this.sequence, text);
-		action.perform();
-		// .sendKeys(this.sequence, Keys.DOWN)
-		// .sendKeys(this.sequence, Keys.SPACE)
-		// .sendKeys(this.sequence, Keys.BACK_SPACE)
+	// entering sequence text for a Gene type
+	// when running on IE 11 :
+	public void enterTextInSequence(String text) {
+		// text = StringUtils.trim(text);
+		// text = StringUtils.deleteWhitespace(text);
+		this.sequence.clear();
+		this.sequence.click();
+		this.sequence.sendKeys(text);
 		this.waitUntilClickable(By.name("sequenceType"), 10000);
 	}
 

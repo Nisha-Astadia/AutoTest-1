@@ -1,4 +1,4 @@
-package com.syngenta.sylk.gf.synonyms;
+package com.syngenta.sylk.search.locus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

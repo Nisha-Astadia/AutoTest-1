@@ -60,8 +60,8 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 	}
 
 	@Test(enabled = true, description = "check that user can search for a new added GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForANewAdded_GF_Synonyms", "synonyms",
-			"regression"})
+			"Check_That_UserCanSearchForANewAdded_GF_Synonyms", "Locus",
+			"Search SyLK", "regression"})
 	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
@@ -77,6 +77,7 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				"Open 'Add New Genetic Feature Page'");
 
 		this.symbol = columns.get("symbol");
+		this.synonyms = columns.get("gfsynonyms");
 
 		// step 7
 		this.addNewGFPage.selectGeneType(columns.get("gene_type"));
@@ -101,14 +102,14 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 			newGFPage = (NewGeneticFeaturePage) page;
 		}
 
-		newGFPage.enterSymbolId(columns.get("symbol"));
+		newGFPage.enterSymbolId(this.symbol);
 		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
-		newGFPage.enterSynonymsId(columns.get("synonyms"));
+		newGFPage.enterSynonymsId(this.synonyms);
 
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
 
 		reporter.reportPass("fill in the mandatory fields");
-		reporter.reportPass("enter \"GF_Synonyms\" in Synonym field");
+		reporter.reportPass("enter \"" + this.synonyms + "\" in Synonym field");
 
 		reporter.verifyEqual(
 				gfPage.getPageTitle(),
@@ -129,13 +130,15 @@ public class Check_That_UserCanSearchForANewAdded_GF_Synonyms {
 				PageTitles.search_sylk_page_title,
 				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(columns.get("synonyms"));
+		searchPage.enterSylkSearch(this.synonyms);
 
-		reporter.reportPass("enter  \"GF_Synonyms\" in search field");
+		reporter.reportPass("enter  \"" + (this.synonyms)
+				+ "\" in search field");
 		searchPage.selectType("Genetic Feature");
 		reporter.reportPass("select type GF");
 		searchPage = searchPage.clickSearch();
-		String finalStep = "GF with Synonym  \"GF_Synonyms\" should be appeared in search result";
+		String finalStep = "GF with Synonym  \"" + this.synonyms
+				+ "\" should be appeared in search result";
 		BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
 		if (base instanceof GeneticFeaturePage) {
 			reporter.reportPass(finalStep);

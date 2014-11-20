@@ -58,9 +58,9 @@ public class Check_That_UserCanSearchForANewAdded_GF_Chromosome {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search for a new added GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForANewAdded_GF_Chromosome", "synonyms",
-			"regression"})
+	@Test(enabled = true, description = "check that user can search for a new added GF >> CHROMOSOME", dataProvider = "TestData", groups = {
+			"Check_That_UserCanSearchForANewAdded_GF_Chromosome", "Locus",
+			"Search SyLK", "regression"})
 	public void check_That_UserCanSearchForANewAdded_GF_Chromosome(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {

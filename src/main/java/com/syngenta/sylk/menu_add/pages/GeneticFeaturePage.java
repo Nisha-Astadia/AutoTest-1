@@ -115,6 +115,9 @@ public class GeneticFeaturePage extends MenuPage {
 	@FindBy(id = "ro_synonyms")
 	private WebElement synonyms;
 
+	@FindBy(id = "synonyms")
+	private WebElement synonymsedit;
+
 	@FindBy(css = "input[class='formBtn btn deleteSequenceButton6'][value='Delete This Sequence']")
 	private WebElement deleteThisSequence;
 
@@ -1828,6 +1831,12 @@ public class GeneticFeaturePage extends MenuPage {
 		WebElement deleteThisSeq = this.driver.findElement(By
 				.cssSelector("input.formBtn.btn.deleteSequenceButton6"));
 		return deleteThisSeq.getAttribute("title");
+	}
+
+	public String getEditedSynonyms() {
+		String synonymsEdit = this.synonymsedit.getText();
+		// TODO Auto-generated method stub
+		return synonymsEdit;
 	}
 
 }

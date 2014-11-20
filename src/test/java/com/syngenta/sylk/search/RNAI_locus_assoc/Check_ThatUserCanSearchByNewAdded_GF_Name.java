@@ -1,14 +1,8 @@
 package com.syngenta.sylk.search.RNAI_locus_assoc;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
@@ -23,30 +17,30 @@ import com.syngenta.sylk.menu_add.pages.GeneticFeatureManualEntryPage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
+import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 
-	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
-	private String chromosome;
+	private String symbol;
+	private String proteinData = "METLVNLIVASFLYKLGLFSSLGVSQSHYVKANGLSTTTKLSSICKTSDLTI"
+			+ "HKKSNRTRKFSVSAGYRDGSRSGSSGDFIAGFLLGGAVFGAVAYIFAPQIRR"
+			+ "SVLNEEDEYGFEKPKQPTYYDEGLEKTRETLNEKIGQLNSAIDNVSSRLRGRE"
+			+ "KNTSSLNVPVETDPEVEATT";
+	private String sourceSpice = "Acetobacter xylinum";
+	private String name = "name_GF";
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
-		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_ThatUserCanSearchByNewAdded_GF_Name.xlsx");
+
 	}
 
 	@BeforeMethod(alwaysRun = true)
 	public void testSetUp() {
 		this.lp = LandingPage.getLandingPage();
 		this.homepage = this.lp.goToHomePage();
-	}
-
-	@DataProvider(name = "TestData", parallel = false)
-	public Iterator<Object[]> loadTestData() {
-		return this.testData.iterator();
 	}
 
 	@AfterClass(alwaysRun = true)
@@ -57,14 +51,13 @@ public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search by new added GF>> Name", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForANewAdded_GF_Chromosome", "synonyms",
-			"regression"})
-	public void check_That_UserCanSearchForANewAdded_GF_Chromosome(
-			String testDescription, String row_num,
-			HashMap<String, String> columns) {
-		String symbol = "GF_chromosome";
+	@Test(enabled = true, description = "check that user can search by new added GF>> Name", groups = {
+			"Check_ThatUserCanSearchByNewAdded_GF_Name", "RNAI_LOCUS_ASSOC",
+			"Search SyLK", "regression"})
+	public void checkAlreadyExistinGF_ContainerSourceCode() {
+
 		SyngentaReporter reporter = new SyngentaReporter();
+		CommonLibrary common = new CommonLibrary();
 
 		reporter.reportPass("Login to SyLK");
 
@@ -74,13 +67,13 @@ public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 				PageTitles.add_new_genetic_feature_page_title,
 				"Open 'Add New Genetic Feature Page'");
 
-		this.chromosome = columns.get("chromosome");
+		this.symbol = "GF_name_test";
 
 		// step 7
-		this.addNewGFPage.selectGeneType(columns.get("gene_type"));
+		this.addNewGFPage.selectGeneType("Gene");
 
 		// step 8
-		this.addNewGFPage.enterTextInSequence(columns.get("proteindata"));
+		this.addNewGFPage.enterTextInSequence(this.proteinData);
 
 		GeneticFeatureManualEntryPage gfmanualEntrypage = (GeneticFeatureManualEntryPage) this.addNewGFPage
 				.clickFindMatches();
@@ -98,10 +91,57 @@ public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 		} else {
 			newGFPage = (NewGeneticFeaturePage) page;
 		}
-		newGFPage.enterSymbolId(symbol);
-		newGFPage.enterChromosomeTaxonomy(this.chromosome);
-		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
+
+		newGFPage.enterNameId(this.name);
+		newGFPage.enterSymbolId(this.symbol);
+		newGFPage.enterSourceSpeciesTaxonomy(this.sourceSpice);
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
+		/*
+		 * Edit gf and add name
+		 */
+		// gfPage = gfPage.clickOnEditDetailTab();
+		// gfPage.enterNameDetailTab(this.name);
+		// gfPage = gfPage.clickOnSaveDetailTab();
+		reporter.reportPass("fill in the mandatory fields");
+		reporter.reportPass("enter \"" + this.name
+				+ "\" in name field after clik on edit in detail tab");
+
+		reporter.verifyEqual(
+				gfPage.getPageTitle(),
+				PageTitles.genetic_feature_page_title,
+				"click add as new GF and Genetic feature is created and genetic feature page shows up");
+
+		this.homepage = gfPage.gotoHomePage();
+
+		this.homepage.driverQuit();
+
+		this.lp = LandingPage.getLandingPage();
+		this.homepage = this.lp.goToHomePage();
+
+		SearchSylkPage searchPage = this.homepage
+				.goToGFRNAiTriggerROIpromoter();
+		reporter.verifyEqual(searchPage.getPageTitle(),
+				PageTitles.search_sylk_page_title,
+				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
+
+		searchPage.enterSylkSearch(this.name);
+		reporter.reportPass("enter  \"" + this.name + "\" in search field");
+		searchPage.selectType("Genetic Feature");
+		reporter.reportPass("select type GF");
+		searchPage = searchPage.clickSearch();
+		String finalStep = "GF with Name  \"" + this.name
+				+ "\" should be appeared in search result";
+		BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
+		if (base instanceof GeneticFeaturePage) {
+			reporter.reportPass(finalStep);
+			this.homepage = searchPage.gotoHomePage();
+		} else {
+			reporter.verifyThisAsFail(finalStep);
+			this.homepage = ((GeneticFeaturePage) base).gotoHomePage();
+		}
+
+		this.homepage.deleteThisGFWithOutCheckingAllTabs(this.homepage,
+				this.symbol);
 
 	}
 }

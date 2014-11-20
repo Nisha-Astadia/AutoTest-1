@@ -32,7 +32,8 @@ public class AutomationWebDriver {
 			// driver = new InternetExplorerDriver(caps);
 			DesiredCapabilities capabilities = DesiredCapabilities
 					.internetExplorer();
-
+			// capabilities.setCapability(
+			// InternetExplorerDriver.INITIAL_BROWSER_URL, "");
 			// Method and Description - void setCapability(java.lang.String
 			// capabilityName, boolean value)
 			capabilities

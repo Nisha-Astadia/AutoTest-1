@@ -368,6 +368,7 @@ public class NewGeneticFeaturePage extends MenuPage {
 
 	public void enterAccessionNoProtein(String data) {
 		this.ProteinAccessionNo.clear();
+		this.ProteinAccessionNo.click();
 		this.ProteinAccessionNo.sendKeys(data);
 	}
 

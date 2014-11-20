@@ -32,11 +32,12 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
 	private String symbol;
+	private String editedsynonyms;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_That_UserCanSearchForANewAdded_GF_Synonyms.xlsx");
+				.getTestDataAsObjectArray("Check_That_UserCanSearchForAnUpdated_GF_Synonyms.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -58,9 +59,9 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search for an edited GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForAndEdited_GF_Synonyms", "synonyms",
-			"regression"})
+	@Test(enabled = true, description = "check that user can search for an updated  GF >> SYNONYMS", dataProvider = "TestData", groups = {
+			"Check_That_UserCanSearchForAnUpdated_GF_Synonyms", "Locus",
+			"Search SyLK", "regression"})
 	public void check_That_UserCanSearchForAndEdited_GF_Synonyms(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
@@ -75,7 +76,7 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 				PageTitles.add_new_genetic_feature_page_title,
 				"Open 'Add New Genetic Feature Page'");
 
-		this.symbol = columns.get("symbol");
+		this.editedsynonyms = columns.get("editedSynonym");
 
 		// step 7
 		this.addNewGFPage.selectGeneType(columns.get("gene_type"));
@@ -101,26 +102,28 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 		}
 
 		newGFPage.enterSymbolId(this.symbol);
+		newGFPage.enterSynonymsId(columns.get("synonyms"));
 		newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
 		GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
 
 		reporter.reportPass("fill in the mandatory fields");
-		reporter.reportPass("enter \"GF_Synonyms\" in Synonym field");
+		reporter.reportPass("enter synonyms \"" + (columns.get("synonyms"))
+				+ " \" in Synonym field");
 
 		reporter.verifyEqual(
 				gfPage.getPageTitle(),
 				PageTitles.genetic_feature_page_title,
 				"click add as new GF and Genetic feature is created and genetic feature page shows up");
 
-		reporter.reportPass("Add a new genetic feature page with symbol= "
-				+ this.symbol);
-		this.symbol = "Q2_symbolEdited";
-		gfPage = gfPage.clickDetailTab();
 		gfPage = gfPage.clickOnEditDetailTab();
-		gfPage.enterSymbolDetailTab(this.symbol);
+		gfPage.enterSynonymsDetailTab(this.editedsynonyms);
 		gfPage = gfPage.clickOnSaveDetailTab();
-		reporter.reportPass("Edit this new genetic feature page with symbol= "
-				+ this.symbol);
+
+		String newSynonyms = gfPage.getEditedSynonyms();
+
+		reporter.reportPass("The synonyms got edited and saved with the new  value"
+				+ newSynonyms);
+
 		this.homepage = gfPage.gotoHomePage();
 
 		this.homepage.driverQuit();
@@ -134,12 +137,13 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 				PageTitles.search_sylk_page_title,
 				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(this.symbol);
-		reporter.reportPass("enter  \"GF_Synonyms\" in search field");
+		searchPage.enterSylkSearch(this.editedsynonyms);
+		reporter.reportPass("enter  \"editedsynonyms\" in search field");
 		searchPage.selectType("Genetic Feature");
 		reporter.reportPass("select type GF");
 		searchPage = searchPage.clickSearch();
-		String finalStep = "GF with Synonym  \"GF_Synonyms\" should be appeared in search result";
+		String finalStep = "GF with updated Synonym  \"" + this.editedsynonyms
+				+ "\" should be appeared in search result";
 		BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
 		if (base instanceof GeneticFeaturePage) {
 			reporter.reportPass(finalStep);

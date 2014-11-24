@@ -20,7 +20,6 @@ import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
-import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_GF {
@@ -72,7 +71,7 @@ public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_G
 			String row_num, HashMap<String, String> columns) {
 
 		SyngentaReporter reporter = new SyngentaReporter();
-		CommonLibrary common = new CommonLibrary();
+		String user = columns.get("user");
 		try {
 
 			// step1
@@ -86,7 +85,7 @@ public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_G
 					PageTitles.search_sylk_page_title,
 					"Select menu item 'GF/RNAi Triggers/ROI/Promoter' and open Search page.");
 			// step 3
-			this.searchSylkpage.selectAddedBy(columns.get("user"));
+			this.searchSylkpage.selectAddedBy(user);
 
 			this.searchSylkpage.selectType(columns.get("selectType"));
 
@@ -95,10 +94,10 @@ public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_G
 			int count = this.searchSylkpage.getTotalResultCount();
 			if (count == 0) {
 				reporter.assertThisAsFail("When searched for GF for this user="
-						+ (columns.get("user") + " resulted in zero results"));
+						+ user + " resulted in zero results");
 			} else {
 				reporter.reportPass("When searched for GF for this user="
-						+ (columns.get("user") + " displays " + count + " results"));
+						+ user + " displays " + count + " results");
 			}
 
 			GeneticFeaturePage gfPage = (GeneticFeaturePage) this.searchSylkpage
@@ -118,13 +117,16 @@ public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_G
 
 			String toolTip = gfPage.getDeleteButtonToolTip();
 
-			reporter.verifyEqual(toolTip, "Sequence has associated evidences.",
-					"a pop-up with \"some sequences have associated evidences\" message appears");
+			reporter.verifyEqual(
+					toolTip,
+					"some sequences have associated evidences.",
+					"a pop-up with \"some sequences have associated evidences\" message appears. Actual message="
+							+ toolTip);
 
-			gfPage = gfPage.clickOnEvidenceSequenceTab();
-			ViewLiteratureEvidenceDetailsPageSequence viewLit = gfPage
-					.clickviewLiteratureEvidenceSequence(0);
-			gfPage = viewLit.clickOnDelete();
+			// gfPage = gfPage.clickOnEvidenceSequenceTab();
+			// ViewLiteratureEvidenceDetailsPageSequence viewLit = gfPage
+			// .clickviewLiteratureEvidenceSequence(0);
+			// gfPage = viewLit.clickOnDelete();
 
 		} catch (SkipException e) {
 			throw e;

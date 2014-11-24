@@ -226,7 +226,7 @@ public class Add_GeneticFeature_Using_AccessionNumber_Test {
 
 			// Clear again
 			this.addNewGFPage.clickClear();
-
+			this.addNewGFPage.selectGeneType(columns.get("gene_type"));
 			this.addNewGFPage.enterTextInSequence(columns.get("accessionNo"));
 
 			/*
@@ -265,7 +265,11 @@ public class Add_GeneticFeature_Using_AccessionNumber_Test {
 				 */
 
 				page = null;
-				page = duplicatesearchResultPage.clickExternalDatabase();
+				try {
+					page = duplicatesearchResultPage.clickExternalDatabase();
+				} catch (SyngentaException e) {
+					reporter.assertThisAsFail(e.getMessage());
+				}
 
 				// if the user is currently on DuplicateSearchResultPage i.e if
 				// DuplicateSearchResultPage is return

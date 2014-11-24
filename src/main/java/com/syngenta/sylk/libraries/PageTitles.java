@@ -31,5 +31,5 @@ public class PageTitles {
 	public static final String rnai_blast_search_result_page_title = "RNAi BLAST Search Result";
 	public static final String add_New_ROI_Page_title = "Add New ROI";
 	public static final String roi_detail_page = "ROI Details";
-	public static String admin_assign_role_page_title = "ADMIN Roles for Users";
+	public static final String admin_assign_role_page_title = "ADMIN Roles for Users";
 }

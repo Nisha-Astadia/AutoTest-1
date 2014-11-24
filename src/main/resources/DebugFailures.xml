@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="SyngentaAutomation">
+	<listeners>
+	</listeners>
+
+	<test name="SyngentaAutomation">
+		
+		<classes>	
+		<!-- Lead test suites -->
+			<class name="com.syngenta.sylk.GeneticFeatures.test.Add_GeneticFeature_Using_AccessionNumber_Test" />
+			<class name="com.syngenta.sylk.GeneticFeatures.test.Add_GeneticFeature_Using_Protein_Test" />
+			<class name="com.syngenta.sylk.tabbedui.gf.deletegfbutton.test.Check_DeleteButton_Enabled_DeleteAppearsStrikedOut_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorRole_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_XREF_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.evidencetab.test.Check_Vertically_Align_MagnifyingGlass_In_EvidenceTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.rnai.test.Check_RNAi_Tab_In_GF" />
+
+		</classes>
+	</test>
+</suite> 

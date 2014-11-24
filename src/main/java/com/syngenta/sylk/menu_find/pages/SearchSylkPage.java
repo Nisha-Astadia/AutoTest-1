@@ -84,6 +84,8 @@ public class SearchSylkPage extends MenuPage {
 		List<WebElement> options = select.getOptions();
 		for (WebElement option : options) {
 			String displayName = option.getText();
+			System.out.println(displayName);
+			System.out.println(name);
 			if (StringUtils.equalsIgnoreCase(name,
 					StringUtils.deleteWhitespace(displayName))) {
 				select.selectByVisibleText(option.getText());
@@ -238,6 +240,14 @@ public class SearchSylkPage extends MenuPage {
 							PageTitles.rnai_trigger_details_page_title_page)) {
 						page = new RNAiTriggerDetailsPage(this.driver);
 						PageFactory.initElements(this.driver, page);
+						break;
+					} else if (StringUtils.equalsIgnoreCase(
+							this.getPageTitle(),
+							PageTitles.rnai_page_title_page)) {
+						page = new RNAiPage(this.driver);
+						PageFactory.initElements(this.driver, page);
+						break;
+
 					} else if (StringUtils.equalsIgnoreCase(
 							this.getPageTitle(),
 							PageTitles.add_New_ROI_Page_title)) {

@@ -81,12 +81,23 @@ public class SearchTargetGenePage extends MenuPage {
 		this.clear.click();
 	}
 
-	public RNAiTriggerDetailsPage clickAddGeneForRNAi() {
-		List<WebElement> inputs = this.driver.findElements(By
-				.cssSelector("input.btn"));
-		for (WebElement input : inputs) {
-			if (StringUtils.equalsIgnoreCase(input.getAttribute("value"),
-					"add gene")) {
+	public RNAiTriggerDetailsPage clickAddGeneForRNAi(String gfName) {
+
+		List<WebElement> trs = this.driver.findElements(By
+				.cssSelector("table.resulttable tr"));
+
+		for (WebElement tr : trs) {
+			WebElement symbol = tr.findElement(By
+					.cssSelector("td:nth-child(2)"));
+			String name = null;
+			try {
+				name = symbol.findElement(By.tagName("a")).getText();
+			} catch (Exception e) {
+				continue;
+			}
+
+			if (StringUtils.equalsIgnoreCase(name, gfName)) {
+				WebElement input = tr.findElement(By.cssSelector("input.btn"));
 				input.click();
 				break;
 			}
@@ -99,7 +110,6 @@ public class SearchTargetGenePage extends MenuPage {
 		PageFactory.initElements(this.driver, page);
 		return page;
 	}
-
 	public AddNewROIPage clickAddGeneForROI() {
 		List<WebElement> inputs = this.driver.findElements(By
 				.cssSelector("input.btn"));

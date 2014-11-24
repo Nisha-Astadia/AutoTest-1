@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.PageTitles;
+import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.MenuPage;
@@ -403,42 +404,55 @@ public class GeneticFeaturePage extends MenuPage {
 
 	public int getConstructCountOnTab() {
 
-		WebElement evi = this.driver.findElement(By
-				.partialLinkText("Constructs"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
+		try {
+			WebElement evi = this.driver.findElement(By
+					.partialLinkText("Constructs"));
+			String text = evi.getText();
+			text = StringUtils.substringBetween(text, "(", ")");
+			if (StringUtils.isBlank(text)) {
+				return 0;
+			} else {
+				return Integer.parseInt(text);
+			}
+		} catch (Exception e) {
 			return 0;
-		} else {
-			return Integer.parseInt(text);
 		}
 
 	}
 
 	public int getProjectLeadsCountOnTab() {
 
-		WebElement evi = this.clickProjectLeads.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
+		try {
+			WebElement evi = this.clickProjectLeads
+					.findElement(By.tagName("a"));
+			String text = evi.getText();
+			text = StringUtils.substringBetween(text, "(", ")");
+			if (StringUtils.isBlank(text)) {
+				return 0;
+			} else {
+				return Integer.parseInt(text);
+			}
+		} catch (Exception e) {
 			return 0;
-		} else {
-			return Integer.parseInt(text);
 		}
 
 	}
 
 	public int getLeadInfoCountOnTab() {
 
-		WebElement infoLi = this.driver.findElement(By
-				.cssSelector("ul#sequence_0_tabs li:nth-child(3)"));
-		WebElement evi = infoLi.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
+		try {
+			WebElement infoLi = this.driver.findElement(By
+					.cssSelector("ul#sequence_0_tabs li:nth-child(3)"));
+			WebElement evi = infoLi.findElement(By.tagName("a"));
+			String text = evi.getText();
+			text = StringUtils.substringBetween(text, "(", ")");
+			if (StringUtils.isBlank(text)) {
+				return 0;
+			} else {
+				return Integer.parseInt(text);
+			}
+		} catch (Exception e) {
 			return 0;
-		} else {
-			return Integer.parseInt(text);
 		}
 
 	}
@@ -603,38 +617,50 @@ public class GeneticFeaturePage extends MenuPage {
 	}
 	public int getEvidenceSequenceCountOnTab() {
 
-		WebElement evi = this.clickEvidenceSequence
-				.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
+		try {
+			WebElement evi = this.clickEvidenceSequence.findElement(By
+					.tagName("a"));
+			String text = evi.getText();
+			text = StringUtils.substringBetween(text, "(", ")");
+			if (StringUtils.isBlank(text)) {
+				return 0;
+			} else {
+				return Integer.parseInt(text);
+			}
+		} catch (Exception e) {
 			return 0;
-		} else {
-			return Integer.parseInt(text);
 		}
 	}
 
 	public int getEvidenceCountOnTab() {
 
-		WebElement evi = this.clickEvidence.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
+		try {
+			WebElement evi = this.clickEvidence.findElement(By.tagName("a"));
+			String text = evi.getText();
+			text = StringUtils.substringBetween(text, "(", ")");
+			if (StringUtils.isBlank(text)) {
+				return 0;
+			} else {
+				return Integer.parseInt(text);
+			}
+		} catch (Exception e) {
 			return 0;
-		} else {
-			return Integer.parseInt(text);
 		}
 
 	}
 
 	private int getOrthologCountOnTab() {
-		WebElement evi = this.clickOrtholog.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
+		try {
+			WebElement evi = this.clickOrtholog.findElement(By.tagName("a"));
+			String text = evi.getText();
+			text = StringUtils.substringBetween(text, "(", ")");
+			if (StringUtils.isBlank(text)) {
+				return 0;
+			} else {
+				return Integer.parseInt(text);
+			}
+		} catch (Exception e) {
 			return 0;
-		} else {
-			return Integer.parseInt(text);
 		}
 	}
 
@@ -1032,27 +1058,20 @@ public class GeneticFeaturePage extends MenuPage {
 		return value;
 	}
 
-	public int getEvidenceCountOnTabForGF() {
-
-		WebElement evi = this.clickEvidenceGF.findElement(By.tagName("a"));
-		String text = evi.getText();
-		text = StringUtils.substringBetween(text, "(", ")");
-		if (StringUtils.isBlank(text)) {
-			return 0;
-		} else {
-			return Integer.parseInt(text);
-		}
-
-	}
-
 	public GeneticFeaturePage addEvidenceInUpperSection(
 			GeneticFeaturePage gfPage, int num) {
 
 		gfPage.clickEvidenceTab();
 		LiteratureSearchPage litSearchPage = (LiteratureSearchPage) gfPage
 				.selectAddEvidence("literature");
-		CreateLiteratureEvidenceDetailsForGeneticFeaturePage createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
-				.searchThis("Bharitkar S, Mendel");
+		CreateLiteratureEvidenceDetailsForGeneticFeaturePage createLitPage;
+		try {
+			createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
+					.searchThis("Bharitkar S, Mendel");
+		} catch (SyngentaException e) {
+			throw new SyngentaException(e.getMessage());
+		}
+
 		createLitPage.enterObservation("test observation");
 		createLitPage.enterRationale("test");
 		PopUpAddTraitComponent popup = createLitPage.clickAddTraitComponent();
@@ -1069,8 +1088,13 @@ public class GeneticFeaturePage extends MenuPage {
 			gfPage.clickEvidenceTab();
 			litSearchPage = (LiteratureSearchPage) gfPage
 					.selectAddEvidence("literature");
-			createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
-					.searchThis("Rhodes HE, Chenevert L, Munsell M");
+
+			try {
+				createLitPage = (CreateLiteratureEvidenceDetailsForGeneticFeaturePage) litSearchPage
+						.searchThis("Rhodes HE, Chenevert L, Munsell M");
+			} catch (SyngentaException e) {
+				throw new SyngentaException(e.getMessage());
+			}
 			createLitPage.enterObservation("test observation");
 			createLitPage.enterRationale("test");
 			popup = createLitPage.clickAddTraitComponent();

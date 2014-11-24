@@ -96,10 +96,15 @@ public class Check_Vertically_Align_MagnifyingGlass_In_EvidenceTab_GF {
 			gfPage = gfPage.clickOnEvidenceTab();
 			reporter.reportPass("Click on evidence tab open up the evidence tab.");
 
-			int evidenceCount = gfPage.getEvidenceCountOnTabForGF();
+			int evidenceCount = gfPage.getEvidenceCountOnTab();
 			// add only if the count == 1
-			if (evidenceCount == 0) {
-				gfPage = gfPage.addEvidenceInUpperSection(gfPage, 2);
+			if (evidenceCount < 2) {
+				try {
+					gfPage = gfPage.addEvidenceInUpperSection(gfPage, 2);
+				} catch (SyngentaException e) {
+					reporter.assertThisAsFail("Creating a literature evidence resulted in an error code. Error code = "
+							+ e.getMessage());
+				}
 				reporter.reportPass("Created a new evidence as the count for this selected Genetic Feature was one to be able to check vartical alignment of columns.");
 			}
 

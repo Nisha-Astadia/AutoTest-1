@@ -130,7 +130,7 @@ public class Check_RNAi_Tab_In_GF {
 			reporter.reportPass("Click on select target gene button and search page opens up.");
 			search.selectUser("Pillai, Nisha");
 			search = search.clickSearch();
-			rnaiTriggerDetailsPage = search.clickAddGeneForRNAi();
+			rnaiTriggerDetailsPage = search.clickAddGeneForRNAi(gfName);
 			reporter.reportPass("Add a GF to this RNAi as a target gene");
 			rnaiTriggerDetailsPage.selectRNAiTriggerType("Antisense RNA");
 

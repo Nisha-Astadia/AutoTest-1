@@ -79,7 +79,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 					.clickNewGeneticFeatureLink(this.proteinSymbol);
 			gfPage.clickDeleleThisGeneticFeature();
 		} catch (Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println("Could not delete GF..");
 			// System.out.println(new CommonLibrary().getStackTrace(e));
 		}
@@ -104,7 +104,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			// check has to be made to see if its navigated to the
 			// "Add New Genetic Feature page"
 			this.addNewGFPage = this.homepage.goToAddGeneticFeaturePage();
-
+			String proteinData = columns.get("proteindata");
 			reporter.verifyEqual(this.addNewGFPage.getPageTitle(),
 					PageTitles.add_new_genetic_feature_page_title,
 					"Open 'Add New Genetic Feature Page'");
@@ -115,7 +115,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			this.addNewGFPage.selectGeneType(columns.get("gene_type"));
 
 			// step 8
-			this.addNewGFPage.enterTextInSequence(columns.get("proteindata"));
+			this.addNewGFPage.enterTextInSequence(proteinData);
 			// check if the right sequence type is auto selected, that is the
 			// protein is
 			// selected.
@@ -156,7 +156,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			reporter.verifyEqual(sequenceText, null,
 					"Click on clear button to clear text from sequence text area");
 
-			this.addNewGFPage.enterTextInSequence(columns.get("proteindata"));
+			this.addNewGFPage.enterTextInSequence(proteinData);
 
 			// step12
 			// No step for step 12
@@ -197,9 +197,9 @@ public class Add_GeneticFeature_Using_Protein_Test {
 
 			// step 15
 			this.addNewGFPage.clickClear();
-
+			this.addNewGFPage.selectGeneType(columns.get("gene_type"));
 			// step 16
-			this.addNewGFPage.enterTextInSequence(columns.get("proteindata"));
+			this.addNewGFPage.enterTextInSequence(proteinData);
 
 			// step 17
 			page = null;

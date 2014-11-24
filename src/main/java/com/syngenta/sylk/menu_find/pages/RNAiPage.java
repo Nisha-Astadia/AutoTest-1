@@ -13,6 +13,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.main.pages.MenuPage;
@@ -469,6 +471,18 @@ public class RNAiPage extends MenuPage {
 				.cssSelector("input[value='Delete This RNAi Trigger']"));
 		String toolTip = button.getAttribute("title");
 		return toolTip;
+	}
+
+	public void deleteThisRNAiTrigger() {
+		WebElement mainDiv = this.driver.findElement(By
+				.cssSelector("div#bd div#pg"));
+		WebElement button = mainDiv.findElement(By
+				.cssSelector("input[value='Delete This RNAi Trigger']"));
+		button.click();
+		WebDriverWait wait = new WebDriverWait(this.driver, 10);
+		wait.until(ExpectedConditions.alertIsPresent());
+		this.driver.switchTo().alert().accept();
+		this.waitForPageToLoad();
 	}
 
 }

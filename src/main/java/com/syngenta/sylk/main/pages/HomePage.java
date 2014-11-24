@@ -17,6 +17,7 @@ import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.RNAiTriggerDetailsPage;
 import com.syngenta.sylk.menu_add.pages.ROIDetailPage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
+import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class HomePage extends MenuPage {
@@ -174,6 +175,7 @@ public class HomePage extends MenuPage {
 			String user) {
 		SearchSylkPage search = homepage.goToGFRNAiTriggerROIpromoter();
 		RNAiTriggerDetailsPage rnaiTrigger = null;
+		RNAiPage rnaiPage = null;
 		search.selectAddedBy(user);
 		search.selectView("50");
 		search.selectType("RNAi");
@@ -188,6 +190,9 @@ public class HomePage extends MenuPage {
 			rnaiTrigger = rnaiTrigger.deleteTargetGene();
 			rnaiTrigger = rnaiTrigger.clickOnDeleteRNAiTrigger();
 			rnaiTrigger.gotoHomePage();
+		} else if (page instanceof RNAiPage) {
+			rnaiPage = (RNAiPage) page;
+			rnaiPage.deleteThisRNAiTrigger();
 		}
 	}
 

@@ -1,7 +1,5 @@
 package com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test;
 
-import java.util.HashMap;
-
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -65,11 +63,10 @@ public class Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorR
 		}
 	}
 
-	@Test(enabled = true, description = "Check 'Delete This Sequence' Button disabled in Detail Tab of Sequence section in tabbed view GF(GF created by another user and user doesn't have curator role) ", dataProvider = "testData", groups = {
+	@Test(enabled = true, description = "Check 'Delete This Sequence' Button disabled in Detail Tab of Sequence section in tabbed view GF(GF created by another user and user doesn't have curator role) ", groups = {
 			"Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorRole_GF",
 			"tabbedui", "Genetic Feature", "regression"})
-	public void gfDeleteButtonDisabledinTabbedView(String testDescription,
-			String row_num, HashMap<String, String> columns) {
+	public void gfDeleteButtonDisabledinTabbedView() {
 		SyngentaReporter reporter = new SyngentaReporter();
 		LandingPage lp = LandingPage.getLandingPage();
 		HomePage homepage = lp.goToHomePage();

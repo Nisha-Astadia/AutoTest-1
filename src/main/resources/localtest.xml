@@ -64,12 +64,12 @@
 		<!-- tabbed Ui RNAi ConstructTab -->
 			<class name="com.syngenta.sylk.tabbedui.rnai.Constructtab.test.Check_RNAiConstructTab_In_RNAi" />
 			
-		<!-- Tabbed UI RNAi Delete  -->
+		<!-- tabbed UI RNAi Delete  -->
 			<class name="com.syngenta.sylk.tabbedui.rnai.delete.test.Check_DeleteButton_Disabled_Evidence_RNAi" />
 			<class name="com.syngenta.sylk.tabbedui.rnai.delete.test.Check_DeleteButton_Disabled_NoCuratorRole_RNAi" />
 			<class name="com.syngenta.sylk.tabbedui.rnai.delete.test.Check_DeleteButton_Disabled_NominatedToConstruct_RNAi" />
 			
-		<!-- Tabbed UI DetailTab -->	
+		<!-- tabbed UI DetailTab -->	
 			<class name="com.syngenta.sylk.tabbedui.rnai.detailtab.test.Check_CreatedBy_CreatedDate_In_DetailsTab_RNAi" />
 			<class name="com.syngenta.sylk.tabbedui.rnai.detailtab.test.Check_EditButton_Disabled_In_DetailTab_RNAi" />
 			<class name="com.syngenta.sylk.tabbedui.rnai.detailtab.test.Check_EditButton_Enabled_In_DetailTab_RNAi" />
@@ -79,8 +79,9 @@
 			
 			<!-- Tabbed UI RNAi SequenceTab -->
 			<class name="com.syngenta.sylk.tabbedui.rnai.sequencetab.test.Check_EditButton_Disabled_In_DetailTab_SequenceSec_RNAi" />
+			
 		
-		
+			
 		</classes>
 	</test>
 </suite> 

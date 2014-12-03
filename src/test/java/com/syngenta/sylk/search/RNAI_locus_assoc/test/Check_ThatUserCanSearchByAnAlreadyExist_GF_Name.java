@@ -1,10 +1,11 @@
-package com.syngenta.sylk.search.RNAI_locus_assoc;
+package com.syngenta.sylk.search.RNAI_locus_assoc.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -13,6 +14,7 @@ import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.PageTitles;
+import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
@@ -29,6 +31,7 @@ public class Check_ThatUserCanSearchByAnAlreadyExist_GF_Name {
 	private AddNewGeneticFeaturePage addNewGFPage;
 	private String existingGF = "test";
 	private String symbol;
+	private GeneticFeaturePage gfpage;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
@@ -63,39 +66,49 @@ public class Check_ThatUserCanSearchByAnAlreadyExist_GF_Name {
 			HashMap<String, String> columns) {
 
 		SyngentaReporter reporter = new SyngentaReporter();
-		CommonLibrary common = new CommonLibrary();
 
-		reporter.reportPass("Login to SyLK");
+		try {
+			reporter.reportPass("Login to SyLK");
 
-		this.symbol = columns.get("symbol");
+			this.symbol = columns.get("symbol");
 
-		this.lp = LandingPage.getLandingPage();
-		this.homepage = this.lp.goToHomePage();
+			this.lp = LandingPage.getLandingPage();
+			this.homepage = this.lp.goToHomePage();
 
-		SearchSylkPage searchPage = this.homepage
-				.goToGFRNAiTriggerROIpromoter();
-		reporter.verifyEqual(searchPage.getPageTitle(),
-				PageTitles.search_sylk_page_title,
-				"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
+			SearchSylkPage searchPage = this.homepage
+					.goToGFRNAiTriggerROIpromoter();
+			reporter.verifyEqual(searchPage.getPageTitle(),
+					PageTitles.search_sylk_page_title,
+					"Navigate to Find >> GF/RNAI Triggers/ ROI/Promoter");
 
-		searchPage.enterSylkSearch(columns.get("existingGF"));
-		reporter.reportPass("enter  \"" + this.existingGF
-				+ "\" in search field");
-		searchPage.selectAddedBy(columns.get("user"));
-		searchPage.selectType("Genetic Feature");
-		reporter.reportPass("select type GF");
-		searchPage = searchPage.clickSearch();
+			searchPage.enterSylkSearch(columns.get("existingGF"));
+			reporter.reportPass("enter  \"" + this.existingGF
+					+ "\" in search field");
+			searchPage.selectAddedBy(columns.get("user"));
+			searchPage.selectType("Genetic Feature");
+			reporter.reportPass("select type GF");
+			searchPage = searchPage.clickSearch();
 
-		String finalStep = "GF which already exists with name  \""
-				+ this.existingGF + "\" should be appeared in search result";
-		BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
-		if (base instanceof GeneticFeaturePage) {
-			reporter.reportPass(finalStep);
-			this.homepage = searchPage.gotoHomePage();
-		} else {
-			reporter.verifyThisAsFail(finalStep);
-			this.homepage = ((GeneticFeaturePage) base).gotoHomePage();
+			String finalStep = "GF which already exists with name  \""
+					+ this.existingGF
+					+ "\" should be appeared in search result";
+			BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
+			if (base instanceof GeneticFeaturePage) {
+				reporter.reportPass(finalStep);
+				this.gfpage = ((GeneticFeaturePage) base);
+				this.gfpage.clickDeleleThisGeneticFeature();
+			} else {
+				reporter.verifyThisAsFail(finalStep);
+
+			}
+		} catch (SkipException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SyngentaException("Test Failed:"
+					+ new CommonLibrary().getStackTrace(e));
+		} finally {
+			reporter.assertAll();
 		}
-
 	}
 }

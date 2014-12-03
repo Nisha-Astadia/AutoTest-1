@@ -112,6 +112,7 @@ public class Add_GeneticFeature_Using_AccessionNumber_Test {
 			// check has to be made to see if its navigated to the
 			// "Add New Genetic Feature page"
 			this.addNewGFPage = this.homepage.goToAddGeneticFeaturePage();
+
 			reporter.verifyEqual(this.addNewGFPage.getPageTitle(),
 					PageTitles.add_new_genetic_feature_page_title,
 					"Open'Add New Genetic Feature Page'");

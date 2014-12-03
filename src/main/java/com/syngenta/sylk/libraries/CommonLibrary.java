@@ -201,7 +201,7 @@ public class CommonLibrary {
 
 		newGFPage.enterSourceProtein(columns.get("proteinSource"));
 
-		newGFPage.enterAccessionNoProtein(columns.get("proteinAccessionNo"));
+		// newGFPage.enterAccessionNoProtein(columns.get("proteinAccessionNo"));
 
 		newGFPage.enterGINoProtein(columns.get("ProteinGiNo"));
 		newGFPage.enterChromosomeTaxonomy("test_chromosome");

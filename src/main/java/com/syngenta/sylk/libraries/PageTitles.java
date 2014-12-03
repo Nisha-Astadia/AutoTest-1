@@ -32,4 +32,5 @@ public class PageTitles {
 	public static final String add_New_ROI_Page_title = "Add New ROI";
 	public static final String roi_detail_page = "ROI Details";
 	public static final String admin_assign_role_page_title = "ADMIN Roles for Users";
+	public static final String ROI_Detail_page_title = "Region Of Interest (ROI) Details";
 }

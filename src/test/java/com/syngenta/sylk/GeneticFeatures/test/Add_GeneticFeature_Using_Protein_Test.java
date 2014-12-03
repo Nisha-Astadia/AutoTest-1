@@ -302,15 +302,28 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			// search result page.
 
 			// step 26
+			// NewGeneticFeaturePage newGFPage = null;
+			// page = blastSearchResultPage.clickAddAsNewGFAndGoToNewGFPage();
+			// if (page instanceof PopUpFlagForCurationPage) {
+			// PopUpFlagForCurationPage popup = (PopUpFlagForCurationPage) page;
+			// popup.enterRationale("test");
+			// newGFPage = (NewGeneticFeaturePage) popup
+			// .clickContinueAndGoToNewGFPage();
+			// } else {
+			// newGFPage = (NewGeneticFeaturePage) page;
+			// }
+			BasePage basepage = blastSearchResultPage
+					.clickAddAsNewGFAndGoToNewGFPage();
 			NewGeneticFeaturePage newGFPage = null;
-			page = blastSearchResultPage.clickAddAsNewGFAndGoToNewGFPage();
-			if (page instanceof PopUpFlagForCurationPage) {
-				PopUpFlagForCurationPage popup = (PopUpFlagForCurationPage) page;
-				popup.enterRationale("test");
-				newGFPage = (NewGeneticFeaturePage) popup
+			if (basepage instanceof PopUpFlagForCurationPage) {
+				PopUpFlagForCurationPage popUpFlagForCuration = (PopUpFlagForCurationPage) basepage;
+				popUpFlagForCuration.enterRationale("test");
+				newGFPage = (NewGeneticFeaturePage) popUpFlagForCuration
 						.clickContinueAndGoToNewGFPage();
+
 			} else {
-				newGFPage = (NewGeneticFeaturePage) page;
+				newGFPage = (NewGeneticFeaturePage) basepage;
+
 			}
 			// check for the new genetic feature page appears.
 			// check for the red asterisk for the mandatory fields.
@@ -372,7 +385,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			// step 30
 			newGFPage.enterSourceProtein(columns.get("proteinSource"));
 
-			newGFPage.enterAccessionNoProtein("angaj2014");
+			// newGFPage.enterAccessionNoProtein("angaj2014");
 
 			newGFPage.enterGINoProtein(columns.get("ProteinGiNo"));
 			// check for text is entered as typed

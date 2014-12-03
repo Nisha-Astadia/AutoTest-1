@@ -17,6 +17,7 @@ import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.menu_add.pages.AddNewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.AddNewROIPage;
 import com.syngenta.sylk.menu_add.pages.AddRNAiTriggerPage;
+import com.syngenta.sylk.menu_add.pages.RegionOfInterestDetailsPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
 public class MenuPage extends BasePage {
@@ -147,6 +148,27 @@ public class MenuPage extends BasePage {
 		} else {
 			throw new SyngentaException(
 					"Add New ROI Page did not open up correctly.");
+		}
+		return page;
+	}
+
+	public RegionOfInterestDetailsPage goToROIDetailsPage() {
+		RegionOfInterestDetailsPage page = null;
+		WebElement span = this.addLi.findElement(By.tagName("span"));
+		span.click();
+
+		WebElement aTag = this.addLi.findElement(By
+				.linkText("Region Of Interest"));
+		aTag.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
+		if (StringUtils.equalsIgnoreCase(this.getPageTitle(),
+				PageTitles.ROI_Detail_page_title)) {
+			page = new RegionOfInterestDetailsPage(this.driver);
+			PageFactory.initElements(this.driver, page);
+		} else {
+			throw new SyngentaException(
+					"Add Genetic Feature Page did not open up correctly.");
 		}
 		return page;
 	}

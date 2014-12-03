@@ -119,6 +119,9 @@ public class GeneticFeaturePage extends MenuPage {
 	@FindBy(id = "synonyms")
 	private WebElement synonymsedit;
 
+	@FindBy(id = "ro_symbol")
+	private WebElement symbol;
+
 	@FindBy(css = "input[class='formBtn btn deleteSequenceButton6'][value='Delete This Sequence']")
 	private WebElement deleteThisSequence;
 
@@ -1861,6 +1864,12 @@ public class GeneticFeaturePage extends MenuPage {
 		String synonymsEdit = this.synonymsedit.getText();
 		// TODO Auto-generated method stub
 		return synonymsEdit;
+	}
+
+	public String getSymbol() {
+		String symbol = this.symbol.getText();
+		// TODO Auto-generated method stub
+		return symbol;
 	}
 
 }

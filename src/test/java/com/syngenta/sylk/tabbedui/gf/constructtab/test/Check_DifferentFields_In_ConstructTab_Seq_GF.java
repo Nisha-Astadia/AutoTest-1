@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -14,6 +15,7 @@ import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.PageTitles;
+import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
@@ -69,45 +71,57 @@ public class Check_DifferentFields_In_ConstructTab_Seq_GF {
 
 		SyngentaReporter reporter = new SyngentaReporter();
 
-		reporter.reportPass("Login to SyLK");
-		// step1
+		try {
 
-		this.searchSylkpage = this.homepage.goToGFRNAiTriggerROIpromoter();
+			reporter.reportPass("Login to SyLK");
+			// step1
 
-		reporter.verifyEqual(this.searchSylkpage.getPageTitle(),
-				PageTitles.search_sylk_page_title,
-				"Select menu item 'GF/RNAi Triggers/ROI/Promoter' and open Search page.");
+			this.searchSylkpage = this.homepage.goToGFRNAiTriggerROIpromoter();
 
-		this.searchSylkpage.selectAddedBy(columns.get("user"));
+			reporter.verifyEqual(this.searchSylkpage.getPageTitle(),
+					PageTitles.search_sylk_page_title,
+					"Select menu item 'GF/RNAi Triggers/ROI/Promoter' and open Search page.");
 
-		this.searchSylkpage.selectType("Genetic Feature");
+			this.searchSylkpage.selectAddedBy(columns.get("user"));
 
-		this.searchSylkpage = this.searchSylkpage.clickSearch();
+			this.searchSylkpage.selectType("Genetic Feature");
 
-		int searchResults = this.searchSylkpage.getTotalResultCount();
+			this.searchSylkpage = this.searchSylkpage.clickSearch();
 
-		if (searchResults == 0) {
-			reporter.assertThisAsFail("When searched for genetic feature for this user="
-					+ columns.get("user") + " resulted in zero results");
-		} else {
-			reporter.reportPass("When searched for genetic feature for this user="
-					+ columns.get("user")
-					+ " displays "
-					+ searchResults
-					+ " results");
+			int searchResults = this.searchSylkpage.getTotalResultCount();
 
-			GeneticFeaturePage gfPage = (GeneticFeaturePage) this.searchSylkpage
-					.clickAndOpenAGFWithConstruct();
-
-			List<String> a = gfPage.getConstructColumns();
-			System.out.println(a);
-			if (a.size() == 8) {
-				reporter.reportPass("Verify That there is a header composed of 8 columns");
-
+			if (searchResults == 0) {
+				reporter.assertThisAsFail("When searched for genetic feature for this user="
+						+ columns.get("user") + " resulted in zero results");
 			} else {
-				reporter.verifyThisAsFail("Verify That there is a header composed of 8 columns");
-			}
+				reporter.reportPass("When searched for genetic feature for this user="
+						+ columns.get("user")
+						+ " displays "
+						+ searchResults
+						+ " results");
 
+				GeneticFeaturePage gfPage = (GeneticFeaturePage) this.searchSylkpage
+						.clickAndOpenAGFWithConstruct();
+				gfPage.clickOnConstructTab();
+
+				List<String> a = gfPage.getConstructColumns();
+				System.out.println(a);
+				if (a.size() == 8) {
+					reporter.reportPass("Verify That there is a header composed of 8 columns");
+					reporter.reportPass(a.toString());
+				} else {
+					reporter.verifyThisAsFail("Verify That there is a header composed of 8 columns");
+				}
+
+			}
+		} catch (SkipException e) {
+			throw e;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new SyngentaException("Test Failed:"
+					+ new CommonLibrary().getStackTrace(e));
+		} finally {
+			reporter.assertAll();
 		}
 
 	}

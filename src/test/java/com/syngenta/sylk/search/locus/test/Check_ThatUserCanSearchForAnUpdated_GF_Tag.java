@@ -1,4 +1,4 @@
-package com.syngenta.sylk.search.RNAI_locus_assoc.test;
+package com.syngenta.sylk.search.locus.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_ThatUserCanSearchByEdited_GF_Name {
+public class Check_ThatUserCanSearchForAnUpdated_GF_Tag {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
@@ -40,7 +40,7 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_ThatUserCanSearchByEdited_GF_Name.xlsx");
+				.getTestDataAsObjectArray("Check_ThatUserCanSearchForAnUpdated_GF_Tag.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -62,8 +62,8 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search by edited GF>> Name", dataProvider = "TestData", groups = {
-			"Check_ThatUserCanSearchByEdited_GF_Name", "RNAI_LOCUS_ASSOC",
+	@Test(enabled = true, description = "check that user can search for an updated  GF >> Tag", dataProvider = "TestData", groups = {
+			"check_That_UserCanSearch_ForAnUpdated_GF_Tag", "Locus",
 			"Search SyLK", "regression"})
 	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
 			String testDescription, String row_num,
@@ -120,7 +120,7 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 			gfPage = gfPage.clickOnSaveDetailTab();
 			reporter.reportPass("fill in the mandatory fields");
 			reporter.reportPass("enter \"" + this.editedname
-					+ "\" in name field");
+					+ "\" in name field and name field is edited ");
 
 			reporter.verifyEqual(
 					gfPage.getPageTitle(),
@@ -146,9 +146,8 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 			searchPage.selectType("Genetic Feature");
 			reporter.reportPass("select type GF");
 			searchPage = searchPage.clickSearch();
-			String finalStep = "GF with editedname  \"" + this.editedname
+			String finalStep = "GF with edited Tag  \"" + this.editedname
 					+ "\" should be appeared in search result";
-
 			BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
 			if (base instanceof GeneticFeaturePage) {
 				reporter.reportPass(finalStep);

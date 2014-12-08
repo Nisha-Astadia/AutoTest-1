@@ -27,20 +27,20 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
+public class check_ThatUserCanSearchForANewAdded_GF_Tag {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
 	private String symbol;
-	private String editedsynonyms;
+	private String name;
 	private GeneticFeaturePage gfpage;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_That_UserCanSearchForAnUpdated_GF_Synonyms.xlsx");
+				.getTestDataAsObjectArray("Check_ThatUserCanSearchForANewAdded_GF_Tag.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -62,10 +62,10 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search for an updated  GF >> SYNONYMS", dataProvider = "TestData", groups = {
-			"Check_That_UserCanSearchForAnUpdated_GF_Synonyms", "Locus",
-			"Search SyLK", "regression"})
-	public void check_That_UserCanSearchForAndEdited_GF_Synonyms(
+	@Test(enabled = true, description = "check that user can search for a new added GF >> Tag", dataProvider = "TestData", groups = {
+			"Check_ThatUserCanSearchByEdited_GF_Name", "Locus", "Search SyLK",
+			"regression"})
+	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
 
@@ -80,8 +80,8 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 					PageTitles.add_new_genetic_feature_page_title,
 					"Open 'Add New Genetic Feature Page'");
 
-			this.editedsynonyms = columns.get("editedSynonym");
-
+			this.symbol = columns.get("symbol");
+			this.name = columns.get("name");
 			// step 7
 			this.addNewGFPage.selectGeneType(columns.get("gene_type"));
 
@@ -106,28 +106,15 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 				newGFPage = (NewGeneticFeaturePage) page;
 			}
 
+			newGFPage.enterNameId(this.name);
 			newGFPage.enterSymbolId(this.symbol);
-			newGFPage.enterSynonymsId(columns.get("synonyms"));
 			newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
 			GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
-
-			reporter.reportPass("fill in the mandatory fields");
-			reporter.reportPass("enter synonyms \"" + (columns.get("synonyms"))
-					+ " \" in Synonym field");
 
 			reporter.verifyEqual(
 					gfPage.getPageTitle(),
 					PageTitles.genetic_feature_page_title,
 					"click add as new GF and Genetic feature is created and genetic feature page shows up");
-
-			gfPage = gfPage.clickOnEditDetailTab();
-			gfPage.enterSynonymsDetailTab(this.editedsynonyms);
-			gfPage = gfPage.clickOnSaveDetailTab();
-
-			String newSynonyms = gfPage.getEditedSynonyms();
-
-			reporter.reportPass("The synonyms got edited and saved with the new  value"
-					+ newSynonyms);
 
 			this.homepage = gfPage.gotoHomePage();
 
@@ -142,21 +129,24 @@ public class Check_That_UserCanSearchForAnUpdated_GF_Synonyms {
 					PageTitles.search_sylk_page_title,
 					"Navigate to Find >> GF/RANI Triggers/ ROI/Promoter");
 
-			searchPage.enterSylkSearch(this.editedsynonyms);
-			reporter.reportPass("enter  \"editedsynonyms\" in search field");
+			searchPage.enterSylkSearch(this.name);
+			reporter.reportPass("enter  \"" + this.name + "\" in search field");
 			searchPage.selectType("Genetic Feature");
 			reporter.reportPass("select type GF");
 			searchPage = searchPage.clickSearch();
-			String finalStep = "GF with updated Synonym  \""
-					+ this.editedsynonyms
+			String finalStep = "GF with Tag  \"" + this.name
 					+ "\" should be appeared in search result";
+
 			BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
 			if (base instanceof GeneticFeaturePage) {
 				reporter.reportPass(finalStep);
-				this.gfpage = ((GeneticFeaturePage) base);
-				this.gfpage.clickDeleleThisGeneticFeature();
+				GeneticFeaturePage gfpage = ((GeneticFeaturePage) base);
+				gfpage.clickDeleleThisGeneticFeature();
 			} else {
 				reporter.verifyThisAsFail(finalStep);
+				this.homepage = searchPage.gotoHomePage();
+				this.homepage.deleteThisGFWithOutCheckingAllTabs(this.homepage,
+						this.symbol);
 
 			}
 		} catch (SkipException e) {

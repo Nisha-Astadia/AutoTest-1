@@ -122,6 +122,9 @@ public class GeneticFeaturePage extends MenuPage {
 	@FindBy(id = "ro_symbol")
 	private WebElement symbol;
 
+	@FindBy(id = "ro_locusTag")
+	private WebElement name;
+
 	@FindBy(css = "input[class='formBtn btn deleteSequenceButton6'][value='Delete This Sequence']")
 	private WebElement deleteThisSequence;
 
@@ -1418,6 +1421,12 @@ public class GeneticFeaturePage extends MenuPage {
 		name.sendKeys(string);
 	}
 
+	public void enterSymbolyDetail(String string) {
+		WebElement symboledited = this.driver.findElement(By.id("symbol"));
+		symboledited.clear();
+		symboledited.sendKeys(string);
+	}
+
 	public void enterNCBIIDDetailTab(String string) {
 		WebElement ncbiid = this.driver.findElement(By
 				.cssSelector("form#submitForm td.field input[name='geneID']"));
@@ -1836,6 +1845,11 @@ public class GeneticFeaturePage extends MenuPage {
 		return synony;
 	}
 
+	// public String getTextOfName() {
+	// String tag = this.name.getText();
+	// return tag;
+	// }
+
 	public boolean isDeleteButtonInLeadInfoEnabled() {
 		WebElement edit = this.driver.findElement(By
 				.id("deleteLeadNominationDetailsButton8"));
@@ -1862,6 +1876,11 @@ public class GeneticFeaturePage extends MenuPage {
 
 	public String getEditedSynonyms() {
 		String synonymsEdit = this.synonymsedit.getText();
+		// TODO Auto-generated method stub
+		return synonymsEdit;
+	}
+	public String getSynonyms() {
+		String synonymsEdit = this.synonyms.getText();
 		// TODO Auto-generated method stub
 		return synonymsEdit;
 	}

@@ -27,20 +27,20 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-public class Check_ThatUserCanSearchByEdited_GF_Name {
+public class Check_ThatUserCanSearchByEdited_GF_Symbol {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
 	private HomePage homepage;
 	private AddNewGeneticFeaturePage addNewGFPage;
 	private String symbol;
-	private String editedname;
+	private String editedSymbol;
 	private GeneticFeaturePage gfpage;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_ThatUserCanSearchByEdited_GF_Name.xlsx");
+				.getTestDataAsObjectArray("Check_ThatUserCanSearchByEdited_GF_Symbol.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -62,10 +62,10 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 		}
 	}
 
-	@Test(enabled = true, description = "check that user can search by edited GF>> Name", dataProvider = "TestData", groups = {
-			"Check_ThatUserCanSearchByEdited_GF_Name", "RNAI_LOCUS_ASSOC",
+	@Test(enabled = true, description = "check that user can search by edited GF>> symbol", dataProvider = "TestData", groups = {
+			"Check_ThatUserCanSearchByEdited_GF_Symbol", "RNAI_LOCUS_ASSOC",
 			"Search SyLK", "regression"})
-	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
+	public void check_ThatUserCanSearchForANewAdded_GF_Symbol(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
 
@@ -82,7 +82,8 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 					"Open 'Add New Genetic Feature Page'");
 
 			this.symbol = columns.get("symbol");
-			this.editedname = columns.get("editedname");
+
+			this.editedSymbol = columns.get("editedSymbol");
 
 			// step 7
 			this.addNewGFPage.selectGeneType(columns.get("gene_type"));
@@ -108,7 +109,6 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 				newGFPage = (NewGeneticFeaturePage) page;
 			}
 
-			newGFPage.enterNameId(columns.get("name"));
 			newGFPage.enterSymbolId(this.symbol);
 			newGFPage.enterSourceSpeciesTaxonomy(columns.get("sourcespecies"));
 			GeneticFeaturePage gfPage = newGFPage.clickAddGeneticFeature();
@@ -116,10 +116,10 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 			 * Edit gf and add name
 			 */
 			gfPage = gfPage.clickOnEditDetailTab();
-			gfPage.enterNameDetailTab(this.editedname);
+			gfPage.enterSymbolyDetail(this.editedSymbol);
 			gfPage = gfPage.clickOnSaveDetailTab();
 			reporter.reportPass("fill in the mandatory fields");
-			reporter.reportPass("enter \"" + this.editedname
+			reporter.reportPass("enter \"" + this.editedSymbol
 					+ "\" in name field");
 
 			reporter.verifyEqual(
@@ -140,16 +140,17 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 					PageTitles.search_sylk_page_title,
 					"Navigate to Find >> GF/RNAI Triggers/ ROI/Promoter");
 
-			searchPage.enterSylkSearch(this.editedname);
-			reporter.reportPass("enter  \"" + this.editedname
+			searchPage.enterSylkSearch(this.editedSymbol);
+			reporter.reportPass("enter  \"" + this.editedSymbol
 					+ "\" in search field");
 			searchPage.selectType("Genetic Feature");
+			searchPage.selectAddedBy(columns.get("addedBy"));
 			reporter.reportPass("select type GF");
 			searchPage = searchPage.clickSearch();
-			String finalStep = "GF with editedname  \"" + this.editedname
+			String finalStep = "GF with edited symbol  \"" + this.editedSymbol
 					+ "\" should be appeared in search result";
 
-			BasePage base = searchPage.clickAndOpenThisGF(this.symbol);
+			BasePage base = searchPage.clickAndOpenThisGF(this.editedSymbol);
 			if (base instanceof GeneticFeaturePage) {
 				reporter.reportPass(finalStep);
 				GeneticFeaturePage gfpage = ((GeneticFeaturePage) base);
@@ -158,7 +159,7 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 				reporter.verifyThisAsFail(finalStep);
 				this.homepage = searchPage.gotoHomePage();
 				this.homepage.deleteThisGFWithOutCheckingAllTabs(this.homepage,
-						this.symbol);
+						this.editedSymbol);
 
 			}
 		} catch (SkipException e) {
@@ -171,4 +172,5 @@ public class Check_ThatUserCanSearchByEdited_GF_Name {
 			reporter.assertAll();
 		}
 	}
+
 }

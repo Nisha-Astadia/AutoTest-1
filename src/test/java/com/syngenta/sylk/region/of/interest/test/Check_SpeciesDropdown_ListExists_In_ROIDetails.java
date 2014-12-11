@@ -12,17 +12,18 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
+import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
-import com.syngenta.sylk.menu_add.pages.RegionOfInterestDetailsPage;
+import com.syngenta.sylk.menu_add.pages.RegionOfInterestROIDetailsPage;
 
-public class Check_SpeciesDropdown_ListExists_In_ROIDetails_Page {
+public class Check_SpeciesDropdown_ListExists_In_ROIDetails {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 	private LandingPage lp;
 	private HomePage homepage;
-	private RegionOfInterestDetailsPage ROIdetailsPage;
+	private RegionOfInterestROIDetailsPage ROIPage;
 
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
@@ -60,7 +61,19 @@ public class Check_SpeciesDropdown_ListExists_In_ROIDetails_Page {
 
 		reporter.reportPass("Login to SyLK");
 
-		this.ROIdetailsPage = this.homepage.goToROIDetailsPage();
+		this.ROIPage = this.homepage.goToROIDetailsPage();
+
+		reporter.verifyEqual(this.ROIPage.getPageTitle(),
+				PageTitles.ROI_Detail_page_title,
+				("'Region Of Interest (ROI) Details' Page Opens up "));
+
+		int value = this.ROIPage.getSizeOfListOfSourceSpeciesInDropDown();
+		reporter.reportPass("There are altogether " + value
+				+ "values in the dropdown of  'source species'  ");
+
+		String actualList = this.ROIPage.getListOfSourceSpeciesInDropDown();
+		reporter.reportPass("Species dropdown list exists in ROI details page and they are as follows     :"
+				+ actualList + " , ");
 
 	}
 }

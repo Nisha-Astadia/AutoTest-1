@@ -106,7 +106,7 @@ public class Check_VerticallyAlignMagnifyingGlass_In_EvidenceTab_Seq_GF {
 					.checkIfMagnifyingGlassImageIsVerticallyAlligned_SequenceSection();
 
 			reporter.assertTrue(allIsGood,
-					"All evidence view magnifying classes should be alligned vertically.");
+					"All evidence view magnifying glasses should be alligned vertically.");
 			gfPage.deleteEvidenceSequenceTab();
 
 		} catch (SkipException e) {

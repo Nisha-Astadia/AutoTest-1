@@ -80,7 +80,20 @@
 			<!-- Tabbed UI RNAi SequenceTab -->
 			<class name="com.syngenta.sylk.tabbedui.rnai.sequencetab.test.Check_EditButton_Disabled_In_DetailTab_SequenceSec_RNAi" />
 			
-		
+		<!-- Q2 Search -->
+			<class name="com.syngenta.sylk.search.locus.test.Check_ThatUserCanSearchForANewAdded_GF_Chromosome"  />
+			<class name="com.syngenta.sylk.search.locus.test.Check_ThatUserCanSearchForANewAdded_GF_Synonyms" />
+			<class name="com.syngenta.sylk.search.locus.test.check_ThatUserCanSearchForANewAdded_GF_Tag" />
+			<class name="com.syngenta.sylk.search.locus.test.Check_ThatUserCanSearchForAnExisting_GF_Synonyms" />
+			<class name="com.syngenta.sylk.search.locus.test.Check_ThatUserCanSearchForAnExisting_GF_Tag" />
+			<class name="com.syngenta.sylk.search.locus.test.Check_ThatUserCanSearchForAnUpdated_GF_Synonyms" />
+			<class name="com.syngenta.sylk.search.locus.test.Check_ThatUserCanSearchForAnUpdated_GF_Tag" />
+			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByAnAlreadyExist_GF_Name" />
+			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByAnAlreadyExist_GF_Symbol" />
+			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByEdited_GF_Name" />
+			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByEdited_GF_Symbol" />
+			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByNewAdded_GF_Name" />
+			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByNewAdded_GF_Symbol" />
 			
 		</classes>
 	</test>

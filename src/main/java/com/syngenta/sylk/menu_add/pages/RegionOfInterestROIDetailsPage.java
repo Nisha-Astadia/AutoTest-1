@@ -9,9 +9,9 @@ import org.openqa.selenium.support.FindBy;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
-public class RegionOfInterestDetailsPage extends MenuPage {
+public class RegionOfInterestROIDetailsPage extends MenuPage {
 
-	public RegionOfInterestDetailsPage(WebDriver driver) {
+	public RegionOfInterestROIDetailsPage(WebDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
@@ -19,7 +19,7 @@ public class RegionOfInterestDetailsPage extends MenuPage {
 	@FindBy(id = "typeCode-clone")
 	private WebElement RegionOfInterestType;
 
-	@FindBy(id = "organismUuid-clone")
+	@FindBy(id = "organism.uuid-clone")
 	private WebElement SourceSpecies;
 
 	@FindBy(id = "referenceGenome.uuid")
@@ -74,6 +74,26 @@ public class RegionOfInterestDetailsPage extends MenuPage {
 			}
 		}
 
+	}
+	// Returns the list of elements in the drop
+	public String getListOfSourceSpeciesInDropDown() {
+		String list = null;
+
+		List<WebElement> elements = this.driver.findElements(By
+				.id("organism.uuid-clone"));
+		for (WebElement element : elements) {
+			list = list + element.getText().toString() + " , ";
+		}
+
+		return list;
+	}
+
+	public int getSizeOfListOfSourceSpeciesInDropDown() {
+		int size1 = 0;
+		List<WebElement> elements = this.driver.findElements(By
+				.id("organism.uuid-clone"));
+		size1 = elements.size();
+		return size1;
 	}
 
 	public void selectReferenceGenomeVersion(String selection) {

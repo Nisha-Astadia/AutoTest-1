@@ -1,7 +1,6 @@
 package com.syngenta.sylk.search.container;
 
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -31,10 +30,10 @@ public class SearchByNewAddedGF_Name {
 			+ "KNTSSLNVPVETDPEVEATT";
 	private String sourceSpice = "Acetobacter xylinum";
 
-	@BeforeClass(alwaysRun = true)
-	public void loadData() {
-
-	}
+	// @BeforeClass(alwaysRun = true)
+	// public void loadData() {
+	//
+	// }
 
 	@BeforeMethod(alwaysRun = true)
 	public void testSetUp() {

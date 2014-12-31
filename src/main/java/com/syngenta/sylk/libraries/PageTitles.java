@@ -29,8 +29,8 @@ public class PageTitles {
 	public static final String Create_Literature_Evidence_Details_for_RNAi_page_title = "Create Literature Evidence Details for RNAi Trigger";
 	public static final String rnai_trigger_details_page_title_page = "RNAi Trigger Details";
 	public static final String rnai_blast_search_result_page_title = "RNAi BLAST Search Result";
-	public static final String add_New_ROI_Page_title = "Add New ROI";
+	public static final String add_New_ROI_Page_title = "Add New Region Of Interest (ROI)";
 	public static final String roi_detail_page = "ROI Details";
 	public static final String admin_assign_role_page_title = "ADMIN Roles for Users";
-	public static final String ROI_Detail_page_title = "Region Of Interest (ROI) Details";
+	public static final String ROI_Detail_page_title = "Add New Region Of Interest (ROI)";
 }

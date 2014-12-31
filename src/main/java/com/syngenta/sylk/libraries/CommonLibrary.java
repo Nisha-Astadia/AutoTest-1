@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -26,6 +27,7 @@ public class CommonLibrary {
 	private static String generatedResourceFolder;
 	private static boolean firstTime = true;
 	private String selected_gf_created_date;
+
 	public String getStackTrace(Throwable t) {
 
 		StringWriter sw = new StringWriter();
@@ -287,6 +289,22 @@ public class CommonLibrary {
 	}
 	public String getSelectedGFCreatedDate() {
 		return this.selected_gf_created_date;
+	}
+
+	// check the ascending lexcical order of list:
+
+	public boolean isSorted(List<String> list) {
+
+		List<String> listSorted = new ArrayList<String>(list);
+
+		// Sorts the new list.
+		Collections.sort(listSorted);
+
+		System.out.println(listSorted);
+
+		// Check if both of list are equals.
+
+		return listSorted.equals(list);
 	}
 
 }

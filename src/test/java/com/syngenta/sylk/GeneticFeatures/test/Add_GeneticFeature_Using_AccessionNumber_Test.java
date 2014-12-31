@@ -445,7 +445,7 @@ public class Add_GeneticFeature_Using_AccessionNumber_Test {
 					PopUpAddGeneSymbol popUpGFsymbol = createLiteratureEviDetailpage
 							.clickAddGeneticFeatures();
 					if (popUpGFsymbol != null) {
-						reporter.reportPass("Click on add grnrtic feature on create literature detail page. A Gene symbol popup appears.");
+						reporter.reportPass("Click on add genetic feature on create literature detail page. A Gene symbol popup appears.");
 					} else {
 						reporter.assertThisAsFail("Click on add genetic feature on create literature detail page. A Gene symbol popup appears.");
 					}

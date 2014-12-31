@@ -95,6 +95,22 @@
 			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByNewAdded_GF_Name" />
 			<class name="com.syngenta.sylk.search.RNAI_locus_assoc.test.Check_ThatUserCanSearchByNewAdded_GF_Symbol" />
 			
+		<!-- ROI Sprint 1 -->
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_CSCDropdownListIsManadatory" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_OnceTheRGVIsSelectedCSCDropdownIsAvailable" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_ROITypeDropdownListIsMandatory" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_ROITypeDropdownListValues" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_SpeciesDropdownListExistsInROIDetails" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_ThatCSCDropdownWillBePopulatedOnceSelectingValueFromRGVDropdown" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_TheValuesDisplayedForTheCSCDropdownList" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_TheValuesDisplayedForTheCSCDropdownWillBeShownByMap_name" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_TheValuesDisplayedForTheRGVWillBeOrderedByAscendingLexicalOrder" />
+		
+		<!--ROI Sprint 2  -->
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatTheNumberEnteredInStartFieldMustBeLessThanTotalLengthOfTheCSCfield" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_EnterCorrectStartValue" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_EnterCorrectEndValue" />
+			
 		</classes>
 	</test>
 </suite> 

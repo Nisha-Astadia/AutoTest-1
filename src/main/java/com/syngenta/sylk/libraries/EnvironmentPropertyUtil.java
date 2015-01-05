@@ -16,6 +16,14 @@ public class EnvironmentPropertyUtil {
 
 	private String browser;
 
+	private String dbPassword;
+
+	private String dbUser;
+
+	private String dbUrl;
+
+	private String dbDriver;
+
 	private EnvironmentPropertyUtil() {
 		this.determineEnvironment();
 		this.getPropertySettings();
@@ -69,6 +77,10 @@ public class EnvironmentPropertyUtil {
 		this.url = props.getProperty("app.url");
 		this.defaultPageWaitTime = props
 				.getProperty("default.page.wait.time.ms");
+		this.dbDriver = props.getProperty("dbdriver");
+		this.dbUrl = props.getProperty("dburl");
+		this.dbPassword = props.getProperty("dbpassword");
+		this.dbUser = props.getProperty("dbuser");
 	}
 
 	private void determineEnvironment() {
@@ -92,6 +104,22 @@ public class EnvironmentPropertyUtil {
 
 	public String getBrowser() {
 		return this.browser;
+	}
+
+	public String getDBPassword() {
+		return this.dbPassword;
+	}
+
+	public String getDBUser() {
+		return this.dbUser;
+	}
+
+	public String geDBUrl() {
+		return this.dbUrl;
+	}
+
+	public String getDBDriver() {
+		return this.dbDriver;
 	}
 
 }

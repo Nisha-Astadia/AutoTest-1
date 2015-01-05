@@ -8,4 +8,12 @@ public interface Environment {
 			.getUrl();
 	public static String browser = EnvironmentPropertyUtil.getInstance()
 			.getBrowser();
+	public static String DB_PWD = EnvironmentPropertyUtil.getInstance()
+			.getDBPassword();
+	public static String DB_USER = EnvironmentPropertyUtil.getInstance()
+			.getDBUser();
+	public static String DB_URL = EnvironmentPropertyUtil.getInstance()
+			.geDBUrl();
+	public static String DB_DRIVER = EnvironmentPropertyUtil.getInstance()
+			.getDBDriver();
 }

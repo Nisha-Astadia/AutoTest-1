@@ -1,5 +1,8 @@
 package com.syngenta.sylk.region.of.interest.sprint2.test;
 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.testng.SkipException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
@@ -12,6 +15,7 @@ import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.AddNewRegionOfInterestROIPage;
+import com.syngenta.sylk.menu_add.pages.PopUpAddProjectPage;
 
 public class Check_ThatOnceTheUserTypeTheListOfProjectsWillBeFilteredAndSortedInAscendingOrder {
 
@@ -50,6 +54,44 @@ public class Check_ThatOnceTheUserTypeTheListOfProjectsWillBeFilteredAndSortedIn
 			reporter.verifyEqual(ROIPage.getPageTitle(),
 					PageTitles.add_New_ROI_Page_title,
 					("'Add New Region Of Interest (ROI)' Page Opens up "));
+
+			PopUpAddProjectPage popup = ROIPage.clickAddProjectToROI();
+
+			String prefix = "pI"; // first we will enter this letter
+			boolean failure = false;
+			List<String> listedProjectNames = popup
+					.enterPrefixInProjectNameAndGetListedProjectNames(prefix);
+			if (listedProjectNames.size() == 0) {
+				reporter.verifyThisAsFail("Entered the characters " + prefix
+						+ " and did not get a populated dropdown list.");
+			} else {
+
+				reporter.reportPass("Entered the characters "
+						+ prefix
+						+ " and found the following in the list that dropped down. List = "
+						+ listedProjectNames);
+			}
+			int temp = 0;
+			for (String name : listedProjectNames) {
+				// get the string before char ':'
+				String plAlphaNumber = StringUtils.substringBefore(name, ":");
+				String plOnlyNumber = StringUtils.substring(plAlphaNumber, 2);
+				try {
+					int currNum = Integer.parseInt(plOnlyNumber);
+					if (currNum > temp) {
+						temp = currNum;
+					} else {
+						failure = true;
+						break;
+					}
+				} catch (Exception e) {
+					continue;
+				}
+			}
+
+			if (!failure) {
+				reporter.reportPass("once the user type the list of projects will be filtered and will be sorted by the PI number concatinated with project name in ascending order.");
+			}
 
 		} catch (SkipException e) {
 			throw e;

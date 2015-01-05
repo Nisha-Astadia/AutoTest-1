@@ -53,7 +53,7 @@ public class Check_ThatSpeciesIsRequired {
 		this.ROIPage.selectRegionOfInterestType("Gene-based");
 
 		PopUpAddProjectPage popUpAddProject = this.ROIPage
-				.clickAddProjectToROI("PI0000805:Water Optimization TPP Leads");
+				.clickAddProjectToROI();
 
 		this.ROIPage = popUpAddProject
 				.clickOnAdd("PI0000805:Water Optimization TPP Leads");

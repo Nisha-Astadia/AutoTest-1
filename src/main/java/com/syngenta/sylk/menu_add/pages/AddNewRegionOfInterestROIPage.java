@@ -376,7 +376,7 @@ public class AddNewRegionOfInterestROIPage extends MenuPage {
 		return error;
 	}
 
-	public PopUpAddProjectPage clickAddProjectToROI(String string) {
+	public PopUpAddProjectPage clickAddProjectToROI() {
 		this.project.click();
 		this.waitForPageToLoad();
 		this.waitForAjax();
@@ -385,6 +385,37 @@ public class AddNewRegionOfInterestROIPage extends MenuPage {
 		return page;
 	}
 
+	public boolean isAddProjectEnabled() {
+		return this.project.isEnabled();
+	}
+
+	public int getAddedProjectNameCount() {
+
+		WebElement span = this.driver.findElement(By.id("projectNameList"));
+		List<WebElement> projects = span.findElements(By.tagName("span"));
+		if (projects != null) {
+			return projects.size();
+		} else {
+			return 0;
+		}
+	}
+
+	public List<String> getAddedPhenoTypes() {
+		List<String> addedPhenos = new ArrayList<String>();
+		WebElement addedMainDiv = this.driver.findElement(By
+				.id("addedPhenotypes"));
+		List<WebElement> divs = addedMainDiv.findElements(By.tagName("div"));
+		for (WebElement div : divs) {
+			if (StringUtils.startsWithIgnoreCase(div.getAttribute("class"),
+					"rowbg")) {
+				continue;
+			} else {
+				addedPhenos.add(div.getText());
+			}
+		}
+
+		return addedPhenos;
+	}
 	public PopUpAddOrRemovePhenotypesPage clickEditPhenotypes() {
 		this.Phenotype.click();
 		this.waitForPageToLoad();
@@ -638,4 +669,5 @@ public class AddNewRegionOfInterestROIPage extends MenuPage {
 
 		return this.lis;
 	}
+
 }

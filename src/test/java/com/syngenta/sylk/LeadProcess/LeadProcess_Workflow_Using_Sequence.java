@@ -39,7 +39,7 @@ import com.syngenta.sylk.menu_add.pages.PopUpXrefPage;
 import com.syngenta.sylk.menu_add.pages.ProjectLeadPage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
 
-public class LeadProcess_Workflow_Using_ProteinSequence {
+public class LeadProcess_Workflow_Using_Sequence {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
 
@@ -53,7 +53,7 @@ public class LeadProcess_Workflow_Using_ProteinSequence {
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("LeadProcessWF_UsingProteinSequence.xlsx");
+				.getTestDataAsObjectArray("LeadProcessWF_UsingSequence.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -84,17 +84,16 @@ public class LeadProcess_Workflow_Using_ProteinSequence {
 		}
 	}
 
-	@DataProvider(name = "leadProcessAccessionNo", parallel = false)
+	@DataProvider(name = "leadProcessSequence", parallel = false)
 	public Iterator<Object[]> loadTestData() {
 
 		return this.testData.iterator();
 	}
 
 	@Test(enabled = true, description = "This test will verify the functionality of SyLK application while creating Lead Process workflow using  "
-			+ "Accession Numbers", dataProvider = "leadProcessAccessionNo", groups = {
-			"LeadProcess_Workflow_Using_AccessionNo_Test", "leadprocess",
-			"regression"})
-	public void leadProcessWorkflowUsingAccessionNo(String testDescription,
+			+ "Nucleotide Sequence", dataProvider = "leadProcessSequence", groups = {
+			"LeadProcess_Workflow_Using_Sequence", "leadprocess", "regression"})
+	public void leadProcessWorkflow_Using_Sequence(String testDescription,
 			String row_num, HashMap<String, String> columns) {
 
 		// step 1:

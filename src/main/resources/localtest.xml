@@ -110,6 +110,11 @@
 			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatTheNumberEnteredInStartFieldMustBeLessThanTotalLengthOfTheCSCfield" />
 			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_EnterCorrectStartValue" />
 			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_EnterCorrectEndValue" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatAllPhenotypesMatchingMySearchCriteriaWillBeDisplayed" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatOnceTheUserTypeTheListOfProjectsWillBeFilteredAndSortedInAscendingOrder" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatSelectedPhenotypesWillBeDisplayedInRoiDetailsPage" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatTheNumberEnteredInStartFieldMustBeLessThanTotalLengthOfTheCSCfield" />
+			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatTheUserMayAddUpTo30Phenotypes" />
 			
 		</classes>
 	</test>

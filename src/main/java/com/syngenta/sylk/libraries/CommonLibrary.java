@@ -22,6 +22,10 @@ import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 import com.syngenta.sylk.utils.TestDataLoader;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class CommonLibrary {
 
 	private static String generatedResourceFolder;

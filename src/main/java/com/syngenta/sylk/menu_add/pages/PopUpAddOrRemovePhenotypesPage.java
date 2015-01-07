@@ -15,6 +15,10 @@ import org.openqa.selenium.support.ui.Select;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpAddOrRemovePhenotypesPage extends BasePage {
 
 	protected PopUpAddOrRemovePhenotypesPage(WebDriver driver) {

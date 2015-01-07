@@ -23,6 +23,10 @@ import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_DeleteButton_Enabled_DeleteAppearsStrikedOut_GF {
 
 	private LandingPage lp;

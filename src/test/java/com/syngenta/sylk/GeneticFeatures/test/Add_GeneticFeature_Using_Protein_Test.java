@@ -34,6 +34,10 @@ import com.syngenta.sylk.menu_add.pages.PopUpWarningUnsavedDataPage;
 import com.syngenta.sylk.menu_add.pages.PopUpcDNASequenceDataPage;
 import com.syngenta.sylk.menu_add.pages.PopUpgDNASequenceDataPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Add_GeneticFeature_Using_Protein_Test {
 
 	private AddNewGeneticFeaturePage addNewGFPage;

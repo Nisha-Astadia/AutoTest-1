@@ -11,6 +11,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpcDNASequenceDataPage extends BasePage {
 
 	protected PopUpcDNASequenceDataPage(WebDriver driver) {

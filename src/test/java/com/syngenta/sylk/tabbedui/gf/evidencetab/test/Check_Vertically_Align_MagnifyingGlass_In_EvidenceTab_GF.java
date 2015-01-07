@@ -22,6 +22,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_Vertically_Align_MagnifyingGlass_In_EvidenceTab_GF {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

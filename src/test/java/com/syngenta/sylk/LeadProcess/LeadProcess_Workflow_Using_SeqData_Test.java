@@ -24,6 +24,10 @@ import com.syngenta.sylk.menu_add.pages.DuplicateSearchResultPage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeatureSearchResultsPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class LeadProcess_Workflow_Using_SeqData_Test {
 
 	private AddNewGeneticFeaturePage addNewGFPage;

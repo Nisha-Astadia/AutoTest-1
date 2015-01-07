@@ -15,6 +15,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpAddProjectPage extends BasePage {
 
 	protected PopUpAddProjectPage(WebDriver driver) {

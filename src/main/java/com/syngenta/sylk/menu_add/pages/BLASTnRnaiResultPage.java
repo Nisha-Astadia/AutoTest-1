@@ -12,6 +12,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class BLASTnRnaiResultPage extends MenuPage {
 
 	protected BLASTnRnaiResultPage(WebDriver driver) {

@@ -15,6 +15,10 @@ import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.AddNewRegionOfInterestROIPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_OnceTheRGVIsSelectedCSCDropdownIsAvailable {
 
 	private LandingPage lp;

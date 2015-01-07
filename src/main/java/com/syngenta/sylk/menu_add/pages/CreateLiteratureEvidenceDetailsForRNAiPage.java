@@ -11,6 +11,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.main.pages.MenuPage;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class CreateLiteratureEvidenceDetailsForRNAiPage extends MenuPage {
 
 	protected CreateLiteratureEvidenceDetailsForRNAiPage(WebDriver driver) {

@@ -10,6 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class AdminAssignRolePage extends MenuPage {
 
 	@FindBy(id = "term")

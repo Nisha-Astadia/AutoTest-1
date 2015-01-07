@@ -1,5 +1,9 @@
 package com.syngenta.sylk.libraries;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PageTitles {
 
 	public static final String landing_page_title = "confidentiality notice";

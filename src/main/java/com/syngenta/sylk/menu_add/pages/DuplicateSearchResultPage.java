@@ -11,6 +11,10 @@ import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class DuplicateSearchResultPage extends BasePage {
 
 	protected DuplicateSearchResultPage(WebDriver driver) {

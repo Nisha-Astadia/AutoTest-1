@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpDeleteLiteratureEvidence extends BasePage {
 
 	protected PopUpDeleteLiteratureEvidence(WebDriver driver) {

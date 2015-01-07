@@ -9,6 +9,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ViewLiteratureEvidenceDetailsGF extends MenuPage {
 
 	protected ViewLiteratureEvidenceDetailsGF(WebDriver driver) {

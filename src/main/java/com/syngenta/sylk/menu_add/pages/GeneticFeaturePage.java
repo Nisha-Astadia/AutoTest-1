@@ -24,6 +24,10 @@ import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.HomePage;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class GeneticFeaturePage extends MenuPage {
 
 	private static final List<WebElement> WebElment = null;

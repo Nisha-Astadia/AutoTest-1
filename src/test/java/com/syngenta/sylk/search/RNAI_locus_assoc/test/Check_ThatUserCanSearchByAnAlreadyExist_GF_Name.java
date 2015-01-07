@@ -23,6 +23,10 @@ import com.syngenta.sylk.menu_add.pages.AddNewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_ThatUserCanSearchByAnAlreadyExist_GF_Name {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
@@ -79,7 +83,7 @@ public class Check_ThatUserCanSearchByAnAlreadyExist_GF_Name {
 					PageTitles.search_sylk_page_title,
 					"Navigate to Find >> GF/RNAI Triggers/ ROI/Promoter");
 
-			searchPage.enterSylkSearch("existingGF");
+			searchPage.enterSylkSearch(this.existingGF);
 			reporter.reportPass("enter" + this.existingGF + " in search field");
 
 			searchPage.selectAddedBy(columns.get("user"));

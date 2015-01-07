@@ -22,6 +22,10 @@ import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequenc
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_Edit_LeadInfo_And_RegulatoryCheck_Seq_GF {
 
 	private LandingPage lp;

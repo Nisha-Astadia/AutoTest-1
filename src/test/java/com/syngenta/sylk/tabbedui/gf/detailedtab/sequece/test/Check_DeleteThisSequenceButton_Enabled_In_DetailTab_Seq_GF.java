@@ -24,6 +24,10 @@ import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequence;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_DeleteThisSequenceButton_Enabled_In_DetailTab_Seq_GF {
 
 	private LandingPage lp;

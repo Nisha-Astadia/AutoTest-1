@@ -9,6 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpAddRNAiTrigger extends BasePage {
 
 	protected PopUpAddRNAiTrigger(WebDriver driver) {

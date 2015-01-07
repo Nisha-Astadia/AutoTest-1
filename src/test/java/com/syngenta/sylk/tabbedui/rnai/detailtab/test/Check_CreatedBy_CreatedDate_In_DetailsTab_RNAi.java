@@ -22,9 +22,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-//Tabbed veiw RNAi
-//Check Created by and Created date fields in details Tab in tabbed view RNAi
-
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_CreatedBy_CreatedDate_In_DetailsTab_RNAi {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

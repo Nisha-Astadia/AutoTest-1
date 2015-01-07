@@ -20,6 +20,10 @@ import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsPageSequenc
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class HomePage extends MenuPage {
 
 	@FindBy(name = "searchText")

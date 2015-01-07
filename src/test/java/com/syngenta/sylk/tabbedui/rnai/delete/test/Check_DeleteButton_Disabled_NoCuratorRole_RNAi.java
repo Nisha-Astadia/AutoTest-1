@@ -15,6 +15,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_DeleteButton_Disabled_NoCuratorRole_RNAi {
 
 	@BeforeClass(alwaysRun = true)

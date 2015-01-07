@@ -21,6 +21,10 @@ import com.syngenta.sylk.main.pages.MenuPage;
 import com.syngenta.sylk.menu_add.pages.LiteratureSearchPage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsRNAI;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class RNAiPage extends MenuPage {
 
 	public RNAiPage(WebDriver driver) {

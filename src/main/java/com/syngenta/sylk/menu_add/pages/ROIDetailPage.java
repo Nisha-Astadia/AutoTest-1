@@ -10,6 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ROIDetailPage extends MenuPage {
 
 	public ROIDetailPage(WebDriver driver) {

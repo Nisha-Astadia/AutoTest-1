@@ -15,6 +15,10 @@ import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ConstructNominationPage extends MenuPage {
 
 	public ConstructNominationPage(WebDriver driver) {

@@ -24,9 +24,11 @@ import com.syngenta.sylk.menu_add.pages.LiteratureSearchPage;
 import com.syngenta.sylk.menu_add.pages.PopUpAddRNAiTrigger;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
-//Tabbed view RNAi
-//Check "Delete This Sequence" Button enabled in Detail Tab of Sequence section in tabbed view GF
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_DeleteButton_Disabled_Evidence_RNAi {
 
 	private LandingPage lp;

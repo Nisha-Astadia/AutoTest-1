@@ -15,9 +15,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-//Tabbed veiw RNAi
-//Check Edit Button disabled in details Tab in tabbed view RNAi (User doesn't have Curator role, and RNAi was created by another user)
-
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_EditButton_Disabled_In_DetailTab_RNAi {
 
 	@BeforeClass(alwaysRun = true)

@@ -18,6 +18,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.AddNewRegionOfInterestROIPage;
 import com.syngenta.sylk.menu_add.pages.PopUpAddOrRemovePhenotypesPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_ThatTheUserMayAddUpTo30Phenotypes {
 
 	private HomePage homepage;

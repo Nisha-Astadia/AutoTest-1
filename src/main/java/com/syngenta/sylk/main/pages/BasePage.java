@@ -24,6 +24,10 @@ import com.syngenta.sylk.menu_add.pages.BLASTSearchResultPage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.thoughtworks.selenium.webdriven.WebDriverBackedSelenium;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class BasePage implements Environment {
 
 	protected WebDriver driver;

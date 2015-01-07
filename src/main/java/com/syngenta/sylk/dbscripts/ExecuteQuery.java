@@ -7,6 +7,10 @@ import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.utils.ReturnStatementObject;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ExecuteQuery {
 
 	public String executeQueryRequestingSingleColumn(String query) {

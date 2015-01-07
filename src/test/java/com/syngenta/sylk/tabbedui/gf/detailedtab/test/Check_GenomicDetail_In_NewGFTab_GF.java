@@ -20,6 +20,10 @@ import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_GenomicDetail_In_NewGFTab_GF {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

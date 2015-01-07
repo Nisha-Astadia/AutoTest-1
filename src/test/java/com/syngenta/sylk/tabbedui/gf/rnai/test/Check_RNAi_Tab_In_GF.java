@@ -28,6 +28,10 @@ import com.syngenta.sylk.menu_add.pages.SearchTargetGenePage;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_RNAi_Tab_In_GF {
 
 	private LandingPage lp;

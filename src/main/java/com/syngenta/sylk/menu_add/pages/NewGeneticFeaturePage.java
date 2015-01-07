@@ -13,6 +13,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class NewGeneticFeaturePage extends MenuPage {
 
 	protected NewGeneticFeaturePage(WebDriver driver) {
@@ -172,6 +176,8 @@ public class NewGeneticFeaturePage extends MenuPage {
 
 	public void enterSynonymsId(String data) {
 		this.synonyms.sendKeys(data);
+		this.waitForPageToLoad();
+		this.waitForAjax();
 	}
 
 	public void enterDescriptionId(String data) {
@@ -197,6 +203,8 @@ public class NewGeneticFeaturePage extends MenuPage {
 				.findElement(By
 						.cssSelector("button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only"));
 		ok.click();
+		this.waitForPageToLoad();
+		this.waitForAjax();
 
 	}
 

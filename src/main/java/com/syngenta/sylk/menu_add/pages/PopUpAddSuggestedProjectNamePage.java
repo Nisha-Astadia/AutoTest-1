@@ -7,6 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpAddSuggestedProjectNamePage extends BasePage {
 
 	protected PopUpAddSuggestedProjectNamePage(WebDriver driver) {

@@ -5,6 +5,10 @@ import java.sql.SQLException;
 import com.syngenta.sylk.utils.DBGateKeeper;
 import com.syngenta.sylk.utils.ReturnStatementObject;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class DBHandler {
 
 	private Connection con = null;

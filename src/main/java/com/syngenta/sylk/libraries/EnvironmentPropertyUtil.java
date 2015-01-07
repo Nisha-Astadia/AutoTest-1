@@ -6,6 +6,10 @@ import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class EnvironmentPropertyUtil {
 
 	private static EnvironmentPropertyUtil singleton = new EnvironmentPropertyUtil();

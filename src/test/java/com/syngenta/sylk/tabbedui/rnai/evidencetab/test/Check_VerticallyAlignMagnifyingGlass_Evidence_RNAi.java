@@ -26,9 +26,10 @@ import com.syngenta.sylk.menu_add.pages.PopUpAddTraitComponent;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-//Tabbed view RNAi
-//Check vertically align magnifying glass on literature evidence tab details  and trait components
-
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_VerticallyAlignMagnifyingGlass_Evidence_RNAi {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

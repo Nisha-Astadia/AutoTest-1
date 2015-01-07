@@ -9,6 +9,10 @@ import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.Environment;
 import com.syngenta.sylk.libraries.SyngentaException;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class DBGateKeeper {
 
 	private BoneCP connectionPool;

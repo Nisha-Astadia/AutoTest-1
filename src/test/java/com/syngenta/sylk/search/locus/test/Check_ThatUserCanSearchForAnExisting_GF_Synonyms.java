@@ -23,6 +23,10 @@ import com.syngenta.sylk.menu_add.pages.AddNewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_ThatUserCanSearchForAnExisting_GF_Synonyms {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

@@ -8,6 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class GeneticFeatureManualEntryPage extends MenuPage {
 
 	protected GeneticFeatureManualEntryPage(WebDriver driver) {

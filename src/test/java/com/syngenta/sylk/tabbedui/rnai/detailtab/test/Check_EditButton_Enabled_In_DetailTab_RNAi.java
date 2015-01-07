@@ -21,9 +21,11 @@ import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
-// Tabbed view RNAi
-//Check Edit Button enabled in detail Tab in tabbed view RNAi 
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_EditButton_Enabled_In_DetailTab_RNAi {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

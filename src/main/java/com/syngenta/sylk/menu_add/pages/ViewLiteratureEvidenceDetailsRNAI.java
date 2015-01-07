@@ -10,6 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.syngenta.sylk.main.pages.MenuPage;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ViewLiteratureEvidenceDetailsRNAI extends MenuPage {
 
 	public ViewLiteratureEvidenceDetailsRNAI(WebDriver driver) {

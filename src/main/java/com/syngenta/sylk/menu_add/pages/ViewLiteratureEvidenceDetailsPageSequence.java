@@ -8,6 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ViewLiteratureEvidenceDetailsPageSequence extends MenuPage {
 
 	@FindBy(id = "evidence.title")

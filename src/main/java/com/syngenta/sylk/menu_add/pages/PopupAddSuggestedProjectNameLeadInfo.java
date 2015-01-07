@@ -11,6 +11,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopupAddSuggestedProjectNameLeadInfo extends BasePage {
 
 	@FindBy(id = "projectName8")

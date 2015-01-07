@@ -18,6 +18,10 @@ import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.RNAiTriggerDetailsPage;
 import com.syngenta.sylk.menu_add.pages.ROIDetailPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class SearchSylkPage extends MenuPage {
 
 	private String selected_gf_created_date;

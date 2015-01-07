@@ -20,6 +20,10 @@ import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class AddNewRegionOfInterestROIPage extends MenuPage {
 
 	private String hidden_chromosome_uuid;

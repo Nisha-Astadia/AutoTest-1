@@ -12,6 +12,10 @@ import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class LiteratureSearchPage extends MenuPage {
 
 	@FindBy(css = "div#formsFormBd div div input")

@@ -16,10 +16,14 @@ import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.menu_add.pages.AddNewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.AddNewROIPage;
-import com.syngenta.sylk.menu_add.pages.AddRNAiTriggerPage;
 import com.syngenta.sylk.menu_add.pages.AddNewRegionOfInterestROIPage;
+import com.syngenta.sylk.menu_add.pages.AddRNAiTriggerPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class MenuPage extends BasePage {
 
 	protected MenuPage(WebDriver driver) {

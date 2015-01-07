@@ -27,6 +27,10 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();
@@ -40,7 +44,7 @@ public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 	@BeforeClass(alwaysRun = true)
 	public void loadData() {
 		this.testData = new CommonLibrary()
-				.getTestDataAsObjectArray("Check_ThatUserCanSearchByEdited_GF_Name.xlsx");
+				.getTestDataAsObjectArray("Check_ThatUserCanSearchByNewAdded_GF_Name.xlsx");
 	}
 
 	@BeforeMethod(alwaysRun = true)
@@ -65,7 +69,7 @@ public class Check_ThatUserCanSearchByNewAdded_GF_Name {
 	@Test(enabled = true, description = "check that user can search by new added GF>> Name", dataProvider = "TestData", groups = {
 			"Check_ThatUserCanSearchByEdited_GF_Name", "RNAI_LOCUS_ASSOC",
 			"Search SyLK", "regression"})
-	public void check_That_UserCanSearchForANewAdded_GF_Synonyms(
+	public void check_That_UserCanSearchForANewAdded_GF_Name(
 			String testDescription, String row_num,
 			HashMap<String, String> columns) {
 

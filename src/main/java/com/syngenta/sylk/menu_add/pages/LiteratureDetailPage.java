@@ -9,6 +9,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.libraries.CommonLibrary;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class LiteratureDetailPage extends MenuPage {
 
 	protected LiteratureDetailPage(WebDriver driver) {

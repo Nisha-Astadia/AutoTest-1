@@ -6,6 +6,10 @@ import org.openqa.selenium.support.FindBy;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class AddPromoterPage extends MenuPage {
 
 	public AddPromoterPage(WebDriver driver) {

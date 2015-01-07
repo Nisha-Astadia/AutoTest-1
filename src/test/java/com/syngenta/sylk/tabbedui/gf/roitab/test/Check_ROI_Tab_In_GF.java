@@ -26,6 +26,10 @@ import com.syngenta.sylk.menu_add.pages.SearchTargetGenePage;
 import com.syngenta.sylk.menu_find.pages.RNAiPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_ROI_Tab_In_GF {
 
 	private AddNewGeneticFeaturePage addNewGFPage;

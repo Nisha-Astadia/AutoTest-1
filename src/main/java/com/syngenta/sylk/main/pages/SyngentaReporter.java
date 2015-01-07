@@ -5,6 +5,10 @@ import org.testng.Reporter;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class SyngentaReporter {
 	private SoftAssert softAssert = new SoftAssert();
 	private Assertion hardAssert = new Assertion();

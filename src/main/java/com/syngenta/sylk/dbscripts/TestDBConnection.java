@@ -1,5 +1,9 @@
 package com.syngenta.sylk.dbscripts;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class TestDBConnection {
 
 	public static void main(String[] str) {

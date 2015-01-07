@@ -12,6 +12,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.libraries.SyngentaException;
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class ImportGeneticFeaturePage extends MenuPage {
 
 	protected ImportGeneticFeaturePage(WebDriver driver) {

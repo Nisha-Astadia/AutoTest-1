@@ -105,7 +105,8 @@
 			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_TheValuesDisplayedForTheCSCDropdownList" />
 			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_TheValuesDisplayedForTheCSCDropdownWillBeShownByMap_name" />
 			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_TheValuesDisplayedForTheRGVWillBeOrderedByAscendingLexicalOrder" />
-		
+			<class name="com.syngenta.sylk.region.of.interest.sprint1.test.Check_ThatSpeciesIsRequired" />
+			
 		<!--ROI Sprint 2  -->
 			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_ThatTheNumberEnteredInStartFieldMustBeLessThanTotalLengthOfTheCSCfield" />
 			<class name="com.syngenta.sylk.region.of.interest.sprint2.test.Check_EnterCorrectStartValue" />

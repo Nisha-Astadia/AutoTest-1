@@ -7,6 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpAddGeneSymbol extends BasePage {
 
 	protected PopUpAddGeneSymbol(WebDriver driver) {

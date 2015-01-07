@@ -15,6 +15,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class SuggestedProjectName extends BasePage {
 
 	@FindBy(id = "project.projectName")

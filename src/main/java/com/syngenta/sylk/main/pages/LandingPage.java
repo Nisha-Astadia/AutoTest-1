@@ -8,6 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.libraries.SyngentaException;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class LandingPage extends BasePage {
 
 	private LandingPage() {

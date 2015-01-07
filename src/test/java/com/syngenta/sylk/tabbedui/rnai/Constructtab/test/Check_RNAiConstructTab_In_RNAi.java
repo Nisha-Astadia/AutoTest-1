@@ -23,9 +23,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
-//Tabbed view RNAi
-//Check RNAi Construct tab in Tabbed View RNAI
-
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_RNAiConstructTab_In_RNAi {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

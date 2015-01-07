@@ -14,6 +14,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.main.pages.BasePage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpFlagForCurationPage extends BasePage {
 
 	protected PopUpFlagForCurationPage(WebDriver driver) {

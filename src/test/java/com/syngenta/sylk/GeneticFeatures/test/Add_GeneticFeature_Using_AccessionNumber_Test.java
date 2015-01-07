@@ -37,6 +37,10 @@ import com.syngenta.sylk.menu_add.pages.PopUpProteinSequenceDataPage;
 import com.syngenta.sylk.menu_add.pages.RelatedLiteraturePage;
 import com.syngenta.sylk.menu_add.pages.ViewLiteratureEvidenceDetailsGF;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Add_GeneticFeature_Using_AccessionNumber_Test {
 
 	private AddNewGeneticFeaturePage addNewGFPage;

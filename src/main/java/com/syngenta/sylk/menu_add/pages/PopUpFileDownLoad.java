@@ -5,6 +5,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class PopUpFileDownLoad extends MenuPage {
 
 	protected PopUpFileDownLoad(WebDriver driver) {

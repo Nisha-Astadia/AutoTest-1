@@ -27,6 +27,10 @@ import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class check_ThatUserCanSearchForANewAdded_GF_Tag {
 
 	private List<Object[]> testData = new ArrayList<Object[]>();

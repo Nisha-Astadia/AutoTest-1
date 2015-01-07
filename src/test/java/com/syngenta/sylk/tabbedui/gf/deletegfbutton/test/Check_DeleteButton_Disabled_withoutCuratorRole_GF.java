@@ -15,6 +15,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
 import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_DeleteButton_Disabled_withoutCuratorRole_GF {
 
 	@BeforeClass(alwaysRun = true)

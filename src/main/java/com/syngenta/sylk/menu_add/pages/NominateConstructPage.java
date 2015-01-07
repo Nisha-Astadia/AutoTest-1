@@ -2,9 +2,6 @@ package com.syngenta.sylk.menu_add.pages;
 
 import java.util.List;
 
-
-
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +9,11 @@ import org.openqa.selenium.support.FindBy;
 
 import com.syngenta.sylk.main.pages.MenuPage;
 
-public class NominateConstructPage extends MenuPage{
+/**
+ * @author Nisha Pillai
+ * 
+ */
+public class NominateConstructPage extends MenuPage {
 
 	public NominateConstructPage(WebDriver driver) {
 		super(driver);
@@ -42,48 +43,48 @@ public class NominateConstructPage extends MenuPage{
 	private WebElement add;
 
 	public void enterNominationId(String id) {
-		nominationId.sendKeys("id");
+		this.nominationId.sendKeys("id");
 	}
 
 	public void enterConstructNominationRationale(String data) {
-		reationale.sendKeys("data");
+		this.reationale.sendKeys("data");
 	}
 
 	public void enterVectorFunctionDescription(String data) {
-		description.sendKeys("data");
+		this.description.sendKeys("data");
 	}
 
 	public void enterProjectMemberComment(String data) {
-		comment.sendKeys("data");
+		this.comment.sendKeys("data");
 	}
 
 	public void enterAdditionalInfoForCloning(String data) {
-		additionalInfo.sendKeys("data");
+		this.additionalInfo.sendKeys("data");
 	}
 
 	public void enterRnaiRegionSequence(String data) {
-		rnaiSequence.sendKeys("data");
+		this.rnaiSequence.sendKeys("data");
 	}
 
 	public void checkboxPipeLineLocation(String checkbox) {
-		List<WebElement> elements = pipelineLocation.findElements(By
+		List<WebElement> elements = this.pipelineLocation.findElements(By
 				.tagName("input"));
 		for (WebElement e : elements) {
 			if (e.getText().equalsIgnoreCase("checkbox")) {
 				e.click();
-				add.click();
+				this.add.click();
 			}
 		}
 	}
 
 	public void enterQcNumber(String data) {
-		qcNumber.sendKeys("data");
+		this.qcNumber.sendKeys("data");
 
 	}
 
 	public void clickAddTargetSpecies(String data) {
-		addTargetSpecies.click();
-		targetSpeciesForConstrut.sendKeys("data");
+		this.addTargetSpecies.click();
+		this.targetSpeciesForConstrut.sendKeys("data");
 
 	}
 

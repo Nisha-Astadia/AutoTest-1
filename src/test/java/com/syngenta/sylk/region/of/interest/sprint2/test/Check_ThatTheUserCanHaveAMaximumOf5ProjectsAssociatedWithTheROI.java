@@ -16,6 +16,10 @@ import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.AddNewRegionOfInterestROIPage;
 import com.syngenta.sylk.menu_add.pages.PopUpAddProjectPage;
 
+/**
+ * @author Nisha Pillai
+ * 
+ */
 public class Check_ThatTheUserCanHaveAMaximumOf5ProjectsAssociatedWithTheROI {
 	private HomePage homepage;
 	private LandingPage lp;

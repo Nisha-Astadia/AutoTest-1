@@ -11,6 +11,7 @@
 		<classes>	
 		<!-- Lead test suites -->
 			<class name="com.syngenta.sylk.LeadProcess.LeadProcess_Workflow_Using_AccessionNo_Test" />
+			<class name="com.syngenta.sylk.LeadProcess.LeadProcess_Workflow_Using_Sequence" />
 			
 		<!-- Add Genetic Feature  -->
 			<class name="com.syngenta.sylk.GeneticFeatures.test.Add_GeneticFeature_Using_AccessionNumber_Test" />
@@ -29,7 +30,6 @@
 		<!--  Tabbed UI GF detailTab sequence -->	
 			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_Evidence_GF" />
 			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NoCuratorRole_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_NominatedAsLead_GF" />
 			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Disabled_In_DetailTab_Seq_XREF_GF" />
 			<class name="com.syngenta.sylk.tabbedui.gf.detailedtab.sequece.test.Check_DeleteThisSequenceButton_Enabled_In_DetailTab_Seq_GF" /> 
 		
@@ -46,10 +46,10 @@
 			<class name="com.syngenta.sylk.tabbedui.gf.evidencetabsequence.test.Check_VerticallyAlignMagnifyingGlass_In_EvidenceTab_Seq_GF" />
 			
 		<!--  tabbed UI GF LeadInfoTab  -->
-			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Delete_LeadInfoButton_Disabled_In_LeadInfoTab_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Delete_LeadInfoButton_Enabled_LeadInfoTab_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Edit_LeadInfo_And_RegulatoryCheck_Seq_GF" />
-			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Edit_LeadInfoButton_Disabled_In_LeadInfoTab_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Delete_LeadInfoButton_Disabled_GFCreatedByAnotherUserAndUserDoesNotHaveCuratorRole_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Edit_LeadInfoButton_Enabled_UserCreatorNominated_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Edit_LeadInfoButton_Enabled_UserIsCreatorOfTheNominatedGFToDBLead_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.leadinfo.test.Check_Delete_LeadInfoButton_Enabled_GFCreatedByAnotherUserAndUserDoesNotHaveCuratorRole_GF" />
 			
 		<!--  tabbed UI GF RegulatoryInfoTab  -->
 			<class name="com.syngenta.sylk.tabbedui.gf.regulatorytab.test.Check_NoRegulatoryInfo_Message_EditAndModify_RegulatoryInfoTab_GF" />
@@ -59,7 +59,7 @@
 			<class name="com.syngenta.sylk.tabbedui.gf.rnai.test.Check_RNAi_Tab_In_GF" />
 
  		<!--  tabbed UI GF ROi-->   	
-			<class name="com.syngenta.sylk.tabbedui.gf.roitab.test.Check_ROI_Tab_In_GF" />
+			<class name="com.syngenta.sylk.tabbedui.gf.roitab.test.Check_ROI_Tab_GF" />
 			
 		<!-- tabbed Ui RNAi ConstructTab -->
 			<class name="com.syngenta.sylk.tabbedui.rnai.Constructtab.test.Check_RNAiConstructTab_In_RNAi" />

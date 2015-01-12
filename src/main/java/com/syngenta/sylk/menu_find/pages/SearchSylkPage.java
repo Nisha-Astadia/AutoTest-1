@@ -53,6 +53,7 @@ public class SearchSylkPage extends MenuPage {
 	private WebElement direction;
 	@FindBy(id = "search")
 	private WebElement searchResultText;
+
 	public void enterSylkSearch(String data) {
 		this.sylkSearch.sendKeys(data);
 	}
@@ -174,11 +175,35 @@ public class SearchSylkPage extends MenuPage {
 				span = this.driver.findElement(By.cssSelector("div#hit_" + a
 						+ " a.pointer.f12.underline span"));
 			} catch (Exception e) {
-				// do nothing
+
 			}
 
 			if (span != null) {
 				if (StringUtils.equalsIgnoreCase(span.getText(), gfName)) {
+					span.click();
+					page = new GeneticFeaturePage(this.driver);
+					PageFactory.initElements(this.driver, page);
+				}
+			}
+		}
+
+		return page;
+
+	}
+	public BasePage clickAndOpenThisROI(String roiName) {
+
+		BasePage page = null;
+		for (int a = 0; a < 50; a++) {
+			WebElement span = null;
+			try {
+				span = this.driver.findElement(By.cssSelector("div#hit_" + a
+						+ " a.pointer f12 underline span"));
+			} catch (Exception e) {
+
+			}
+
+			if (span != null) {
+				if (StringUtils.equalsIgnoreCase(span.getText(), roiName)) {
 					span.click();
 					page = new GeneticFeaturePage(this.driver);
 					PageFactory.initElements(this.driver, page);

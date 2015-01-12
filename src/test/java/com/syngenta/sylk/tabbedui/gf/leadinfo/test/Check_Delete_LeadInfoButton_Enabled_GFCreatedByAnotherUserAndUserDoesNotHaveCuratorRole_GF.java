@@ -19,7 +19,7 @@ import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
  * @author Nisha Pillai
  * 
  */
-public class Check_Delete_LeadInfoButton_Disabled_In_LeadInfoTab_GF {
+public class Check_Delete_LeadInfoButton_Enabled_GFCreatedByAnotherUserAndUserDoesNotHaveCuratorRole_GF {
 
 	@BeforeClass(alwaysRun = true)
 	public void setUp() {
@@ -67,7 +67,7 @@ public class Check_Delete_LeadInfoButton_Disabled_In_LeadInfoTab_GF {
 		}
 	}
 
-	@Test(enabled = true, description = "Check Delete Lead Info disabled button from Lead Info tab (GF created by another user and User does not have curator role)")
+	@Test(enabled = true, description = "Check Edit Lead Info disabled button from Lead Info tab (GF created by another user and User does not have curator role)")
 	public void check_Edit_LeadInfo_Disabled() {
 		SyngentaReporter reporter = new SyngentaReporter();
 		LandingPage lp = LandingPage.getLandingPage();
@@ -95,10 +95,11 @@ public class Check_Delete_LeadInfoButton_Disabled_In_LeadInfoTab_GF {
 				gfPage = (GeneticFeaturePage) page;
 				gfPage = gfPage.clickOnLeadInfoTab();
 				boolean enabled = gfPage.isDeleteButtonInLeadInfoEnabled();
+
 				reporter.verifyTrue(!enabled,
-						"Click on the Lead Info tab you can see a disabled Delete button");
+						"Click on the Lead Info tab you can see a disabled delete button");
 				String step4 = "hover over the disabled button. a pop-up with \"Lead was created by another user tXXXXXX\" message appears";
-				String toolTip = gfPage.getLeadInfoDeleteButtonToolTip();
+				String toolTip = gfPage.getLeadInfoEditButtonToolTip();
 				boolean hoover = StringUtils.containsIgnoreCase(toolTip,
 						"Lead was created by another user");
 				reporter.verifyTrue(hoover, step4);

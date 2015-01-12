@@ -229,7 +229,7 @@ public class Add_GeneticFeature_Using_Protein_Test {
 			String accession_number = blastSearchResultPage
 					.getAccessionNumber();
 			if (StringUtils.isBlank(accession_number)) {
-				reporter.verifyThisAsFail("Check for the generated accession number is provided on blast search result screen. Accesstion number is blank.");
+				reporter.verifyThisAsFail("Check for the generated accession number is provided on blast search result screen. Accession number is blank.");
 			} else {
 				reporter.reportPass("Check for the generated accession number is provided on blast search result screen. Actual accession_number="
 						+ accession_number);

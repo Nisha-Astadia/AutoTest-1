@@ -438,24 +438,28 @@ public class Add_GeneticFeature_Using_AccessionNumber_Test {
 							"'Create Literature Evidence Details for GF'  Screen appears when 'Associate' is clicked from 'Related Literature page'");
 
 					// step 25
-					createLiteratureEviDetailpage.enterRationale("rationale");
+					createLiteratureEviDetailpage.enterRationale("test");
 					// check for text is accepted as typed
 
-					createLiteratureEviDetailpage
-							.enterObservation("observation");
+					createLiteratureEviDetailpage.enterObservation("test");
 					// check for text is accepted as typed.
 
+					boolean flag = createLiteratureEviDetailpage
+							.isThereOneGeneticFeatureWhenAddingEvidence();
 					// step 26
-					PopUpAddGeneSymbol popUpGFsymbol = createLiteratureEviDetailpage
-							.clickAddGeneticFeatures();
-					if (popUpGFsymbol != null) {
-						reporter.reportPass("Click on add genetic feature on create literature detail page. A Gene symbol popup appears.");
-					} else {
-						reporter.assertThisAsFail("Click on add genetic feature on create literature detail page. A Gene symbol popup appears.");
-					}
 
-					popUpGFsymbol.enterText(columns.get("GFDetails"));
-					createLiteratureEviDetailpage = popUpGFsymbol.clickAdd();
+					if (!flag) {
+						PopUpAddGeneSymbol popUpGFsymbol = createLiteratureEviDetailpage
+								.clickAddGeneticFeatures();
+						if (popUpGFsymbol != null) {
+							reporter.reportPass("Click on add genetic feature on create literature detail page. A Gene symbol popup appears.");
+						} else {
+							reporter.assertThisAsFail("Click on add genetic feature on create literature detail page. A Gene symbol popup appears.");
+						}
+						popUpGFsymbol.enterText(columns.get("GFDetails"));
+						createLiteratureEviDetailpage = popUpGFsymbol
+								.clickAdd();
+					}
 
 					// step 27
 					PopUpAddTraitComponent popUpAddtraitComponent = createLiteratureEviDetailpage

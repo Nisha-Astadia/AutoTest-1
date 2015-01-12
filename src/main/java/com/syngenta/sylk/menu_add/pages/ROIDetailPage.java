@@ -21,6 +21,27 @@ public class ROIDetailPage extends MenuPage {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String getSymbolOfNewROI() {
+
+		String symbol = null;
+		WebElement span = null;
+		try {
+			span = this.driver.findElement(By
+					.cssSelector("div#ROI_container span"));
+		} catch (Exception e) {
+
+		}
+
+		if (span != null) {
+			symbol = (span.getText());
+
+			ROIDetailPage page = new ROIDetailPage(this.driver);
+			PageFactory.initElements(this.driver, page);
+		}
+
+		return symbol;
+
+	}
 	public ROIDetailPage clickOnDeleteROIPage() {
 
 		List<WebElement> buttons = this.driver.findElements(By

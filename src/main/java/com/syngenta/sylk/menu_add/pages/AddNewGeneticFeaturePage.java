@@ -93,20 +93,6 @@ public class AddNewGeneticFeaturePage extends MenuPage {
 		return this.radios.get(0).isEnabled();
 	}
 
-	// // entering sequence text for a Gene type
-	// // when running on IE 9:
-	// public void enterTextInSequence(String text) {
-	// text = StringUtils.trim(text);
-	// this.sequence.clear();
-	// Actions action = new Actions(this.driver);
-	// action.sendKeys(this.sequence, text);
-	// action.perform();
-	//
-	// this.waitUntilClickable(By.name("sequenceType"), 10000);
-	// }
-
-	// entering sequence text for a Gene type
-	// when running on IE 11 :
 	public void enterTextInSequence(String text) {
 		// text = StringUtils.trim(text);
 		// text = StringUtils.deleteWhitespace(text);

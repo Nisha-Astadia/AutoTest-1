@@ -91,10 +91,11 @@ public class SearchTargetGenePage extends MenuPage {
 				.cssSelector("table.resulttable tr"));
 
 		for (WebElement tr : trs) {
-			WebElement symbol = tr.findElement(By
-					.cssSelector("td:nth-child(2)"));
 			String name = null;
 			try {
+				WebElement symbol = tr.findElement(By
+						.cssSelector("td:nth-child(2)"));
+
 				name = symbol.findElement(By.tagName("a")).getText();
 			} catch (Exception e) {
 				continue;

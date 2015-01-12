@@ -26,7 +26,7 @@ import com.syngenta.sylk.menu_find.pages.SearchSylkPage;
  * @author Nisha Pillai
  * 
  */
-public class Check_Edit_LeadInfo_And_RegulatoryCheck_Seq_GF {
+public class Check_Edit_LeadInfoButton_Enabled_UserIsCreatorOfTheNominatedGFToDBLead_GF {
 
 	private LandingPage lp;
 	private HomePage homepage;

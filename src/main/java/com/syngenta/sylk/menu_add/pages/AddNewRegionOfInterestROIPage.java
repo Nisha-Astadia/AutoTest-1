@@ -17,7 +17,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.syngenta.sylk.libraries.CommonLibrary;
+import com.syngenta.sylk.libraries.PageTitles;
 import com.syngenta.sylk.libraries.SyngentaException;
+import com.syngenta.sylk.main.pages.BasePage;
 import com.syngenta.sylk.main.pages.MenuPage;
 
 /**
@@ -430,16 +432,37 @@ public class AddNewRegionOfInterestROIPage extends MenuPage {
 		return page;
 	}
 
-	public AddNewRegionOfInterestROIPage clickAddRegionOfInterest() {
-
+	public BasePage clickAddRegionOfInterest() {
+		BasePage page = null;
 		this.AddRegionOFInterest.click();
 		this.waitForPageToLoad();
 		this.waitForAjax();
-		AddNewRegionOfInterestROIPage page = new AddNewRegionOfInterestROIPage(
-				this.driver);
+		String title = StringUtils.substringBefore(this.getPageTitle(), ",");
+
+		// if duplicate search result page appears
+		if (StringUtils.equalsIgnoreCase(title, PageTitles.roi_detail_page)) {
+			page = new DuplicateSearchResultPage(this.driver);
+
+		}
+		// if Genetic feature Page appears
+		else if (StringUtils.equalsIgnoreCase(title,
+				PageTitles.ROI_Detail_page_title)) {
+			page = new GeneticFeaturePage(this.driver);
+
+		} else {
+			throw new SyngentaException(
+					"Click on Find Match did not open up a valid page. The page taht opened up was '"
+							+ this.getPageTitle() + "'");
+		}
 		PageFactory.initElements(this.driver, page);
 		return page;
 	}
+
+	// // clears the fields
+	// public void clickClear() {
+	// this.clear.click();
+	// }
+	//
 
 	public boolean isReferenceGenomeAndVersionEnabled() {
 		CommonLibrary common = new CommonLibrary();
@@ -631,6 +654,16 @@ public class AddNewRegionOfInterestROIPage extends MenuPage {
 
 	public void enterStart(String string) {
 		WebElement start = this.driver.findElement(By.id("chromosome.start"));
+		Actions action = new Actions(this.driver);
+		start.sendKeys("");
+		action.sendKeys(start, string);
+		action.perform();
+		WebElement end = this.driver.findElement(By.id("chromosome.end"));
+		end.click();
+	}
+
+	public void enterEnd1(String string) {
+		WebElement start = this.driver.findElement(By.id("chromosome.end"));
 		Actions action = new Actions(this.driver);
 		start.sendKeys("");
 		action.sendKeys(start, string);

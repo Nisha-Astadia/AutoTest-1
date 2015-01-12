@@ -1505,6 +1505,7 @@ public class GeneticFeaturePage extends MenuPage {
 	public GeneticFeaturePage addLeadInfoAndNominateDatabaseLead(
 			GeneticFeaturePage gfPage, HashMap<String, String> columns) {
 		gfPage = gfPage.clickOnLeadInfoTab();
+
 		LeadNominationPage leadNominationpage = gfPage.clickOnNominateButton();
 
 		PopUpAddSuggestedProjectNamePage popUpAddSuggProNamepage = leadNominationpage

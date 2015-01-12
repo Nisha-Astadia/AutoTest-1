@@ -176,11 +176,16 @@ public class HomePage extends MenuPage {
 	}
 
 	public void deleteThisRNAi(HomePage homepage, String rnaiTriggerName,
-			String user) {
+			String user, String rnaiName) {
 		SearchSylkPage search = homepage.goToGFRNAiTriggerROIpromoter();
 		RNAiTriggerDetailsPage rnaiTrigger = null;
 		RNAiPage rnaiPage = null;
-		search.selectAddedBy(user);
+		if (StringUtils.isNotBlank(rnaiName)) {
+			search.enterSylkSearch(rnaiName);
+		}
+		if (StringUtils.isNotBlank(user)) {
+			search.selectAddedBy(user);
+		}
 		search.selectView("50");
 		search.selectType("RNAi");
 		search = search.clickSearch();

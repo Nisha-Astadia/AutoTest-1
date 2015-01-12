@@ -94,8 +94,8 @@ public class Check_RNAi_Tab_In_GF {
 			 * Attach the genetic feature that was added above to this RNAi
 			 */
 			String rnaiTriggerName = "selenium_rnai";
-			this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName,
-					"Pillai, Nisha");
+			this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName, null,
+					rnaiTriggerName);
 
 			BasePage page = null;
 			AddRNAiTriggerPage addRnaiTriggerPage = this.homepage
@@ -178,8 +178,8 @@ public class Check_RNAi_Tab_In_GF {
 			reporter.reportPass("The following headers are displayes : "
 					+ headers.toString());
 			this.homepage = this.gfPage.gotoHomePage();
-			this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName,
-					"Pillai, Nisha");
+			this.homepage.deleteThisRNAi(this.homepage, rnaiTriggerName, null,
+					rnaiTriggerName);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -21,19 +21,20 @@ import com.syngenta.sylk.main.pages.LandingPage;
 import com.syngenta.sylk.main.pages.MenuPage;
 import com.syngenta.sylk.main.pages.SyngentaReporter;
 import com.syngenta.sylk.menu_add.pages.AddNewGeneticFeaturePage;
+import com.syngenta.sylk.menu_add.pages.BLASTSearchResultPage;
 import com.syngenta.sylk.menu_add.pages.ConstructNominationPage;
 import com.syngenta.sylk.menu_add.pages.CreateLiteratureEvidenceDetailsForGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.DuplicateSearchResultPage;
+import com.syngenta.sylk.menu_add.pages.GeneticFeatureManualEntryPage;
 import com.syngenta.sylk.menu_add.pages.GeneticFeaturePage;
-import com.syngenta.sylk.menu_add.pages.GeneticFeatureSearchResultsPage;
-import com.syngenta.sylk.menu_add.pages.ImportGeneticFeatureDetailPage;
-import com.syngenta.sylk.menu_add.pages.ImportGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.LeadNominationPage;
 import com.syngenta.sylk.menu_add.pages.LiteratureSearchPage;
+import com.syngenta.sylk.menu_add.pages.NewGeneticFeaturePage;
 import com.syngenta.sylk.menu_add.pages.PopUpAddSequenceAccession;
 import com.syngenta.sylk.menu_add.pages.PopUpAddSourceOfLeadFunctionInfo;
 import com.syngenta.sylk.menu_add.pages.PopUpAddSuggestedProjectNamePage;
 import com.syngenta.sylk.menu_add.pages.PopUpAddTraitComponent;
+import com.syngenta.sylk.menu_add.pages.PopUpFlagForCurationPage;
 import com.syngenta.sylk.menu_add.pages.PopUpTargetSpecies;
 import com.syngenta.sylk.menu_add.pages.PopUpXrefPage;
 import com.syngenta.sylk.menu_add.pages.ProjectLeadPage;
@@ -115,7 +116,7 @@ public class LeadProcess_Workflow_Using_Sequence {
 
 			this.addNewGFPage.selectGeneType(columns.get("gene_type"));
 
-			this.addNewGFPage.enterTextInSequence(columns.get("addSequence "));
+			this.addNewGFPage.enterTextInSequence(columns.get("addSequence"));
 
 			boolean isSequenceTypeEnabled = this.addNewGFPage
 					.isSequenceTypeEnabled();
@@ -127,75 +128,24 @@ public class LeadProcess_Workflow_Using_Sequence {
 			if (page instanceof GeneticFeaturePage) {
 				throw new SkipException(
 						"The data being used in this test already exists in the system. This test will delete this data now for future runs and mark this test as SKIPPED.");
-			}
-
-			if (page instanceof DuplicateSearchResultPage) {
-				GeneticFeatureSearchResultsPage gfSearchResultsPage = null;
-				duplicatesearchResultPage = (DuplicateSearchResultPage) page;
-
-				/*
-				 * Step 13 : Click on the Search External Databases button.
-				 */
-
-				page = null;
-				page = duplicatesearchResultPage.clickExternalDatabase();
-				ImportGeneticFeaturePage importGFPage = null;
-				// if the user is currently on DuplicateSearchResultPage i.e if
-				// DuplicateSearchResultPage is return
-				if (page instanceof DuplicateSearchResultPage) {
-					duplicatesearchResultPage = (DuplicateSearchResultPage) page;
-					/*
-					 * control still on duplicate search results page
-					 */
-					reporter.assertThisAsFail("Click on External Databases button with Accession Number ="
-							+ (columns.get("accessionNo"))
-							+ " did not show any matches");
-				} else if (page instanceof GeneticFeatureSearchResultsPage) {
-
-					/*
-					 * Step 14: If related accession numbers displayed, Click on
-					 * the Duplicate Check button.
-					 */
-					gfSearchResultsPage = (GeneticFeatureSearchResultsPage) page;
-
-					if (gfSearchResultsPage.doesTheHeaderReadNoMatches()) {
-						reporter.assertThisAsFail("The test data provided does not show any matches in external database. This test case will be aborted.");
-					}
-
-					importGFPage = gfSearchResultsPage
-							.clickOnAnyGeneIdToOpenImportGF();
-
-				} else if (page instanceof ImportGeneticFeaturePage) {
-					importGFPage = (ImportGeneticFeaturePage) page;
-
+			} else if (page instanceof GeneticFeatureManualEntryPage) {
+				GeneticFeatureManualEntryPage manualGF = (GeneticFeatureManualEntryPage) page;
+				BLASTSearchResultPage blast = manualGF.clickDuplicateCheck();
+				NewGeneticFeaturePage newGFPage = null;
+				BasePage b = blast.clickAddAsNewGFAndGoToNewGFPage();
+				if (b instanceof PopUpFlagForCurationPage) {
+					PopUpFlagForCurationPage popup = (PopUpFlagForCurationPage) b;
+					popup.enterRationale("test");
+					newGFPage = (NewGeneticFeaturePage) popup
+							.clickContinueAndGoToNewGFPage();
+				}
+				if (b instanceof NewGeneticFeaturePage) {
+					newGFPage = (NewGeneticFeaturePage) b;
 				}
 
-				List<String> relatedAccessionNumbers = importGFPage
-						.getRelatedAccessionNumbers();
-				String accessionNumber = importGFPage.getAccessionNumber();
-
-				System.out.println("relatedAccessionNumbers:::"
-						+ relatedAccessionNumbers.get(0));
-				System.out.println("accessionNumber::::" + accessionNumber);
-				reporter.reportPass("Search result matching assertion nnumber should be displayed. Assertion number = "
-						+ accessionNumber
-						+ ", RelatedAccessionNumbers="
-						+ relatedAccessionNumbers.get(0));
-				ImportGeneticFeatureDetailPage importGFDetailPage = importGFPage
-						.clickDuplicate();
-
-				HashMap<String, String> details = importGFDetailPage
-						.getGenticFeatureDetails();
-				reporter.reportPass("Details : Accession Number="
-						+ details.get("accession") + ", Symbol="
-						+ details.get("symbol"));
-				this.homepage = importGFDetailPage.clickAddSequenceAsANewGF();
-				reporter.verifyEqual(this.homepage.getPageTitle(),
-						PageTitles.home_page_title,
-						"Sylk home page appears after Genetic Feature is imported into Sylk");
-
-				this.gfPage = this.homepage.clickNewGeneticFeatureLink(columns
-						.get("newGFlink"));
+				newGFPage.enterSymbolId(this.newGFlink);
+				newGFPage.enterSourceSpeciesTaxonomy("Saccharum sp.");
+				this.gfPage = newGFPage.clickAddGeneticFeature();
 
 				reporter.assertEqual(this.gfPage.getPageTitle(),
 						PageTitles.genetic_feature_page_title,
